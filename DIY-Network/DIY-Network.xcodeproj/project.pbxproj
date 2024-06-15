@@ -238,18 +238,10 @@
 		0514C2682C1B34E000C75560 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				0514C2692C1B34E900C75560 /* Service */,
 				0514C26A2C1B34F100C75560 /* View */,
 				05D703EE2C1DD7B300E0C3F7 /* ViewModel */,
 			);
 			path = Authentication;
-			sourceTree = "<group>";
-		};
-		0514C2692C1B34E900C75560 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Service;
 			sourceTree = "<group>";
 		};
 		0514C26A2C1B34F100C75560 /* View */ = {
