@@ -23,9 +23,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct DIY_NetworkApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+  @StateObject var authViewModel = AuthViewModel()
   var body: some Scene {
     WindowGroup {
       ContentView()
+        .environmentObject(authViewModel)
     }
   }
 }
