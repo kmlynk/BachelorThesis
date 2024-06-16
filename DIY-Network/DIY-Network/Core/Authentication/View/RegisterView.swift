@@ -21,7 +21,7 @@ struct RegisterView: View {
           .font(.title2)
           .fontWeight(.semibold)
           .padding(.top, 50)
-        
+
         Text(
           "Password must be at least 8 characters long\n" + "Password also must include minimum\n"
             + "1 lowercase and 1 uppercase letter"

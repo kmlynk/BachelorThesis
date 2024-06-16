@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ButtonModifier: ViewModifier {
   @Environment(\.colorScheme) var currentMode
-  
+
   func body(content: Content) -> some View {
     content
       .foregroundColor(currentMode == .dark ? Color.black : Color.white)

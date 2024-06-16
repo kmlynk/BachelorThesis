@@ -28,7 +28,7 @@ class PostProjectViewModel: ObservableObject {
     guard let imageData = try await item.loadTransferable(type: Data.self) else { return }
 
     print("DEBUG: Image data is \(imageData)")
-    
+
     guard let uiImage = UIImage(data: imageData) else { return }
 
     guard let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) else { return }
