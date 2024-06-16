@@ -23,7 +23,10 @@ extension UserModel {
       id: NSUUID().uuidString,
       email: "admin@grr.la",
       username: "theAdmin",
-      profileImageUrl: "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2FC97FD051-4B84-4883-998E-4A3B49F72133?alt=media&token=e5aa1ac0-fe73-47e5-8e12-16761c74bf03"
+      profileImageUrl:
+        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2FC97FD051-4B84-4883-998E-4A3B49F72133?alt=media&token=e5aa1ac0-fe73-47e5-8e12-16761c74bf03",
+      fullname: "Admin Adminoglu",
+      bio: "Admin since 1 week"
     ),
 
     .init(
