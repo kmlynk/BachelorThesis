@@ -10,13 +10,13 @@ import Foundation
 import PhotosUI
 
 struct ImageUploader {
-  static func uploadImage(withData image: Data) async throws -> String? {
-    // TODO: Implement Image Compression with UIImage
+  static func uploadImage(withData image: UIImage) async throws -> String? {
+    guard let imageData = image.jpegData(compressionQuality: 0.5) else { return nil }
     let fileName = NSUUID().uuidString
     let fileRef = Storage.storage().reference().child("/images/\(fileName)")
 
     do {
-      let _ = try await fileRef.putDataAsync(image)
+      let _ = try await fileRef.putDataAsync(imageData)
       let url = try await fileRef.downloadURL()
       return url.absoluteString
     } catch {
