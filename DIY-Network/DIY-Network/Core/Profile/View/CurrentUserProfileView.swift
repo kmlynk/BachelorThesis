@@ -61,7 +61,7 @@ struct CurrentUserProfileView: View {
       .fullScreenCover(isPresented: $showEditProfile) {
         EditProfileView(user: user!)
       }
-      .navigationTitle(user?.username ?? "Profile")
+      .navigationTitle("Profile")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
