@@ -30,7 +30,7 @@ struct MainTabView: View {
         }
         .tag("Post")
 
-      Text("Library")
+      LibraryView(project: ProjectModel.MOCK_PROJECTS[0])
         .tabItem {
           Image(systemName: "books.vertical")
         }
