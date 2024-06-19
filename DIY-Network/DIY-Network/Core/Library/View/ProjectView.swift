@@ -14,13 +14,25 @@ struct ProjectView: View {
     ScrollView {
       ProjectHeaderView(project: project)
 
-      if let steps = project.steps {
-        ForEach(steps) { step in
-          Text(step.name)
+      VStack(spacing: 15) {
+        if let steps = project.steps {
+          ForEach(steps) { step in
+            Text(step.name)
+          }
+        }
+      }
+      .padding(.top, 10)
+    }
+    .navigationTitle(project.projectName)
+    .toolbar {
+      ToolbarItem(placement: .topBarTrailing) {
+        Button {
+          // Edit Project
+        } label: {
+          Image(systemName: "pencil")
         }
       }
     }
-    .navigationTitle(project.projectName)
   }
 }
 
