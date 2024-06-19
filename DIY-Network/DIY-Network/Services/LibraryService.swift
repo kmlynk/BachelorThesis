@@ -26,6 +26,24 @@ struct LibraryService {
         "DEBUG: Failed to upload project data to database with error \(error.localizedDescription)")
     }
   }
+  
+  static func uploadProjectData(withImage imageUrl: String, ownerId: String, projectName: String, projectDesc: String) async {
+    do {
+      let project = ProjectModel(
+        id: NSUUID().uuidString,
+        ownerId: ownerId,
+        projectName: projectName,
+        projectDesc: projectDesc,
+        projectImageUrl: imageUrl
+      )
+
+      let encodedProject = try Firestore.Encoder().encode(project)
+      try await db.document(project.id).setData(encodedProject)
+    } catch {
+      print(
+        "DEBUG: Failed to upload project data to database with error \(error.localizedDescription)")
+    }
+  }
 
   static func fetchUserProjects(ownerId: String) async throws -> [ProjectModel] {
     do {

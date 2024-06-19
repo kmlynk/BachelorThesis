@@ -54,9 +54,16 @@ struct CreateProjectView: View {
 
         Divider()
 
-        PhotosPicker(selection: $selectedImage) {
+        PhotosPicker(selection: $viewModel.selectedImage) {
           VStack {
-            CircularProfileImageView(size: 80, imageUrl: "")
+            if let image = viewModel.projectImage {
+              image
+                .resizable()
+                .clipShape(Rectangle())
+                .frame(width: 100, height: 80)
+            } else {
+              ProjectImageView(width: 100, height: 80, imageUrl: "")
+            }
 
             Text("Add a Project Picture")
               .font(.footnote)
