@@ -22,9 +22,8 @@ extension ProjectModel {
       id: NSUUID().uuidString,
       ownerId: NSUUID().uuidString,
       projectName: "Mock Project 001",
-      projectDesc: "This is a Mock Project -> Mock Project 001",
-      projectImageUrl:
-        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2FC97FD051-4B84-4883-998E-4A3B49F72133?alt=media&token=e5aa1ac0-fe73-47e5-8e12-16761c74bf03",
+      projectDesc:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nunc massa, cursus eu dui ut, convallis sollicitudin dui. Proin blandit tellus ipsum, vel tempus lectus ullamcorper non. In varius aliquet neque, vitae venenatis eros convallis eu. Sed nunc lorem, consectetur sed laoreet sit amet, commodo ut eros. Praesent lacinia augue vitae nisl mollis luctus. Aenean laoreet efficitur nibh eget pellentesque. Quisque tempor accumsan quam ac semper. Etiam ornare interdum varius. Ut quis convallis massa, ut imperdiet mi. Sed porttitor ut purus eu laoreet. Donec eget consequat risus.",
       steps: [
         ProjectStepModel(
           id: NSUUID().uuidString, name: "Step One", description: "This is Step One"),
