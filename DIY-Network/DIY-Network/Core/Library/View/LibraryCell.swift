@@ -17,7 +17,7 @@ struct LibraryCell: View {
           CircularProfileImageView(size: 100, imageUrl: imageUrl)
         }
 
-        Text(project.name)
+        Text(project.projectName)
           .multilineTextAlignment(.leading)
           .font(.callout)
           .fontWeight(.semibold)

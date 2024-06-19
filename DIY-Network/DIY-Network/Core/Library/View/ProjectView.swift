@@ -11,7 +11,9 @@ struct ProjectView: View {
   let project: ProjectModel
   
     var body: some View {
-      Text(project.name)
+      Text(project.projectName)
+      
+      Text(project.projectDesc)
       
       if let steps = project.steps {
         ForEach(steps) { step in

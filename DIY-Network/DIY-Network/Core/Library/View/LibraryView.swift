@@ -8,47 +8,39 @@
 import SwiftUI
 
 struct LibraryView: View {
-  let project: ProjectModel
+  let user: UserModel
   @State private var showCreateProject = false
 
   var body: some View {
     NavigationStack {
-      ScrollView {
-        LazyVStack {
-          NavigationLink(value: project) {
-            LibraryCell(project: project)
+      LibraryListView(user: user)
+        .navigationDestination(
+          for: ProjectModel.self,
+          destination: { project in
+            ProjectView(project: project)
           }
-          .foregroundColor(Color.primary)
-        }
-        .padding(.top, 20)
-      }
-      .navigationDestination(
-        for: ProjectModel.self,
-        destination: { project in
-          ProjectView(project: project)
-        }
-      )
-      .navigationTitle("Library")
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
-          Button {
-            showCreateProject.toggle()
-            print("DEBUG: Create New Project")
-          } label: {
-            Image(systemName: "plus")
-              .imageScale(.large)
-              .foregroundColor(Color.primary)
+        )
+        .navigationTitle("Library")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+          ToolbarItem(placement: .topBarTrailing) {
+            Button {
+              showCreateProject.toggle()
+              print("DEBUG: Create New Project")
+            } label: {
+              Image(systemName: "plus")
+                .imageScale(.large)
+                .foregroundColor(Color.primary)
+            }
           }
         }
-      }
-      .fullScreenCover(isPresented: $showCreateProject) {
-        CreateProjectView()
-      }
+        .fullScreenCover(isPresented: $showCreateProject) {
+          CreateProjectView(user: user)
+        }
     }
   }
 }
 
 #Preview{
-  LibraryView(project: ProjectModel.MOCK_PROJECTS[0])
+  LibraryView(user: UserModel.MOCK_USERS[0])
 }
