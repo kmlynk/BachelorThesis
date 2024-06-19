@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainTabView: View {
   @State private var selectedTab = "Feed"
+  let user: UserModel
 
   var body: some View {
     TabView(selection: $selectedTab) {
@@ -30,7 +31,7 @@ struct MainTabView: View {
         }
         .tag("Post")
 
-      LibraryView(project: ProjectModel.MOCK_PROJECTS[0])
+      LibraryView(user: user)
         .tabItem {
           Image(systemName: "books.vertical")
         }
@@ -47,5 +48,5 @@ struct MainTabView: View {
 }
 
 #Preview{
-  MainTabView()
+  MainTabView(user: UserModel.MOCK_USERS[0])
 }
