@@ -9,20 +9,21 @@ import SwiftUI
 
 struct ProjectView: View {
   let project: ProjectModel
-  
-    var body: some View {
-      Text(project.projectName)
-      
-      Text(project.projectDesc)
-      
+
+  var body: some View {
+    ScrollView {
+      ProjectHeaderView(project: project)
+
       if let steps = project.steps {
         ForEach(steps) { step in
           Text(step.name)
         }
       }
     }
+    .navigationTitle(project.projectName)
+  }
 }
 
-#Preview {
+#Preview{
   ProjectView(project: ProjectModel.MOCK_PROJECTS[0])
 }

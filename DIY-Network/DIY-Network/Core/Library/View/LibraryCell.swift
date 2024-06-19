@@ -13,10 +13,12 @@ struct LibraryCell: View {
   var body: some View {
     VStack {
       HStack(spacing: 15) {
-        if let imageUrl = project.projectImageUrl {
-          CircularProfileImageView(size: 100, imageUrl: imageUrl)
-        }
-
+        ProjectImageView(
+          width: 100,
+          height: 100,
+          imageUrl: project.projectImageUrl ?? ""
+        )
+        
         Text(project.projectName)
           .multilineTextAlignment(.leading)
           .font(.callout)
