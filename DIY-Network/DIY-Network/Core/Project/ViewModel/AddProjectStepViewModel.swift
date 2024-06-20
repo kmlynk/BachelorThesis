@@ -13,6 +13,7 @@ class AddProjectStepViewModel: ObservableObject {
   private var project: ProjectModel
   @Published var steps = [ProjectStepModel]()
 
+  @Published var stepNumber = 0
   @Published var stepName = ""
   @Published var stepDesc = ""
 
@@ -24,6 +25,7 @@ class AddProjectStepViewModel: ObservableObject {
   func createNewStep() async throws {
     await LibraryService.uploadProjectStepData(
       project: project,
+      stepNumber: stepNumber,
       stepName: stepName,
       stepDesc: stepDesc
     )

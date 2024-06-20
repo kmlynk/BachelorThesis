@@ -73,11 +73,13 @@ struct LibraryService {
     }
   }
 
-  static func uploadProjectStepData(project: ProjectModel, stepName: String, stepDesc: String) async
-  {
+  static func uploadProjectStepData(
+    project: ProjectModel, stepNumber: Int, stepName: String, stepDesc: String
+  ) async {
     do {
       let step = ProjectStepModel(
         id: NSUUID().uuidString,
+        stepNumber: stepNumber,
         stepName: stepName,
         stepDesc: stepDesc
       )
