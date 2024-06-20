@@ -9,7 +9,7 @@ import Foundation
 
 struct ProjectStepModel: Identifiable, Hashable, Codable {
   let id: String
-  var name: String
-  var description: String
+  var stepName: String
+  var stepDesc: String
   var stepImageUrl: String?
 }

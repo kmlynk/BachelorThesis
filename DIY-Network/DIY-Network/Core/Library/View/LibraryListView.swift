@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LibraryListView: View {
+  @EnvironmentObject var authViewModel: AuthViewModel
   @StateObject var viewModel: LibraryListViewModel
 
   init(user: UserModel) {
@@ -29,7 +30,7 @@ struct LibraryListView: View {
     .navigationDestination(
       for: ProjectModel.self,
       destination: { project in
-        ProjectView(project: project)
+        ProjectView(user: authViewModel.currentUser! ,project: project)
       }
     )
     .refreshable {

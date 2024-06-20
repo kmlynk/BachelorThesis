@@ -26,8 +26,16 @@ extension ProjectModel {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nunc massa, cursus eu dui ut, convallis sollicitudin dui. Proin blandit tellus ipsum, vel tempus lectus ullamcorper non. In varius aliquet neque, vitae venenatis eros convallis eu. Sed nunc lorem, consectetur sed laoreet sit amet, commodo ut eros. Praesent lacinia augue vitae nisl mollis luctus. Aenean laoreet efficitur nibh eget pellentesque. Quisque tempor accumsan quam ac semper. Etiam ornare interdum varius. Ut quis convallis massa, ut imperdiet mi. Sed porttitor ut purus eu laoreet. Donec eget consequat risus.",
       steps: [
         ProjectStepModel(
-          id: NSUUID().uuidString, name: "Step One", description: "This is Step One"),
-        ProjectStepModel(id: NSUUID().uuidString, name: "Step Two", description: "This is Tep Two"),
+          id: NSUUID().uuidString,
+          stepName: "Step One",
+          stepDesc: "This is Step One"
+        ),
+
+        ProjectStepModel(
+          id: NSUUID().uuidString,
+          stepName: "Step Two",
+          stepDesc: "This is Step Two"
+        ),
       ]
     )
   ]

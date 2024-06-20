@@ -31,6 +31,10 @@
 		054CF0A12C1E63B6005820A5 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054CF0A02C1E63B6005820A5 /* EditProfileViewModel.swift */; };
 		055FE0762C237D1600497DDB /* ProjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE0752C237D1600497DDB /* ProjectImageView.swift */; };
 		055FE0782C238B8C00497DDB /* ProjectHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE0772C238B8C00497DDB /* ProjectHeaderView.swift */; };
+		055FE07A2C23A27400497DDB /* AddProjectStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE0792C23A27400497DDB /* AddProjectStepView.swift */; };
+		055FE07C2C23A50800497DDB /* AddProjectStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE07B2C23A50800497DDB /* AddProjectStepViewModel.swift */; };
+		055FE07E2C23B70600497DDB /* ProjectStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE07D2C23B70600497DDB /* ProjectStepViewModel.swift */; };
+		055FE0802C23B8DA00497DDB /* ProjectStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE07F2C23B8DA00497DDB /* ProjectStepView.swift */; };
 		056D4CAD2C1F34EF00E34094 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CAC2C1F34EF00E34094 /* SearchView.swift */; };
 		056D4CAF2C1F35B300E34094 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CAE2C1F35B300E34094 /* SearchViewModel.swift */; };
 		056D4CB12C1F3B1D00E34094 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CB02C1F3B1D00E34094 /* ProfileView.swift */; };
@@ -70,6 +74,10 @@
 		054CF0A02C1E63B6005820A5 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		055FE0752C237D1600497DDB /* ProjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectImageView.swift; sourceTree = "<group>"; };
 		055FE0772C238B8C00497DDB /* ProjectHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectHeaderView.swift; sourceTree = "<group>"; };
+		055FE0792C23A27400497DDB /* AddProjectStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectStepView.swift; sourceTree = "<group>"; };
+		055FE07B2C23A50800497DDB /* AddProjectStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectStepViewModel.swift; sourceTree = "<group>"; };
+		055FE07D2C23B70600497DDB /* ProjectStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStepViewModel.swift; sourceTree = "<group>"; };
+		055FE07F2C23B8DA00497DDB /* ProjectStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStepView.swift; sourceTree = "<group>"; };
 		056D4CAC2C1F34EF00E34094 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		056D4CAE2C1F35B300E34094 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		056D4CB02C1F3B1D00E34094 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -185,6 +193,7 @@
 				056D4CB82C1F56BF00E34094 /* Library */,
 				0514C25C2C1B28C700C75560 /* PostProject */,
 				05D703E92C1DD76800E0C3F7 /* Profile */,
+				055FE0812C2470B900497DDB /* Project */,
 				0514C24E2C1B218E00C75560 /* Root */,
 				056D4CA92C1F34BE00E34094 /* Search */,
 				0514C2512C1B220400C75560 /* TabBar */,
@@ -293,6 +302,37 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		055FE0812C2470B900497DDB /* Project */ = {
+			isa = PBXGroup;
+			children = (
+				055FE0822C2470CE00497DDB /* View */,
+				055FE0832C2470D300497DDB /* ViewModel */,
+			);
+			path = Project;
+			sourceTree = "<group>";
+		};
+		055FE0822C2470CE00497DDB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				055FE0792C23A27400497DDB /* AddProjectStepView.swift */,
+				056D4CC52C1FA9E100E34094 /* CreateProjectView.swift */,
+				055FE0772C238B8C00497DDB /* ProjectHeaderView.swift */,
+				055FE07F2C23B8DA00497DDB /* ProjectStepView.swift */,
+				056D4CC12C1F693400E34094 /* ProjectView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		055FE0832C2470D300497DDB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				055FE07B2C23A50800497DDB /* AddProjectStepViewModel.swift */,
+				05AFD3512C223D060086C672 /* CreateProjectViewModel.swift */,
+				055FE07D2C23B70600497DDB /* ProjectStepViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		056D4CA92C1F34BE00E34094 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,11 +371,8 @@
 			isa = PBXGroup;
 			children = (
 				056D4CBF2C1F5CBD00E34094 /* LibraryCell.swift */,
-				056D4CBB2C1F56E100E34094 /* LibraryView.swift */,
-				056D4CC12C1F693400E34094 /* ProjectView.swift */,
-				056D4CC52C1FA9E100E34094 /* CreateProjectView.swift */,
 				05E0E14E2C2368290079D12C /* LibraryListView.swift */,
-				055FE0772C238B8C00497DDB /* ProjectHeaderView.swift */,
+				056D4CBB2C1F56E100E34094 /* LibraryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -343,7 +380,6 @@
 		056D4CBA2C1F56D000E34094 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				05AFD3512C223D060086C672 /* CreateProjectViewModel.swift */,
 				05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */,
 			);
 			path = ViewModel;
@@ -471,6 +507,7 @@
 			files = (
 				056D4CC02C1F5CBD00E34094 /* LibraryCell.swift in Sources */,
 				0514C22A2C1B1E9A00C75560 /* ContentView.swift in Sources */,
+				055FE0802C23B8DA00497DDB /* ProjectStepView.swift in Sources */,
 				0514C2562C1B250F00C75560 /* CircularProfileImageView.swift in Sources */,
 				056D4CB32C1F45E100E34094 /* ProjectModel.swift in Sources */,
 				05E0E14F2C2368290079D12C /* LibraryListView.swift in Sources */,
@@ -481,7 +518,9 @@
 				056D4CAF2C1F35B300E34094 /* SearchViewModel.swift in Sources */,
 				05D703EB2C1DD79200E0C3F7 /* CurrentUserProfileView.swift in Sources */,
 				0514C2282C1B1E9A00C75560 /* DIY_NetworkApp.swift in Sources */,
+				055FE07A2C23A27400497DDB /* AddProjectStepView.swift in Sources */,
 				05D703F02C1DDA6600E0C3F7 /* AuthViewModel.swift in Sources */,
+				055FE07E2C23B70600497DDB /* ProjectStepViewModel.swift in Sources */,
 				055FE0782C238B8C00497DDB /* ProjectHeaderView.swift in Sources */,
 				05D703F22C1DF09A00E0C3F7 /* RegisterView.swift in Sources */,
 				0514C2602C1B291D00C75560 /* PostProjectView.swift in Sources */,
@@ -490,6 +529,7 @@
 				055FE0762C237D1600497DDB /* ProjectImageView.swift in Sources */,
 				056D4CB12C1F3B1D00E34094 /* ProfileView.swift in Sources */,
 				0514C2622C1B295C00C75560 /* PostProjectViewModel.swift in Sources */,
+				055FE07C2C23A50800497DDB /* AddProjectStepViewModel.swift in Sources */,
 				056D4CC62C1FA9E100E34094 /* CreateProjectView.swift in Sources */,
 				056D4CC22C1F693400E34094 /* ProjectView.swift in Sources */,
 				056D4CB72C1F506C00E34094 /* ProjectStepModel.swift in Sources */,

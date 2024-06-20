@@ -17,7 +17,7 @@ struct LibraryView: View {
         .navigationDestination(
           for: ProjectModel.self,
           destination: { project in
-            ProjectView(project: project)
+            ProjectView(user: user, project: project)
           }
         )
         .navigationTitle("Library")
