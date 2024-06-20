@@ -20,19 +20,13 @@ struct UserModel: Identifiable, Hashable, Codable {
 extension UserModel {
   static var MOCK_USERS: [UserModel] = [
     .init(
-      id: NSUUID().uuidString,
+      id: "h9FV9ysmbOff2ZefQJEhjVs3yXi1",
       email: "admin@grr.la",
       username: "theAdmin",
       profileImageUrl:
-        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2FC97FD051-4B84-4883-998E-4A3B49F72133?alt=media&token=e5aa1ac0-fe73-47e5-8e12-16761c74bf03",
+        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2FA1664A74-6211-4E23-8BCD-E05C56AA0893?alt=media&token=ba395989-4edb-4210-8384-cd746eefbfd8",
       fullname: "Admin Adminoglu",
-      bio: "Admin since 1 week"
-    ),
-
-    .init(
-      id: NSUUID().uuidString,
-      email: "testerOne@grr.la",
-      username: "tester.one"
-    ),
+      bio: "Admin since 3 weeks"
+    )
   ]
 }
