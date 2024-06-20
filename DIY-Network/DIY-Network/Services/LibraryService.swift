@@ -20,7 +20,7 @@ struct LibraryService {
       return try snapshot.documents.compactMap({ try $0.data(as: ProjectStepModel.self) })
     } catch {
       print(
-        "DEBUG: Failed to upload step data to database with error \(error.localizedDescription)")
+        "DEBUG: Failed to fetch step data from database with error \(error.localizedDescription)")
       return []
     }
   }
@@ -70,6 +70,23 @@ struct LibraryService {
     } catch {
       print(
         "DEBUG: Failed to upload project data to database with error \(error.localizedDescription)")
+    }
+  }
+
+  static func uploadProjectStepData(project: ProjectModel, stepName: String, stepDesc: String) async
+  {
+    do {
+      let step = ProjectStepModel(
+        id: NSUUID().uuidString,
+        stepName: stepName,
+        stepDesc: stepDesc
+      )
+      let encodedStep = try Firestore.Encoder().encode(step)
+      try await projectDB.document(project.id).collection("steps").document(step.id).setData(
+        encodedStep)
+    } catch {
+      print(
+        "DEBUG: Failed to upload step data to database with error \(error.localizedDescription)")
     }
   }
 }
