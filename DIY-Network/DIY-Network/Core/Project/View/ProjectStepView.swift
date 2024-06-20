@@ -16,7 +16,7 @@ struct ProjectStepView: View {
 
   var body: some View {
     VStack {
-      ForEach(viewModel.steps) { step in
+      ForEach(viewModel.sortedSteps) { step in
         Text("Name: \(step.stepName)")
 
         Text("Decription: \(step.stepDesc)")
