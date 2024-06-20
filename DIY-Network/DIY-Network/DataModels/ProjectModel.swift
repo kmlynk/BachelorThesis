@@ -13,7 +13,6 @@ struct ProjectModel: Identifiable, Hashable, Codable {
   var projectName: String
   var projectDesc: String
   var projectImageUrl: String?
-  var steps: [ProjectStepModel]?
 }
 
 extension ProjectModel {
