@@ -20,4 +20,12 @@ class AddProjectStepViewModel: ObservableObject {
     self.user = user
     self.project = project
   }
+
+  func createNewStep() async throws {
+    await LibraryService.uploadProjectStepData(
+      project: project,
+      stepName: stepName,
+      stepDesc: stepDesc
+    )
+  }
 }

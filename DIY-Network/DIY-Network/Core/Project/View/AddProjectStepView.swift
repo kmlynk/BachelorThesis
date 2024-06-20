@@ -11,6 +11,7 @@ import SwiftUI
 struct AddProjectStepView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: AddProjectStepViewModel
+  @State private var showProgressView = false
 
   init(user: UserModel, project: ProjectModel) {
     self._viewModel = StateObject(
@@ -27,7 +28,7 @@ struct AddProjectStepView: View {
 
           Spacer()
 
-          Text("Create a Project")
+          Text("Add a Step")
             .font(.subheadline)
             .fontWeight(.semibold)
 
@@ -35,6 +36,9 @@ struct AddProjectStepView: View {
 
           Button("Done") {
             Task {
+              showProgressView = true
+              try await viewModel.createNewStep()
+              showProgressView = false
               dismiss()
             }
           }
