@@ -17,7 +17,7 @@ struct ProjectView: View {
         ProjectHeaderView(project: project)
 
         ProjectStepView(project: project)
-          .padding(.top, 10)
+          .padding(.top, 5)
 
         VStack {
           NavigationLink {
@@ -35,7 +35,7 @@ struct ProjectView: View {
             .foregroundColor(Color.blue)
           }
         }
-        .padding(.top)
+        .padding(.top, 5)
       }
     }
     .navigationTitle(project.projectName)

@@ -17,7 +17,7 @@ struct ProjectStepView: View {
   var body: some View {
     ZStack {
       ScrollView {
-        VStack {
+        LazyVStack {
           ForEach(viewModel.sortedSteps) { step in
             ExpandableView(
               thumbnail: ThumbnailView(content: {
@@ -44,8 +44,9 @@ struct ProjectStepView: View {
                   Text("\(step.stepNumber). \(step.stepName)")
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundColor(Color.white)
-                    .font(.headline)
-                    .fontWeight(.semibold)
+                    .font(.footnote)
+                    .lineLimit(2)
+                    
 
                   Divider()
 
@@ -57,10 +58,10 @@ struct ProjectStepView: View {
 
                     Text(step.stepDesc)
                       .font(.subheadline)
+                      .fontWeight(.semibold)
                       .foregroundColor(Color.white)
                       .multilineTextAlignment(.leading)
                   }
-                  .padding(.vertical)
                 }
                 .padding()
               }),

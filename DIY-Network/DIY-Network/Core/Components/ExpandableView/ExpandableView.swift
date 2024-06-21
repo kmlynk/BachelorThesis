@@ -24,9 +24,7 @@ struct ExpandableView: View {
     }
     .onTapGesture {
       if !isExpanded {
-        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-          isExpanded.toggle()
-        }
+        isExpanded.toggle()
       }
     }
   }
@@ -60,18 +58,9 @@ struct ExpandableView: View {
           RoundedRectangle(cornerRadius: 20, style: .continuous)
             .matchedGeometryEffect(id: "mask", in: namespace)
         }
-
-      Button {
-        withAnimation(.spring(response: 0.6, dampingFraction: 0.8)) {
-          isExpanded.toggle()
-        }
-      } label: {
-        Image(systemName: "xmark")
-          .foregroundColor(.white)
-      }
-      .padding()
-      .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-      .matchedGeometryEffect(id: "mask", in: namespace)
+    }
+    .onTapGesture {
+      isExpanded.toggle()
     }
   }
 }
