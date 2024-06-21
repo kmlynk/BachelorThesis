@@ -13,9 +13,9 @@ class AddProjectStepViewModel: ObservableObject {
   private var project: ProjectModel
   @Published var steps = [ProjectStepModel]()
 
-  @Published var stepNumber = 0
-  @Published var stepName = ""
-  @Published var stepDesc = ""
+  @Published var number = ""
+  @Published var name = ""
+  @Published var desc = ""
 
   init(user: UserModel, project: ProjectModel) {
     self.user = user
@@ -23,11 +23,22 @@ class AddProjectStepViewModel: ObservableObject {
   }
 
   func createNewStep() async throws {
-    await LibraryService.uploadProjectStepData(
-      project: project,
-      stepNumber: stepNumber,
-      stepName: stepName,
-      stepDesc: stepDesc
-    )
+    guard let stepNumber = Int(number) else {
+      print("DEBUG: There is no step number!")
+      return
+    }
+
+    if !name.isEmpty && !desc.isEmpty {
+      print("DEBUG: Conditions are checked. Creating the step...")
+      await LibraryService.uploadProjectStepData(
+        project: project,
+        stepNumber: stepNumber,
+        stepName: name,
+        stepDesc: desc
+      )
+      print("DEBUG: Step is created!")
+    } else {
+      print("DEBUG: There is no step name or description!")
+    }
   }
 }
