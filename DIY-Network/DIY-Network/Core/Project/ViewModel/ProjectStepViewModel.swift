@@ -21,7 +21,11 @@ class ProjectStepViewModel: ObservableObject {
 
   func fetchProjectSteps() async throws {
     self.steps = try await LibraryService.fetchProjectStepData(project: project)
-    sortSteps()
+    if steps.count > 1 {
+      sortSteps()
+    } else {
+      self.sortedSteps = self.steps
+    }
   }
 
   func sortSteps() {
