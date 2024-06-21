@@ -35,6 +35,9 @@
 		055FE07C2C23A50800497DDB /* AddProjectStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE07B2C23A50800497DDB /* AddProjectStepViewModel.swift */; };
 		055FE07E2C23B70600497DDB /* ProjectStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE07D2C23B70600497DDB /* ProjectStepViewModel.swift */; };
 		055FE0802C23B8DA00497DDB /* ProjectStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE07F2C23B8DA00497DDB /* ProjectStepView.swift */; };
+		055FE0852C24EF1900497DDB /* ExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE0842C24EF1900497DDB /* ExpandableView.swift */; };
+		055FE0872C24FCD700497DDB /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE0862C24FCD700497DDB /* ThumbnailView.swift */; };
+		055FE0892C24FD2300497DDB /* ExpandedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE0882C24FD2300497DDB /* ExpandedView.swift */; };
 		056D4CAD2C1F34EF00E34094 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CAC2C1F34EF00E34094 /* SearchView.swift */; };
 		056D4CAF2C1F35B300E34094 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CAE2C1F35B300E34094 /* SearchViewModel.swift */; };
 		056D4CB12C1F3B1D00E34094 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CB02C1F3B1D00E34094 /* ProfileView.swift */; };
@@ -78,6 +81,9 @@
 		055FE07B2C23A50800497DDB /* AddProjectStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddProjectStepViewModel.swift; sourceTree = "<group>"; };
 		055FE07D2C23B70600497DDB /* ProjectStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStepViewModel.swift; sourceTree = "<group>"; };
 		055FE07F2C23B8DA00497DDB /* ProjectStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStepView.swift; sourceTree = "<group>"; };
+		055FE0842C24EF1900497DDB /* ExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandableView.swift; sourceTree = "<group>"; };
+		055FE0862C24FCD700497DDB /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
+		055FE0882C24FD2300497DDB /* ExpandedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedView.swift; sourceTree = "<group>"; };
 		056D4CAC2C1F34EF00E34094 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		056D4CAE2C1F35B300E34094 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		056D4CB02C1F3B1D00E34094 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -228,6 +234,7 @@
 		0514C2542C1B24FC00C75560 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				055FE08A2C25057900497DDB /* ExpandableView */,
 				05D703E72C1D315800E0C3F7 /* ButtonModifier.swift */,
 				0514C2552C1B250F00C75560 /* CircularProfileImageView.swift */,
 				055FE0752C237D1600497DDB /* ProjectImageView.swift */,
@@ -331,6 +338,16 @@
 				055FE07D2C23B70600497DDB /* ProjectStepViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		055FE08A2C25057900497DDB /* ExpandableView */ = {
+			isa = PBXGroup;
+			children = (
+				055FE0842C24EF1900497DDB /* ExpandableView.swift */,
+				055FE0882C24FD2300497DDB /* ExpandedView.swift */,
+				055FE0862C24FCD700497DDB /* ThumbnailView.swift */,
+			);
+			path = ExpandableView;
 			sourceTree = "<group>";
 		};
 		056D4CA92C1F34BE00E34094 /* Search */ = {
@@ -514,7 +531,9 @@
 				056D4CBC2C1F56E100E34094 /* LibraryView.swift in Sources */,
 				05AFD3542C224CCD0086C672 /* LibraryService.swift in Sources */,
 				054CF09F2C1E638E005820A5 /* EditProfileView.swift in Sources */,
+				055FE0872C24FCD700497DDB /* ThumbnailView.swift in Sources */,
 				0514C2582C1B269500C75560 /* ImageUploader.swift in Sources */,
+				055FE0892C24FD2300497DDB /* ExpandedView.swift in Sources */,
 				056D4CAF2C1F35B300E34094 /* SearchViewModel.swift in Sources */,
 				05D703EB2C1DD79200E0C3F7 /* CurrentUserProfileView.swift in Sources */,
 				0514C2282C1B1E9A00C75560 /* DIY_NetworkApp.swift in Sources */,
@@ -533,6 +552,7 @@
 				056D4CC62C1FA9E100E34094 /* CreateProjectView.swift in Sources */,
 				056D4CC22C1F693400E34094 /* ProjectView.swift in Sources */,
 				056D4CB72C1F506C00E34094 /* ProjectStepModel.swift in Sources */,
+				055FE0852C24EF1900497DDB /* ExpandableView.swift in Sources */,
 				0514C2532C1B222200C75560 /* MainTabView.swift in Sources */,
 				05AFD3522C223D060086C672 /* CreateProjectViewModel.swift in Sources */,
 				05D703E62C1D310900E0C3F7 /* TextFieldModifier.swift in Sources */,
