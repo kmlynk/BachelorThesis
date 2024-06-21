@@ -15,12 +15,62 @@ struct ProjectStepView: View {
   }
 
   var body: some View {
-    VStack {
-      ForEach(viewModel.sortedSteps) { step in
-        Text("Name: \(step.stepName)")
+    ZStack {
+      ScrollView {
+        VStack {
+          ForEach(viewModel.sortedSteps) { step in
+            ExpandableView(
+              thumbnail: ThumbnailView(content: {
+                VStack {
+                  HStack {
+                    if let imageUrl = step.stepImageUrl {
+                      ProjectImageView(width: 100, height: 80, imageUrl: imageUrl)
 
-        Text("Decription: \(step.stepDesc)")
+                      Spacer()
+                    }
+
+                    Text("\(step.stepNumber). \(step.stepName)")
+                      .frame(maxWidth: .infinity, alignment: .leading)
+                      .foregroundColor(Color.white)
+                      .font(.headline)
+                      .fontWeight(.semibold)
+                      .multilineTextAlignment(.leading)
+                  }
+                }
+                .padding()
+              }),
+              expanded: ExpandedView(content: {
+                VStack {
+                  Text("\(step.stepNumber). \(step.stepName)")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundColor(Color.white)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+
+                  Divider()
+
+                  VStack {
+                    if let imageUrl = step.stepImageUrl {
+                      ProjectImageView(width: 200, height: 260, imageUrl: imageUrl)
+                        .padding(.vertical)
+                    }
+
+                    Text(step.stepDesc)
+                      .font(.subheadline)
+                      .foregroundColor(Color.white)
+                      .multilineTextAlignment(.leading)
+                  }
+                  .padding(.vertical)
+                }
+                .padding()
+              }),
+              color: Color.secondary)
+          }
+        }
+        .padding()
       }
+      .navigationTitle("Steps")
+      .navigationBarTitleDisplayMode(.inline)
     }
   }
 }
