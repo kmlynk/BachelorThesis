@@ -46,7 +46,6 @@ struct ProjectStepView: View {
                     .foregroundColor(Color.white)
                     .font(.footnote)
                     .lineLimit(2)
-                    
 
                   Divider()
 
@@ -70,6 +69,11 @@ struct ProjectStepView: View {
         }
         .padding()
       }
+      .onAppear(perform: {
+        Task {
+          try await viewModel.fetchProjectSteps()
+        }
+      })
     }
   }
 }
