@@ -1,22 +1,25 @@
 //
-//  ButtonModifier.swift
+//  InAppButtonModifier.swift
 //  DIY-Network
 //
-//  Created by Kamil Uyanık on 15.06.24.
+//  Created by Kamil Uyanık on 21.06.24.
 //
 
 import SwiftUI
 
-struct ButtonModifier: ViewModifier {
+struct InAppButtonModifier: ViewModifier {
   @Environment(\.colorScheme) var currentMode
+  let width: CGFloat
+  let height: CGFloat
+  let radius: CGFloat
 
   func body(content: Content) -> some View {
     content
       .foregroundColor(currentMode == .dark ? Color.black : Color.white)
       .font(.subheadline)
       .fontWeight(.semibold)
-      .frame(width: 360, height: 44)
+      .frame(width: width, height: height)
       .background(currentMode == .dark ? Color.white : Color.black)
-      .cornerRadius(10)
+      .cornerRadius(radius)
   }
 }

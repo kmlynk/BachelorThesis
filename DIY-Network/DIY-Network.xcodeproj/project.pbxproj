@@ -49,9 +49,10 @@
 		056D4CC62C1FA9E100E34094 /* CreateProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CC52C1FA9E100E34094 /* CreateProjectView.swift */; };
 		05AFD3522C223D060086C672 /* CreateProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AFD3512C223D060086C672 /* CreateProjectViewModel.swift */; };
 		05AFD3542C224CCD0086C672 /* LibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AFD3532C224CCD0086C672 /* LibraryService.swift */; };
+		05B255552C2621C00084F5C3 /* InAppButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B255542C2621C00084F5C3 /* InAppButtonModifier.swift */; };
 		05D703E22C1D2EC400E0C3F7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D703E12C1D2EC400E0C3F7 /* LoginView.swift */; };
 		05D703E62C1D310900E0C3F7 /* TextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D703E52C1D310900E0C3F7 /* TextFieldModifier.swift */; };
-		05D703E82C1D315800E0C3F7 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D703E72C1D315800E0C3F7 /* ButtonModifier.swift */; };
+		05D703E82C1D315800E0C3F7 /* AuthButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D703E72C1D315800E0C3F7 /* AuthButtonModifier.swift */; };
 		05D703EB2C1DD79200E0C3F7 /* CurrentUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D703EA2C1DD79200E0C3F7 /* CurrentUserProfileView.swift */; };
 		05D703F02C1DDA6600E0C3F7 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D703EF2C1DDA6600E0C3F7 /* AuthViewModel.swift */; };
 		05D703F22C1DF09A00E0C3F7 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D703F12C1DF09A00E0C3F7 /* RegisterView.swift */; };
@@ -95,9 +96,10 @@
 		056D4CC52C1FA9E100E34094 /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
 		05AFD3512C223D060086C672 /* CreateProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewModel.swift; sourceTree = "<group>"; };
 		05AFD3532C224CCD0086C672 /* LibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryService.swift; sourceTree = "<group>"; };
+		05B255542C2621C00084F5C3 /* InAppButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppButtonModifier.swift; sourceTree = "<group>"; };
 		05D703E12C1D2EC400E0C3F7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		05D703E52C1D310900E0C3F7 /* TextFieldModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldModifier.swift; sourceTree = "<group>"; };
-		05D703E72C1D315800E0C3F7 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
+		05D703E72C1D315800E0C3F7 /* AuthButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButtonModifier.swift; sourceTree = "<group>"; };
 		05D703EA2C1DD79200E0C3F7 /* CurrentUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserProfileView.swift; sourceTree = "<group>"; };
 		05D703EF2C1DDA6600E0C3F7 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		05D703F12C1DF09A00E0C3F7 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -234,11 +236,10 @@
 		0514C2542C1B24FC00C75560 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				05B255532C26219F0084F5C3 /* Modifiers */,
 				055FE08A2C25057900497DDB /* ExpandableView */,
-				05D703E72C1D315800E0C3F7 /* ButtonModifier.swift */,
 				0514C2552C1B250F00C75560 /* CircularProfileImageView.swift */,
 				055FE0752C237D1600497DDB /* ProjectImageView.swift */,
-				05D703E52C1D310900E0C3F7 /* TextFieldModifier.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -402,6 +403,16 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		05B255532C26219F0084F5C3 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				05D703E52C1D310900E0C3F7 /* TextFieldModifier.swift */,
+				05D703E72C1D315800E0C3F7 /* AuthButtonModifier.swift */,
+				05B255542C2621C00084F5C3 /* InAppButtonModifier.swift */,
+			);
+			path = Modifiers;
+			sourceTree = "<group>";
+		};
 		05D703E92C1DD76800E0C3F7 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -556,11 +567,12 @@
 				0514C2532C1B222200C75560 /* MainTabView.swift in Sources */,
 				05AFD3522C223D060086C672 /* CreateProjectViewModel.swift in Sources */,
 				05D703E62C1D310900E0C3F7 /* TextFieldModifier.swift in Sources */,
-				05D703E82C1D315800E0C3F7 /* ButtonModifier.swift in Sources */,
+				05D703E82C1D315800E0C3F7 /* AuthButtonModifier.swift in Sources */,
 				05D703E22C1D2EC400E0C3F7 /* LoginView.swift in Sources */,
 				05E0E14D2C2353670079D12C /* LibraryListViewModel.swift in Sources */,
 				0514C2672C1B32AC00C75560 /* UserModel.swift in Sources */,
 				0514C2652C1B297A00C75560 /* ImageModel.swift in Sources */,
+				05B255552C2621C00084F5C3 /* InAppButtonModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

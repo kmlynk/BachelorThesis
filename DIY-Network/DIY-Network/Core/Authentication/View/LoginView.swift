@@ -44,7 +44,7 @@ struct LoginView: View {
           }
         } label: {
           Text("Login")
-            .modifier(ButtonModifier())
+            .modifier(AuthButtonModifier())
         }
         .padding(.top)
 

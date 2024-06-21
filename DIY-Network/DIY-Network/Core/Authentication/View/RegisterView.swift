@@ -55,7 +55,7 @@ struct RegisterView: View {
           }
         } label: {
           Text("Register")
-            .modifier(ButtonModifier())
+            .modifier(AuthButtonModifier())
         }
         .padding(.top)
       }
