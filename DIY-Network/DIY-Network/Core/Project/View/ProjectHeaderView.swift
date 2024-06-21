@@ -18,7 +18,7 @@ struct ProjectHeaderView: View {
 
       Text(project.projectDesc)
         .font(.footnote)
-        .fontWeight(.thin)
+        .fontWeight(.bold)
         .multilineTextAlignment(.center)
 
       Divider()
