@@ -42,7 +42,7 @@ struct AddProjectStepView: View {
               showProgressView.toggle()
               try await viewModel.createNewStep()
               dismiss()
-              showProgressView.toggle()
+              //showProgressView.toggle()
             }
           } label: {
             Text("Create the Step")
