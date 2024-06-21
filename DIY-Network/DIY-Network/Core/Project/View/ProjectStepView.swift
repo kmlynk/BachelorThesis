@@ -70,8 +70,6 @@ struct ProjectStepView: View {
         }
         .padding()
       }
-      .navigationTitle("Steps")
-      .navigationBarTitleDisplayMode(.inline)
     }
   }
 }
