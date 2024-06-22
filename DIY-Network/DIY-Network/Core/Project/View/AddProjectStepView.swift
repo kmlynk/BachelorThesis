@@ -61,15 +61,24 @@ struct AddProjectStepView: View {
               showProgressView.toggle()
               try await viewModel.createNewStep()
               dismiss()
-              //showProgressView.toggle()
             }
           } label: {
             Text("Create the Step")
           }
           .modifier(InAppButtonModifier(width: 160, height: 44, radius: 30))
-          .padding(.top)
         }
         .padding()
+      }
+      .navigationTitle("Create a Step")
+      .navigationBarBackButtonHidden()
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          Button {
+            dismiss()
+          } label: {
+            Image(systemName: "xmark")
+          }
+        }
       }
     } else {
       ProgressView("Creating the Step...")
