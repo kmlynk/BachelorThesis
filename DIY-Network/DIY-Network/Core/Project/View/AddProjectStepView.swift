@@ -84,31 +84,31 @@ struct AddProjectStepView: View {
       ProgressView("Creating the Step...")
     }
   }
+}
 
-  struct AddProjectStepRowView: View {
-    let title: String
-    let placeholder: String
-    @Binding var text: String
+struct AddProjectStepRowView: View {
+  let title: String
+  let placeholder: String
+  @Binding var text: String
 
-    var body: some View {
-      VStack(spacing: 10) {
-        HStack {
-          Text(title)
-            .fontWeight(.semibold)
+  var body: some View {
+    VStack(spacing: 10) {
+      HStack {
+        Text(title)
+          .fontWeight(.semibold)
 
-          Spacer()
-        }
-
-        HStack {
-          TextField(placeholder, text: $text, axis: .vertical)
-            .multilineTextAlignment(.leading)
-        }
-
-        Divider()
+        Spacer()
       }
-      .font(.subheadline)
-      .padding()
+
+      HStack {
+        TextField(placeholder, text: $text, axis: .vertical)
+          .multilineTextAlignment(.leading)
+      }
+
+      Divider()
     }
+    .font(.subheadline)
+    .padding()
   }
 }
 
