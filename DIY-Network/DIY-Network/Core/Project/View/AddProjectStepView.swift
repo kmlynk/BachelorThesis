@@ -12,6 +12,7 @@ struct AddProjectStepView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: AddProjectStepViewModel
   @State private var showProgressView = false
+  @State var selectedImage: PhotosPickerItem?
 
   init(user: UserModel, project: ProjectModel) {
     self._viewModel = StateObject(
@@ -21,6 +22,24 @@ struct AddProjectStepView: View {
   var body: some View {
     if !showProgressView {
       ScrollView {
+        PhotosPicker(selection: $viewModel.selectedImage) {
+          VStack {
+            if let image = viewModel.stepImage {
+              image
+                .resizable()
+                .clipShape(Rectangle())
+                .frame(width: 100, height: 80)
+            } else {
+              ProjectImageView(width: 100, height: 80, imageUrl: "")
+            }
+
+            Text("Add a Image to the Step")
+              .font(.footnote)
+              .fontWeight(.semibold)
+          }
+        }
+        .padding(.vertical)
+
         VStack {
           AddProjectStepRowView(
             title: "Step Number",

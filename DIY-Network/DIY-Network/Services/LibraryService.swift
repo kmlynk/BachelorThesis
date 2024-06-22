@@ -91,4 +91,25 @@ struct LibraryService {
         "DEBUG: Failed to upload step data to database with error \(error.localizedDescription)")
     }
   }
+
+  static func uploadProjectStepData(
+    withImage imageUrl: String, project: ProjectModel, stepNumber: Int, stepName: String,
+    stepDesc: String
+  ) async {
+    do {
+      let step = ProjectStepModel(
+        id: NSUUID().uuidString,
+        stepNumber: stepNumber,
+        stepName: stepName,
+        stepDesc: stepDesc,
+        stepImageUrl: imageUrl
+      )
+      let encodedStep = try Firestore.Encoder().encode(step)
+      try await projectDB.document(project.id).collection("steps").document(step.id).setData(
+        encodedStep)
+    } catch {
+      print(
+        "DEBUG: Failed to upload step data to database with error \(error.localizedDescription)")
+    }
+  }
 }
