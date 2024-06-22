@@ -5,7 +5,6 @@
 //  Created by Kamil Uyanık on 19.06.24.
 //
 
-import Firebase
 import Foundation
 import PhotosUI
 import SwiftUI
@@ -15,7 +14,7 @@ class CreateProjectViewModel: ObservableObject {
   private let user: UserModel
   @Published var projectName = ""
   @Published var projectDesc = ""
-  
+
   @Published var selectedImage: PhotosPickerItem? {
     didSet { Task { await loadImage(fromItem: selectedImage) } }
   }
@@ -29,7 +28,7 @@ class CreateProjectViewModel: ObservableObject {
   func createNewProject() async throws {
     if let uiImage = uiImage {
       guard let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) else { return }
-      
+
       await LibraryService.uploadProjectData(
         withImage: imageUrl,
         ownerId: user.id,
@@ -44,13 +43,13 @@ class CreateProjectViewModel: ObservableObject {
       )
     }
   }
-  
+
   func loadImage(fromItem item: PhotosPickerItem?) async {
     guard let item = item else { return }
     guard let data = try? await item.loadTransferable(type: Data.self) else { return }
-    
+
     print("DEBUG: Image data is \(data)")
-    
+
     guard let uiImage = UIImage(data: data) else { return }
     self.uiImage = uiImage
     self.projectImage = Image(uiImage: uiImage)
