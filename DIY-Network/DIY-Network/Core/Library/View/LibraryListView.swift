@@ -27,12 +27,6 @@ struct LibraryListView: View {
       }
       .padding(.top, 20)
     }
-    .navigationDestination(
-      for: ProjectModel.self,
-      destination: { project in
-        ProjectView(user: authViewModel.currentUser! ,project: project)
-      }
-    )
     .refreshable {
       Task { try await viewModel.fetchUserProjects() }
     }
