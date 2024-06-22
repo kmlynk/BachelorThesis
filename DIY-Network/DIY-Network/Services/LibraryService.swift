@@ -112,4 +112,29 @@ struct LibraryService {
         "DEBUG: Failed to upload step data to database with error \(error.localizedDescription)")
     }
   }
+
+  static func mergeSort(arr: [ProjectStepModel]) -> [ProjectStepModel] {
+    guard arr.count > 1 else { return arr }
+
+    let leftArr = Array(arr[0..<arr.count / 2])
+    let rightArr = Array(arr[arr.count / 2..<arr.count])
+
+    return merge(left: mergeSort(arr: leftArr), right: mergeSort(arr: rightArr))
+  }
+
+  static func merge(left: [ProjectStepModel], right: [ProjectStepModel]) -> [ProjectStepModel] {
+    var mergedArr = [ProjectStepModel]()
+    var left = left
+    var right = right
+
+    while left.count > 0 && right.count > 0 {
+      if left.first!.stepNumber < right.first!.stepNumber {
+        mergedArr.append(left.removeFirst())
+      } else {
+        mergedArr.append(right.removeFirst())
+      }
+    }
+
+    return mergedArr + left + right
+  }
 }
