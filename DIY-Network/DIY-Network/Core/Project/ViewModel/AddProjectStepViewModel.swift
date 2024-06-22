@@ -20,7 +20,7 @@ class AddProjectStepViewModel: ObservableObject {
   @Published var desc = ""
 
   @Published var selectedImage: PhotosPickerItem? {
-    didSet {}
+    didSet { Task { await loadImage(fromItem: selectedImage) } }
   }
   @Published var stepImage: Image?
   private var uiImage: UIImage?
