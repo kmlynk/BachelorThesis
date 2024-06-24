@@ -20,7 +20,7 @@ struct ProjectImageView: View {
           ProgressView()
         }
         .resizable()
-        .aspectRatio(contentMode: .fit)
+        .scaledToFill()
         .frame(width: width, height: height)
         .clipShape(Rectangle())
     } else {

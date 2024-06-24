@@ -24,16 +24,14 @@ struct ProjectStepView: View {
             VStack {
               VStack {
                 Text("Step Number \(step.stepNumber)")
-
-                ProjectDividerView(minusWidth: 60, height: 0.8)
               }
               .padding(.bottom, 5)
+              
+              ProjectDividerView(minusWidth: 60, height: 0.8)
 
               HStack {
                 if let imageUrl = step.stepImageUrl {
                   ProjectImageView(width: 100, height: 80, imageUrl: imageUrl)
-
-                  Spacer()
                 }
 
                 Text(step.stepName)

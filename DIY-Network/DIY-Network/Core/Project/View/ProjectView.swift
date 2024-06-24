@@ -18,6 +18,7 @@ struct ProjectView: View {
         ProjectHeaderView(project: project)
 
         ProjectStepView(project: project)
+          .padding(.horizontal)
 
         VStack {
           NavigationLink {
