@@ -8,31 +8,37 @@
 import SwiftUI
 
 struct LibraryCell: View {
+  @Environment(\.colorScheme) var currentMode
   let project: ProjectModel
 
   var body: some View {
-    VStack {
-      HStack(spacing: 15) {
-        ProjectImageView(
-          width: 100,
-          height: 100,
-          imageUrl: project.projectImageUrl ?? ""
-        )
-        
-        Text(project.projectName)
-          .multilineTextAlignment(.leading)
-          .font(.callout)
-          .fontWeight(.semibold)
-
-        Spacer()
-      }
-      .padding(.leading, 20)
-      .frame(width: 360, height: 120)
-      .overlay(
-        RoundedRectangle(cornerRadius: 10)
-          .stroke(Color.primary, lineWidth: 2)
+    HStack {
+      ProjectImageView(
+        width: 100,
+        height: 100,
+        imageUrl: project.projectImageUrl ?? ""
       )
+
+      Text(project.projectName)
+        .multilineTextAlignment(.leading)
+        .fontWeight(.heavy)
+
+      Spacer()
+
+      Button {
+        // Show Bottom Sheet
+      } label: {
+        Image(systemName: "ellipsis.circle")
+          .imageScale(.large)
+      }
     }
+    .padding()
+    .background(currentMode == .dark ? Color.black : Color.white)
+    .cornerRadius(20)
+    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
+    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
+    .padding(.horizontal)
+    .padding(.top)
   }
 }
 

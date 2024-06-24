@@ -10,6 +10,7 @@ import SwiftUI
 struct ProjectView: View {
   let user: UserModel
   let project: ProjectModel
+  @State private var showSheet = false
 
   var body: some View {
     ScrollView {
@@ -37,11 +38,15 @@ struct ProjectView: View {
         .padding(.top, 5)
       }
     }
+    .scrollIndicators(.never)
+    .sheet(isPresented: $showSheet) {
+      EditProjectView(project: project)
+    }
     .navigationTitle(project.projectName)
     .toolbar {
       ToolbarItem(placement: .topBarTrailing) {
         Button {
-          // Edit Project
+          showSheet.toggle()
         } label: {
           Image(systemName: "pencil")
         }

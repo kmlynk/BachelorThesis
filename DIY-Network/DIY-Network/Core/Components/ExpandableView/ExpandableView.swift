@@ -36,7 +36,7 @@ struct ExpandableView: View {
         .matchedGeometryEffect(id: "view", in: namespace)
     }
     .background(
-      color.opacity(0.7)
+      color
         .matchedGeometryEffect(id: "background", in: namespace)
     )
     .mask {
