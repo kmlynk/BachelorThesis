@@ -79,6 +79,7 @@ struct LibraryService {
     do {
       let step = ProjectStepModel(
         id: NSUUID().uuidString,
+        projectId: project.id,
         stepNumber: stepNumber,
         stepName: stepName,
         stepDesc: stepDesc
@@ -99,6 +100,7 @@ struct LibraryService {
     do {
       let step = ProjectStepModel(
         id: NSUUID().uuidString,
+        projectId: project.id,
         stepNumber: stepNumber,
         stepName: stepName,
         stepDesc: stepDesc,
@@ -120,6 +122,15 @@ struct LibraryService {
       print(
         "DEBUG: Failed to delete project data from database with error \(error.localizedDescription)"
       )
+    }
+  }
+
+  static func deleteStepData(step: ProjectStepModel) async {
+    do {
+      try await projectDB.document(step.projectId).collection("steps").document(step.id).delete()
+    } catch {
+      print(
+        "DEBUG: Failed to delete step data from database with error \(error.localizedDescription)")
     }
   }
 

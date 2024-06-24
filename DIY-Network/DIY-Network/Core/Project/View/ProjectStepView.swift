@@ -110,31 +110,42 @@ struct StepBottomSheet: View {
   @Environment(\.dismiss) var dismiss
   var step: ProjectStepModel
   @State private var showEditView = false
+  @State private var showProgressView = false
 
   var body: some View {
-    List {
-      Button {
-        showEditView.toggle()
-      } label: {
-        HStack(spacing: 10) {
-          Image(systemName: "pencil")
-          Text("Edit Step")
+    if !showProgressView {
+      List {
+        Button {
+          showEditView.toggle()
+        } label: {
+          HStack(spacing: 10) {
+            Image(systemName: "pencil")
+            Text("Edit Step")
+          }
         }
-      }
 
-      Button {
-        print("DEBUG: Delete Step")
-        dismiss()
-      } label: {
-        HStack(spacing: 10) {
-          Image(systemName: "trash.fill")
-          Text("Delete Step")
+        Button {
+          Task {
+            print("DEBUG: Deleting Step...")
+            print("DEBUG: Step Name: \(step.stepName)")
+            print("DEBUG: Project ID: \(step.projectId)")
+            showProgressView.toggle()
+            await LibraryService.deleteStepData(step: step)
+            dismiss()
+          }
+        } label: {
+          HStack(spacing: 10) {
+            Image(systemName: "trash.fill")
+            Text("Delete Step")
+          }
+          .foregroundColor(Color.red)
         }
-        .foregroundColor(Color.red)
       }
-    }
-    .fullScreenCover(isPresented: $showEditView) {
-      EditStepView()
+      .fullScreenCover(isPresented: $showEditView) {
+        EditStepView()
+      }
+    } else {
+      ProgressView("Deleting Step...")
     }
   }
 }
