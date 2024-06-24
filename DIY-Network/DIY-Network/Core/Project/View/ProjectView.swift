@@ -62,31 +62,39 @@ struct ProjectBottomSheet: View {
   @Environment(\.dismiss) var dismiss
   var project: ProjectModel
   @State private var showEditView = false
+  @State private var showProgressView = false
 
   var body: some View {
-    List {
-      Button {
-        showEditView.toggle()
-      } label: {
-        HStack(spacing: 10) {
-          Image(systemName: "pencil")
-          Text("Edit Project")
+    if !showProgressView {
+      List {
+        Button {
+          showEditView.toggle()
+        } label: {
+          HStack(spacing: 10) {
+            Image(systemName: "pencil")
+            Text("Edit Project")
+          }
         }
-      }
 
-      Button {
-        print("DEBUG: Delete Project")
-        dismiss()
-      } label: {
-        HStack(spacing: 10) {
-          Image(systemName: "trash.fill")
-          Text("Delete Project")
+        Button {
+          Task {
+            showProgressView.toggle()
+            await LibraryService.deleteProjectData(project: project)
+            dismiss()
+          }
+        } label: {
+          HStack(spacing: 10) {
+            Image(systemName: "trash.fill")
+            Text("Delete Project")
+          }
+          .foregroundColor(Color.red)
         }
-        .foregroundColor(Color.red)
       }
-    }
-    .fullScreenCover(isPresented: $showEditView) {
-      EditProjectView(project: project)
+      .fullScreenCover(isPresented: $showEditView) {
+        EditProjectView(project: project)
+      }
+    } else {
+      ProgressView("Deleting Project...")
     }
   }
 }

@@ -113,6 +113,19 @@ struct LibraryService {
     }
   }
 
+  static func deleteProjectData(project: ProjectModel) async {
+    do {
+      try await projectDB.document(project.id).delete()
+    } catch {
+      print(
+        "DEBUG: Failed to delete project data from database with error \(error.localizedDescription)"
+      )
+    }
+  }
+
+  /*
+   Sorting algorithm for steps
+   */
   static func mergeSort(arr: [ProjectStepModel]) -> [ProjectStepModel] {
     guard arr.count > 1 else { return arr }
 

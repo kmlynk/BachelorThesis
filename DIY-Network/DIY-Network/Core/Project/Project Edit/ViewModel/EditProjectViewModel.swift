@@ -19,7 +19,4 @@ class EditProjectViewModel: ObservableObject {
     self.project = project
   }
 
-  func deleteProject() async throws {
-    // Delete Project
-  }
 }
