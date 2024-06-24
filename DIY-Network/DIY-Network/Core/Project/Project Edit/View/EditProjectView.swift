@@ -73,23 +73,6 @@ struct EditProjectView: View {
             Text("Save the changes")
           }
           .modifier(InAppButtonModifier(width: 180, height: 50, radius: 30))
-
-          Button {
-            Task {
-              print("DEBUG: Deleting the project...")
-              showProgressView.toggle()
-              try await viewModel.deleteProject()
-            }
-          } label: {
-            VStack {
-              Image(systemName: "trash")
-                .imageScale(.large)
-
-              Text("Delete the project")
-            }
-            .foregroundColor(Color.red)
-          }
-          .padding(.top, 40)
         }
       }
     } else {
