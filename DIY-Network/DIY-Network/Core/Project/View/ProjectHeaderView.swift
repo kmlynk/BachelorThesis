@@ -21,7 +21,7 @@ struct ProjectHeaderView: View {
         .fontWeight(.bold)
         .multilineTextAlignment(.center)
 
-      Divider()
+      ProjectDividerView(minusWidth: 0, height: 1)
     }
     .padding([.top, .horizontal], 15)
   }
