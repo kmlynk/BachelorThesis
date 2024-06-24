@@ -10,6 +10,7 @@ import SwiftUI
 struct ProjectStepView: View {
   @Environment(\.colorScheme) var currentMode
   @StateObject var viewModel: ProjectStepViewModel
+  @State private var showSheet = false
 
   init(project: ProjectModel) {
     self._viewModel = StateObject(wrappedValue: ProjectStepViewModel(project: project))
@@ -22,17 +23,7 @@ struct ProjectStepView: View {
           thumbnail: ThumbnailView(content: {
             VStack {
               VStack {
-                HStack {
-                  Text("Step Number \(step.stepNumber)")
-
-                  Spacer()
-
-                  Button {
-                    // Show Bottom Sheet
-                  } label: {
-                    Image(systemName: "ellipsis.circle")
-                  }
-                }
+                Text("Step Number \(step.stepNumber)")
 
                 ProjectDividerView(minusWidth: 60, height: 0.8)
               }
@@ -47,7 +38,6 @@ struct ProjectStepView: View {
 
                 Text(step.stepName)
                   .frame(maxWidth: .infinity, alignment: .leading)
-                  .foregroundColor(Color.white)
                   .font(.headline)
                   .fontWeight(.semibold)
                   .multilineTextAlignment(.leading)
@@ -59,15 +49,24 @@ struct ProjectStepView: View {
             .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
             .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
             .padding(.horizontal)
-            .padding(.top)
+            .padding(.vertical, 5)
           }),
           expanded: ExpandedView(content: {
             VStack {
-              Text("\(step.stepNumber). \(step.stepName)")
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundColor(Color.white)
-                .font(.footnote)
-                .lineLimit(2)
+              HStack {
+                Text("\(step.stepNumber). \(step.stepName)")
+                  .frame(maxWidth: .infinity, alignment: .leading)
+                  .font(.footnote)
+                  .lineLimit(2)
+
+                Button {
+                  showSheet.toggle()
+                } label: {
+                  Image(systemName: "ellipsis")
+                    .imageScale(.large)
+                    .foregroundColor(Color.blue)
+                }
+              }
 
               ProjectDividerView(minusWidth: 60, height: 0.8)
 
@@ -80,7 +79,6 @@ struct ProjectStepView: View {
                 Text(step.stepDesc)
                   .font(.subheadline)
                   .fontWeight(.semibold)
-                  .foregroundColor(Color.white)
                   .multilineTextAlignment(.leading)
               }
             }
@@ -90,9 +88,14 @@ struct ProjectStepView: View {
             .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
             .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
             .padding(.horizontal)
-            .padding(.top)
+            .padding(.vertical, 5)
           }),
-          color: currentMode == .dark ? Color.black : Color.white)
+          color: currentMode == .dark ? Color.black : Color.white
+        )
+        .sheet(isPresented: $showSheet) {
+          StepBottomSheet(step: step)
+            .presentationDetents([.height(150)])
+        }
       }
     }
     .onAppear(perform: {
@@ -100,6 +103,39 @@ struct ProjectStepView: View {
         try await viewModel.fetchProjectSteps()
       }
     })
+  }
+}
+
+struct StepBottomSheet: View {
+  @Environment(\.dismiss) var dismiss
+  var step: ProjectStepModel
+  @State private var showEditView = false
+
+  var body: some View {
+    List {
+      Button {
+        showEditView.toggle()
+      } label: {
+        HStack(spacing: 10) {
+          Image(systemName: "pencil")
+          Text("Edit Step")
+        }
+      }
+
+      Button {
+        print("DEBUG: Delete Step")
+        dismiss()
+      } label: {
+        HStack(spacing: 10) {
+          Image(systemName: "trash.fill")
+          Text("Delete Step")
+        }
+        .foregroundColor(Color.red)
+      }
+    }
+    .fullScreenCover(isPresented: $showEditView) {
+      EditStepView()
+    }
   }
 }
 
