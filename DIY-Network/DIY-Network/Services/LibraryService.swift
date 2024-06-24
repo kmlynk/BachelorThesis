@@ -115,6 +115,35 @@ struct LibraryService {
     }
   }
 
+  static func updateProjectData(
+    project: ProjectModel, uiImage: UIImage?, name: String, desc: String
+  ) async throws {
+    var data = [String: Any]()
+
+    if let uiImage = uiImage {
+      let imageUrl = try await ImageUploader.uploadImage(withData: uiImage)
+      data["projectImageUrl"] = imageUrl
+    }
+
+    if !name.isEmpty && project.projectName != name {
+      data["projectName"] = name
+    }
+
+    if !desc.isEmpty && project.projectDesc != desc {
+      data["projectDesc"] = desc
+    }
+
+    if !data.isEmpty {
+      do {
+        try await projectDB.document(project.id).updateData(data)
+      } catch {
+        print(
+          "DEBUG: Failed to update project data in database with error \(error.localizedDescription)"
+        )
+      }
+    }
+  }
+
   static func deleteProjectData(project: ProjectModel) async {
     do {
       try await projectDB.document(project.id).delete()

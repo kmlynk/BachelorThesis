@@ -13,9 +13,6 @@ struct EditProjectView: View {
   @EnvironmentObject var authViewModel: AuthViewModel
   @StateObject var viewModel: EditProjectViewModel
   @State private var showProgressView = false
-  @State var selectedImage: PhotosPickerItem?
-  @State var name = ""
-  @State var desc = ""
 
   init(project: ProjectModel) {
     self._viewModel = StateObject(wrappedValue: EditProjectViewModel(project: project))
@@ -46,20 +43,30 @@ struct EditProjectView: View {
 
         ZStack {
           VStack {
-            PhotosPicker(selection: $selectedImage) {
+            PhotosPicker(selection: $viewModel.selectedImage) {
               VStack {
-                ProjectImageView(width: 100, height: 80, imageUrl: "")
+                if let image = viewModel.projectImage {
+                  image
+                    .resizable()
+                    .clipShape(Rectangle())
+                    .frame(width: 180, height: 120)
+                } else {
+                  ProjectImageView(
+                    width: 180, height: 120, imageUrl: viewModel.project.projectImageUrl ?? "")
+                }
 
                 Text("Select a project image")
+                  .font(.footnote)
+                  .fontWeight(.semibold)
               }
             }
             .padding(.top)
 
             VStack {
-              EditProjectRowView(title: "Project Name", placeholder: "Name", text: $name)
+              EditProjectRowView(title: "Project Name", placeholder: "Name", text: $viewModel.name)
 
               EditProjectRowView(
-                title: "Project Description", placeholder: "Description", text: $desc)
+                title: "Project Description", placeholder: "Description", text: $viewModel.desc)
             }
             .padding()
           }
@@ -68,7 +75,11 @@ struct EditProjectView: View {
 
         VStack {
           Button {
-            print("DEBUG: Saving the changes...")
+            Task {
+              showProgressView.toggle()
+              try await viewModel.updateProject()
+              dismiss()
+            }
           } label: {
             Text("Save the changes")
           }
