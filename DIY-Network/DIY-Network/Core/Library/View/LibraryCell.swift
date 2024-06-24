@@ -24,13 +24,6 @@ struct LibraryCell: View {
         .fontWeight(.heavy)
 
       Spacer()
-
-      Button {
-        // Show Bottom Sheet
-      } label: {
-        Image(systemName: "ellipsis.circle")
-          .imageScale(.large)
-      }
     }
     .padding()
     .background(currentMode == .dark ? Color.black : Color.white)
