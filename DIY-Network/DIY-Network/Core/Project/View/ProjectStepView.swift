@@ -89,13 +89,13 @@ struct ProjectStepView: View {
             .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
             .padding(.horizontal)
             .padding(.vertical, 5)
+            .sheet(isPresented: $showSheet) {
+              StepBottomSheet(step: step)
+                .presentationDetents([.height(150)])
+            }
           }),
           color: currentMode == .dark ? Color.black : Color.white
         )
-        .sheet(isPresented: $showSheet) {
-          StepBottomSheet(step: step)
-            .presentationDetents([.height(150)])
-        }
       }
     }
     .onAppear(perform: {
