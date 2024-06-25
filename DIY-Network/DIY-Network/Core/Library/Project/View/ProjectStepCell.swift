@@ -131,7 +131,7 @@ struct StepBottomSheet: View {
         }
       }
       .fullScreenCover(isPresented: $showEditView) {
-        EditStepView()
+        EditStepView(step: step)
       }
     } else {
       ProgressView("Deleting Step...")

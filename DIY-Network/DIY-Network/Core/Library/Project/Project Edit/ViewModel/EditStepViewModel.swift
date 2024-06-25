@@ -13,7 +13,7 @@ import SwiftUI
 class EditStepViewModel: ObservableObject {
   @Published var step: ProjectStepModel
   @Published var selectedImage: PhotosPickerItem? {
-    didSet { Task {} }
+    didSet { Task { await loadImage(fromItem: selectedImage) } }
   }
   @Published var stepImage: Image?
   @Published var number = ""
@@ -25,6 +25,7 @@ class EditStepViewModel: ObservableObject {
   init(step: ProjectStepModel) {
     self.step = step
 
+    self.number = String(step.stepNumber)
     self.name = step.stepName
     self.desc = step.stepDesc
   }
@@ -40,6 +41,12 @@ class EditStepViewModel: ObservableObject {
   }
 
   func updateStep() async throws {
+    guard let stepNumber = Int(number) else {
+      print("DEBUG: There is no step number!")
+      return
+    }
 
+    try await LibraryService.updateStepData(
+      step: step, uiImage: uiImage, number: stepNumber, name: name, desc: desc)
   }
 }

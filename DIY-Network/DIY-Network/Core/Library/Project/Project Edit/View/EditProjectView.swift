@@ -84,7 +84,7 @@ struct EditProjectView: View {
         }
       }
     } else {
-      ProgressView("Deleting the project...")
+      ProgressView("Saving the changes...")
     }
   }
 }

@@ -61,7 +61,11 @@ struct EditStepView: View {
 
           VStack {
             Button {
-              print("DEBUG: Saving the changes...")
+              Task {
+                showProgressView.toggle()
+                try await viewModel.updateStep()
+                dismiss()
+              }
             } label: {
               Text("Save the changes")
             }
@@ -83,7 +87,7 @@ struct EditStepView: View {
         }
       }
     } else {
-      ProgressView("Deleting the step...")
+      ProgressView("Saving the changes...")
     }
   }
 }
