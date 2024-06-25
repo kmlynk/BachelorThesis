@@ -10,7 +10,6 @@ import SwiftUI
 
 struct EditProjectView: View {
   @Environment(\.dismiss) var dismiss
-  @EnvironmentObject var authViewModel: AuthViewModel
   @StateObject var viewModel: EditProjectViewModel
   @State private var showProgressView = false
 
@@ -80,6 +79,7 @@ struct EditProjectView: View {
               Image(systemName: "chevron.left")
                 .imageScale(.large)
             }
+            .foregroundColor(Color.primary)
           }
         }
       }

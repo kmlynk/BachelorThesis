@@ -29,6 +29,8 @@ struct EditStepView: View {
                   ProjectImageView(width: 100, height: 80, imageUrl: "")
 
                   Text("Select a step image")
+                    .font(.footnote)
+                    .fontWeight(.semibold)
                 }
               }
               .padding(.top)
@@ -63,11 +65,12 @@ struct EditStepView: View {
               Image(systemName: "chevron.left")
                 .imageScale(.large)
             }
+            .foregroundColor(Color.primary)
           }
         }
       }
     } else {
-      ProgressView("Deleting the project...")
+      ProgressView("Deleting the step...")
     }
   }
 }

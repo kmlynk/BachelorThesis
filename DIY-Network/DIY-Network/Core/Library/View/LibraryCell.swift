@@ -23,6 +23,7 @@ struct LibraryCell: View {
             showSheet.toggle()
           } label: {
             Image(systemName: "ellipsis")
+              .imageScale(.large)
           }
           .padding(.trailing, 5)
         }
@@ -70,8 +71,10 @@ struct ProjectBottomSheet: View {
         } label: {
           HStack(spacing: 10) {
             Image(systemName: "pencil")
+              .imageScale(.large)
             Text("Edit Project")
           }
+          .foregroundColor(Color.blue)
         }
 
         Button {
@@ -83,6 +86,7 @@ struct ProjectBottomSheet: View {
         } label: {
           HStack(spacing: 10) {
             Image(systemName: "trash.fill")
+              .imageScale(.large)
             Text("Delete Project")
           }
           .foregroundColor(Color.red)

@@ -57,7 +57,6 @@ struct ProjectStepCell: View {
               } label: {
                 Image(systemName: "ellipsis")
                   .imageScale(.large)
-                  .foregroundColor(Color.blue)
               }
             }
 
@@ -110,6 +109,7 @@ struct StepBottomSheet: View {
               .imageScale(.large)
             Text("Edit Step")
           }
+          .foregroundColor(Color.blue)
         }
 
         Button {
