@@ -10,11 +10,13 @@ import SwiftUI
 
 struct EditStepView: View {
   @Environment(\.dismiss) var dismiss
-  @EnvironmentObject var authViewModel: AuthViewModel
+  @StateObject var viewModel: EditStepViewModel
   @State private var showProgressView = false
   @State var selectedImage: PhotosPickerItem?
-  @State var name = ""
-  @State var desc = ""
+
+  init(step: ProjectStepModel) {
+    self._viewModel = StateObject(wrappedValue: EditStepViewModel(step: step))
+  }
 
   var body: some View {
     if !showProgressView {
@@ -24,9 +26,17 @@ struct EditStepView: View {
 
           ZStack {
             VStack {
-              PhotosPicker(selection: $selectedImage) {
+              PhotosPicker(selection: $viewModel.selectedImage) {
                 VStack {
-                  ProjectImageView(width: 100, height: 80, imageUrl: "")
+                  if let image = viewModel.stepImage {
+                    image
+                      .resizable()
+                      .clipShape(Rectangle())
+                      .frame(width: 180, height: 120)
+                  } else {
+                    ProjectImageView(
+                      width: 180, height: 120, imageUrl: viewModel.step.stepImageUrl ?? "")
+                  }
 
                   Text("Select a step image")
                     .font(.footnote)
@@ -36,12 +46,15 @@ struct EditStepView: View {
               .padding(.top)
 
               VStack {
-                EditProjectRowView(title: "Step Name", placeholder: "Name", text: $name)
+                EditProjectRowView(
+                  title: "Step Number", placeholder: "Number", text: $viewModel.number)
+
+                EditProjectRowView(title: "Step Name", placeholder: "Name", text: $viewModel.name)
 
                 EditProjectRowView(
-                  title: "Step Description", placeholder: "Description", text: $desc)
+                  title: "Step Description", placeholder: "Description", text: $viewModel.desc)
               }
-              .padding()
+              .padding(.top)
             }
           }
           .frame(width: UIScreen.main.bounds.width - 10)
@@ -103,5 +116,5 @@ struct EditStepRowView: View {
 }
 
 #Preview{
-  EditStepView()
+  EditStepView(step: ProjectStepModel.MOCK_STEPS[0])
 }
