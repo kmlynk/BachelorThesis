@@ -63,6 +63,7 @@
 		05D703F22C1DF09A00E0C3F7 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D703F12C1DF09A00E0C3F7 /* RegisterView.swift */; };
 		05E0E14D2C2353670079D12C /* LibraryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */; };
 		05E0E14F2C2368290079D12C /* LibraryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0E14E2C2368290079D12C /* LibraryListView.swift */; };
+		05E4F9DD2C2B18B500820243 /* ProjectStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F9DC2C2B18B500820243 /* ProjectStepCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +116,7 @@
 		05D703F12C1DF09A00E0C3F7 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListViewModel.swift; sourceTree = "<group>"; };
 		05E0E14E2C2368290079D12C /* LibraryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListView.swift; sourceTree = "<group>"; };
+		05E4F9DC2C2B18B500820243 /* ProjectStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStepCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -336,6 +338,7 @@
 				055FE0772C238B8C00497DDB /* ProjectHeaderView.swift */,
 				055FE07F2C23B8DA00497DDB /* ProjectStepView.swift */,
 				056D4CC12C1F693400E34094 /* ProjectView.swift */,
+				05E4F9DC2C2B18B500820243 /* ProjectStepCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 				055FE07E2C23B70600497DDB /* ProjectStepViewModel.swift in Sources */,
 				055FE0782C238B8C00497DDB /* ProjectHeaderView.swift in Sources */,
 				05D703F22C1DF09A00E0C3F7 /* RegisterView.swift in Sources */,
+				05E4F9DD2C2B18B500820243 /* ProjectStepCell.swift in Sources */,
 				0514C2602C1B291D00C75560 /* PostProjectView.swift in Sources */,
 				054CF0A12C1E63B6005820A5 /* EditProfileViewModel.swift in Sources */,
 				056D4CAD2C1F34EF00E34094 /* SearchView.swift in Sources */,
