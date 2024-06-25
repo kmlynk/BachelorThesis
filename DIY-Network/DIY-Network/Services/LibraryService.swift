@@ -144,6 +144,39 @@ struct LibraryService {
     }
   }
 
+  static func updateStepData(
+    step: ProjectStepModel, uiImage: UIImage?, number: Int, name: String, desc: String
+  ) async throws {
+    var data = [String: Any]()
+
+    if let uiImage = uiImage {
+      let imageUrl = try await ImageUploader.uploadImage(withData: uiImage)
+      data["stepImageUrl"] = imageUrl
+    }
+
+    if step.stepNumber != number {
+      data["stepNumber"] = number
+    }
+
+    if !name.isEmpty && step.stepName != name {
+      data["stepName"] = name
+    }
+
+    if !desc.isEmpty && step.stepDesc != desc {
+      data["stepDesc"] = desc
+    }
+
+    if !data.isEmpty {
+      do {
+        try await projectDB.document(step.projectId).collection("steps").document(step.id)
+          .updateData(data)
+      } catch {
+        print(
+          "DEBUG: Failed to update step data in database with error \(error.localizedDescription)")
+      }
+    }
+  }
+
   static func deleteProjectData(project: ProjectModel) async {
     do {
       try await projectDB.document(project.id).delete()
