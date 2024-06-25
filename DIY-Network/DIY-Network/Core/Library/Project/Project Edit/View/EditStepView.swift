@@ -18,57 +18,52 @@ struct EditStepView: View {
 
   var body: some View {
     if !showProgressView {
-      ScrollView {
-        HStack {
-          Button {
-            dismiss()
-          } label: {
-            Image(systemName: "chevron.left")
-              .imageScale(.large)
-              .foregroundColor(Color.primary)
-          }
+      NavigationStack {
+        ScrollView {
+          ProjectDividerView(minusWidth: 0, height: 2)
 
-          Spacer()
-
-          Text("Edit")
-            .font(.headline)
-            .fontWeight(.bold)
-
-          Spacer()
-        }
-        .padding()
-
-        ProjectDividerView(minusWidth: 0, height: 2)
-
-        ZStack {
-          VStack {
-            PhotosPicker(selection: $selectedImage) {
-              VStack {
-                ProjectImageView(width: 100, height: 80, imageUrl: "")
-
-                Text("Select a step image")
-              }
-            }
-            .padding(.top)
-
+          ZStack {
             VStack {
-              EditProjectRowView(title: "Step Name", placeholder: "Name", text: $name)
+              PhotosPicker(selection: $selectedImage) {
+                VStack {
+                  ProjectImageView(width: 100, height: 80, imageUrl: "")
 
-              EditProjectRowView(
-                title: "Step Description", placeholder: "Description", text: $desc)
+                  Text("Select a step image")
+                }
+              }
+              .padding(.top)
+
+              VStack {
+                EditProjectRowView(title: "Step Name", placeholder: "Name", text: $name)
+
+                EditProjectRowView(
+                  title: "Step Description", placeholder: "Description", text: $desc)
+              }
+              .padding()
             }
-            .padding()
+          }
+          .frame(width: UIScreen.main.bounds.width - 10)
+
+          VStack {
+            Button {
+              print("DEBUG: Saving the changes...")
+            } label: {
+              Text("Save the changes")
+            }
+            .modifier(InAppButtonModifier(width: 180, height: 50, radius: 30))
           }
         }
-        .frame(width: UIScreen.main.bounds.width - 10)
-
-        VStack {
-          Button {
-            print("DEBUG: Saving the changes...")
-          } label: {
-            Text("Save the changes")
+        .navigationTitle("Edit Step")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+          ToolbarItem(placement: .topBarLeading) {
+            Button {
+              dismiss()
+            } label: {
+              Image(systemName: "chevron.left")
+                .imageScale(.large)
+            }
           }
-          .modifier(InAppButtonModifier(width: 180, height: 50, radius: 30))
         }
       }
     } else {
