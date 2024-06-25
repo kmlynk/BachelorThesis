@@ -20,70 +20,67 @@ struct EditProjectView: View {
 
   var body: some View {
     if !showProgressView {
-      ScrollView {
-        HStack {
-          Button {
-            dismiss()
-          } label: {
-            Image(systemName: "chevron.left")
-              .imageScale(.large)
-          }
+      NavigationStack {
+        ScrollView {
+          ProjectDividerView(minusWidth: 0, height: 2)
 
-          Spacer()
-
-          Text("Edit")
-            .font(.headline)
-            .fontWeight(.bold)
-
-          Spacer()
-        }
-        .padding()
-
-        ProjectDividerView(minusWidth: 0, height: 2)
-
-        ZStack {
-          VStack {
-            PhotosPicker(selection: $viewModel.selectedImage) {
-              VStack {
-                if let image = viewModel.projectImage {
-                  image
-                    .resizable()
-                    .clipShape(Rectangle())
-                    .frame(width: 180, height: 120)
-                } else {
-                  ProjectImageView(
-                    width: 180, height: 120, imageUrl: viewModel.project.projectImageUrl ?? "")
-                }
-
-                Text("Select a project image")
-                  .font(.footnote)
-                  .fontWeight(.semibold)
-              }
-            }
-            .padding(.top)
-
+          ZStack {
             VStack {
-              EditProjectRowView(title: "Project Name", placeholder: "Name", text: $viewModel.name)
+              PhotosPicker(selection: $viewModel.selectedImage) {
+                VStack {
+                  if let image = viewModel.projectImage {
+                    image
+                      .resizable()
+                      .clipShape(Rectangle())
+                      .frame(width: 180, height: 120)
+                  } else {
+                    ProjectImageView(
+                      width: 180, height: 120, imageUrl: viewModel.project.projectImageUrl ?? "")
+                  }
 
-              EditProjectRowView(
-                title: "Project Description", placeholder: "Description", text: $viewModel.desc)
+                  Text("Select a project image")
+                    .font(.footnote)
+                    .fontWeight(.semibold)
+                }
+              }
+              .padding(.top)
+
+              VStack {
+                EditProjectRowView(
+                  title: "Project Name", placeholder: "Name", text: $viewModel.name)
+
+                EditProjectRowView(
+                  title: "Project Description", placeholder: "Description", text: $viewModel.desc)
+              }
+              .padding()
             }
-            .padding()
+          }
+          .frame(width: UIScreen.main.bounds.width - 10)
+
+          VStack {
+            Button {
+              Task {
+                showProgressView.toggle()
+                try await viewModel.updateProject()
+                dismiss()
+              }
+            } label: {
+              Text("Save the changes")
+            }
+            .modifier(InAppButtonModifier(width: 180, height: 50, radius: 30))
           }
         }
-        .frame(width: UIScreen.main.bounds.width - 10)
-
-        VStack {
-          Button {
-            Task {
-              showProgressView.toggle()
-              try await viewModel.updateProject()
+        .navigationTitle("Edit Project")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+          ToolbarItem(placement: .topBarLeading) {
+            Button {
               dismiss()
+            } label: {
+              Image(systemName: "chevron.left")
+                .imageScale(.large)
             }
-          } label: {
-            Text("Save the changes")
           }
-          .modifier(InAppButtonModifier(width: 180, height: 50, radius: 30))
         }
       }
     } else {
