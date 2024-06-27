@@ -21,62 +21,70 @@ struct AddProjectStepView: View {
 
   var body: some View {
     if !showProgressView {
-      ScrollView {
-        PhotosPicker(selection: $viewModel.selectedImage) {
+      NavigationStack {
+        ScrollView {
+          ProjectDividerView(minusWidth: 0, height: 2)
+
+          PhotosPicker(selection: $viewModel.selectedImage) {
+            VStack {
+              if let image = viewModel.stepImage {
+                image
+                  .resizable()
+                  .clipShape(Rectangle())
+                  .frame(width: 100, height: 80)
+              } else {
+                ProjectImageView(width: 100, height: 80, imageUrl: "")
+              }
+
+              Text("Add a Image to the Step")
+                .font(.footnote)
+                .fontWeight(.semibold)
+            }
+          }
+          .padding(.vertical)
+
           VStack {
-            if let image = viewModel.stepImage {
-              image
-                .resizable()
-                .clipShape(Rectangle())
-                .frame(width: 100, height: 80)
-            } else {
-              ProjectImageView(width: 100, height: 80, imageUrl: "")
+            AddProjectStepRowView(
+              title: "Step Number",
+              placeholder: "Number",
+              text: $viewModel.number)
+
+            AddProjectStepRowView(
+              title: "Step Name",
+              placeholder: "Name",
+              text: $viewModel.name)
+
+            AddProjectStepRowView(
+              title: "Step Description",
+              placeholder: "Description",
+              text: $viewModel.desc)
+
+            Button {
+              Task {
+                showProgressView.toggle()
+                try await viewModel.createNewStep()
+                dismiss()
+              }
+            } label: {
+              Text("Create the Step")
             }
-
-            Text("Add a Image to the Step")
-              .font(.footnote)
-              .fontWeight(.semibold)
+            .modifier(InAppButtonModifier(width: 160, height: 44, radius: 30))
+            .padding(.vertical)
           }
+          .padding()
         }
-        .padding(.vertical)
-
-        VStack {
-          AddProjectStepRowView(
-            title: "Step Number",
-            placeholder: "Number",
-            text: $viewModel.number)
-
-          AddProjectStepRowView(
-            title: "Step Name",
-            placeholder: "Name",
-            text: $viewModel.name)
-
-          AddProjectStepRowView(
-            title: "Step Description",
-            placeholder: "Description",
-            text: $viewModel.desc)
-
-          Button {
-            Task {
-              showProgressView.toggle()
-              try await viewModel.createNewStep()
+        .scrollIndicators(.never)
+        .navigationTitle("Create a Step")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+          ToolbarItem(placement: .topBarLeading) {
+            Button {
               dismiss()
+            } label: {
+              Image(systemName: "xmark")
             }
-          } label: {
-            Text("Create the Step")
-          }
-          .modifier(InAppButtonModifier(width: 160, height: 44, radius: 30))
-        }
-        .padding()
-      }
-      .navigationTitle("Create a Step")
-      .navigationBarBackButtonHidden()
-      .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          Button {
-            dismiss()
-          } label: {
-            Image(systemName: "xmark")
+            .foregroundColor(Color.primary)
           }
         }
       }
@@ -87,28 +95,38 @@ struct AddProjectStepView: View {
 }
 
 struct AddProjectStepRowView: View {
+  @Environment(\.colorScheme) var currentMode
   let title: String
   let placeholder: String
   @Binding var text: String
 
   var body: some View {
-    VStack(spacing: 10) {
-      HStack {
-        Text(title)
-          .fontWeight(.semibold)
+    ZStack {
+      VStack {
+        HStack {
+          Text(title)
+            .fontWeight(.semibold)
 
-        Spacer()
+          Spacer()
+        }
+
+        HStack {
+          TextField(placeholder, text: $text, axis: .vertical)
+            .multilineTextAlignment(.leading)
+        }
+        .font(.subheadline)
+
+        Divider()
       }
-
-      HStack {
-        TextField(placeholder, text: $text, axis: .vertical)
-          .multilineTextAlignment(.leading)
-      }
-
-      Divider()
+      .padding()
     }
-    .font(.subheadline)
-    .padding()
+    .mask {
+      RoundedRectangle(cornerRadius: 20, style: .continuous)
+    }
+    .background(currentMode == .dark ? Color.black : Color.white)
+    .cornerRadius(20)
+    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
+    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
   }
 }
 
