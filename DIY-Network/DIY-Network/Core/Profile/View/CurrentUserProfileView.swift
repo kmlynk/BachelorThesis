@@ -15,9 +15,15 @@ struct CurrentUserProfileView: View {
     .init(.flexible(), spacing: 5),
     .init(.flexible(), spacing: 5)
   ]
+  
+  private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 2) - 1
 
   var body: some View {
     let user = authViewModel.currentUser
+    
+    var posts: [PostModel] {
+      return PostModel.MOCK_POSTS.filter({ $0.user?.username == user?.username })
+    }
 
     NavigationStack {
       ScrollView {
@@ -61,8 +67,12 @@ struct CurrentUserProfileView: View {
             .padding(.vertical, 5)
           
           LazyVGrid(columns: gridItems, spacing: 5) {
-            ForEach(0 ... 15, id: \.self) { index in
-              ProjectImageView(width: 190, height: 200, imageUrl: user?.profileImageUrl ?? "")
+            ForEach(posts) { post in
+              Image(post.imageUrl)
+                .resizable()
+                .scaledToFill()
+                .frame(width: imageDimension, height: imageDimension)
+                .clipped()
             }
           }
         }

@@ -8,30 +8,30 @@
 import SwiftUI
 
 struct FeedView: View {
-    var body: some View {
-      NavigationStack {
-        ScrollView {
-          LazyVStack(spacing: 32) {
-            ForEach(0...10, id: \.self) { post in
-              FeedCell()
-            }
+  var body: some View {
+    NavigationStack {
+      ScrollView {
+        LazyVStack(spacing: 32) {
+          ForEach(PostModel.MOCK_POSTS) { post in
+            FeedCell(post: post)
           }
-          .padding(.top, 8)
         }
-        .scrollIndicators(.never)
-        .navigationTitle("Feed")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-          ToolbarItem(placement: .topBarLeading) {
-            Text("DIY Network")
-              .font(.subheadline)
-              .fontWeight(.bold)
-          }
+        .padding(.top, 8)
+      }
+      .scrollIndicators(.never)
+      .navigationTitle("Feed")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          Text("DIY Network")
+            .font(.subheadline)
+            .fontWeight(.bold)
         }
       }
     }
+  }
 }
 
-#Preview {
-    FeedView()
+#Preview{
+  FeedView()
 }
