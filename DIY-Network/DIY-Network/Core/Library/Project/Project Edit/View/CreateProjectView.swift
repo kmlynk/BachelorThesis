@@ -19,98 +19,107 @@ struct CreateProjectView: View {
   }
 
   var body: some View {
-    if showProgressView {
-      ProgressView("Creating Project...")
-    } else {
-      ScrollView {
-        VStack {
-          HStack {
-            Button("Cancel") {
-              dismiss()
+    if !showProgressView {
+      NavigationStack {
+        ScrollView {
+          ProjectDividerView(minusWidth: 0, height: 2)
+          
+          PhotosPicker(selection: $viewModel.selectedImage) {
+            VStack {
+              if let image = viewModel.projectImage {
+                image
+                  .resizable()
+                  .clipShape(Rectangle())
+                  .frame(width: 100, height: 80)
+              } else {
+                ProjectImageView(width: 100, height: 80, imageUrl: "")
+              }
+
+              Text("Add a Project Picture")
+                .font(.footnote)
+                .fontWeight(.semibold)
             }
+          }
+          .padding(.vertical)
 
-            Spacer()
+          VStack {
+            CreateProjectRowView(
+              title: "Project Name",
+              placeholder: "Name",
+              text: $viewModel.projectName)
 
-            Text("Create a Project")
-              .font(.subheadline)
-              .fontWeight(.semibold)
+            CreateProjectRowView(
+              title: "Project Describtion",
+              placeholder: "Describtion",
+              text: $viewModel.projectDesc)
 
-            Spacer()
-
-            Button("Done") {
+            Button {
               Task {
-                showProgressView = true
+                showProgressView.toggle()
                 try await viewModel.createNewProject()
-                showProgressView = false
                 dismiss()
               }
+            } label: {
+              Text("Create the project")
             }
-            .font(.subheadline)
-            .fontWeight(.bold)
+            .modifier(InAppButtonModifier(width: 160, height: 44, radius: 30))
+            .padding(.vertical)
           }
-          .padding(.horizontal)
+          .padding()
         }
-        .padding(.vertical)
-
-        Divider()
-
-        PhotosPicker(selection: $viewModel.selectedImage) {
-          VStack {
-            if let image = viewModel.projectImage {
-              image
-                .resizable()
-                .clipShape(Rectangle())
-                .frame(width: 100, height: 80)
-            } else {
-              ProjectImageView(width: 100, height: 80, imageUrl: "")
+        .scrollIndicators(.never)
+        .navigationTitle("Create a Project")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+          ToolbarItem(placement: .topBarLeading) {
+            Button {
+              dismiss()
+            } label: {
+              Image(systemName: "xmark")
             }
-
-            Text("Add a Project Picture")
-              .font(.footnote)
-              .fontWeight(.semibold)
+            .foregroundColor(Color.primary)
           }
-        }
-        .padding(.vertical, 10)
-
-        VStack(spacing: 10) {
-          CreateProjectRowView(
-            title: "Project Name",
-            placeholder: "Name",
-            text: $viewModel.projectName)
-
-          CreateProjectRowView(
-            title: "Project Describtion",
-            placeholder: "Describtion",
-            text: $viewModel.projectDesc)
         }
       }
+    } else {
+      ProgressView("Creating the project...")
     }
   }
 }
 
 struct CreateProjectRowView: View {
+  @Environment(\.colorScheme) var currentMode
   let title: String
   let placeholder: String
   @Binding var text: String
 
   var body: some View {
-    VStack(spacing: 10) {
-      HStack {
-        Text(title)
-          .fontWeight(.semibold)
+    ZStack {
+      VStack {
+        HStack {
+          Text(title)
+            .fontWeight(.semibold)
 
-        Spacer()
+          Spacer()
+        }
+
+        HStack {
+          TextField(placeholder, text: $text, axis: .vertical)
+            .multilineTextAlignment(.leading)
+        }
+        .font(.subheadline)
+
+        Divider()
       }
-
-      HStack {
-        TextField(placeholder, text: $text, axis: .vertical)
-          .multilineTextAlignment(.leading)
-      }
-
-      Divider()
+      .padding()
     }
-    .font(.subheadline)
-    .padding()
+    .mask {
+      RoundedRectangle(cornerRadius: 20, style: .continuous)
+    }
+    .background(currentMode == .dark ? Color.black : Color.white)
+    .cornerRadius(20)
+    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
+    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
   }
 }
 
