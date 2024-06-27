@@ -24,42 +24,34 @@ struct EditStepView: View {
         ScrollView {
           ProjectDividerView(minusWidth: 0, height: 2)
 
-          ZStack {
+          PhotosPicker(selection: $viewModel.selectedImage) {
             VStack {
-              PhotosPicker(selection: $viewModel.selectedImage) {
-                VStack {
-                  if let image = viewModel.stepImage {
-                    image
-                      .resizable()
-                      .clipShape(Rectangle())
-                      .frame(width: 180, height: 120)
-                  } else {
-                    ProjectImageView(
-                      width: 180, height: 120, imageUrl: viewModel.step.stepImageUrl ?? "")
-                  }
-
-                  Text("Select a step image")
-                    .font(.footnote)
-                    .fontWeight(.semibold)
-                }
+              if let image = viewModel.stepImage {
+                image
+                  .resizable()
+                  .clipShape(Rectangle())
+                  .frame(width: 180, height: 120)
+              } else {
+                ProjectImageView(
+                  width: 180, height: 120, imageUrl: viewModel.step.stepImageUrl ?? "")
               }
-              .padding(.top)
 
-              VStack {
-                EditProjectRowView(
-                  title: "Step Number", placeholder: "Number", text: $viewModel.number)
-
-                EditProjectRowView(title: "Step Name", placeholder: "Name", text: $viewModel.name)
-
-                EditProjectRowView(
-                  title: "Step Description", placeholder: "Description", text: $viewModel.desc)
-              }
-              .padding(.top)
+              Text("Select a step image")
+                .font(.footnote)
+                .fontWeight(.semibold)
             }
           }
-          .frame(width: UIScreen.main.bounds.width - 10)
+          .padding(.vertical)
 
           VStack {
+            EditStepRowView(
+              title: "Step Number", placeholder: "Number", text: $viewModel.number)
+
+            EditStepRowView(title: "Step Name", placeholder: "Name", text: $viewModel.name)
+
+            EditStepRowView(
+              title: "Step Description", placeholder: "Description", text: $viewModel.desc)
+
             Button {
               Task {
                 showProgressView.toggle()
@@ -69,9 +61,12 @@ struct EditStepView: View {
             } label: {
               Text("Save the changes")
             }
-            .modifier(InAppButtonModifier(width: 180, height: 50, radius: 30))
+            .modifier(InAppButtonModifier(width: 160, height: 50, radius: 30))
+            .padding(.vertical)
           }
+          .padding()
         }
+        .scrollIndicators(.never)
         .navigationTitle("Edit Step")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -79,7 +74,7 @@ struct EditStepView: View {
             Button {
               dismiss()
             } label: {
-              Image(systemName: "chevron.left")
+              Image(systemName: "xmark")
                 .imageScale(.large)
             }
             .foregroundColor(Color.primary)
@@ -93,29 +88,39 @@ struct EditStepView: View {
 }
 
 struct EditStepRowView: View {
+  @Environment(\.colorScheme) var currentMode
   let title: String
   let placeholder: String
   @Binding var text: String
 
   var body: some View {
-    VStack {
-      HStack {
-        Text(title)
-          .font(.headline)
-          .fontWeight(.semibold)
+    ZStack {
+      VStack {
+        HStack {
+          Text(title)
+            .font(.headline)
+            .fontWeight(.semibold)
 
-        Spacer()
+          Spacer()
+        }
+
+        HStack {
+          TextField(placeholder, text: $text, axis: .vertical)
+            .multilineTextAlignment(.leading)
+        }
+        .font(.subheadline)
+
+        Divider()
       }
-
-      HStack {
-        TextField(placeholder, text: $text, axis: .vertical)
-          .multilineTextAlignment(.leading)
-          .font(.subheadline)
-      }
-
-      ProjectDividerView(minusWidth: 30, height: 1)
+      .padding()
     }
-    .padding(.vertical, 10)
+    .mask {
+      RoundedRectangle(cornerRadius: 20, style: .continuous)
+    }
+    .background(currentMode == .dark ? Color.black : Color.white)
+    .cornerRadius(20)
+    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
+    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
   }
 }
 
