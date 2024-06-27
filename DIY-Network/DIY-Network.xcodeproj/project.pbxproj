@@ -49,6 +49,7 @@
 		056D4CC62C1FA9E100E34094 /* CreateProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CC52C1FA9E100E34094 /* CreateProjectView.swift */; };
 		057CBEE72C29A2B0004D3D5F /* EditStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CBEE62C29A2B0004D3D5F /* EditStepViewModel.swift */; };
 		05A30C1F2C29008800B5843E /* EditStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A30C1E2C29008800B5843E /* EditStepView.swift */; };
+		05AEE78E2C2D00180071C8F9 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AEE78D2C2D00180071C8F9 /* PostModel.swift */; };
 		05AFD3522C223D060086C672 /* CreateProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AFD3512C223D060086C672 /* CreateProjectViewModel.swift */; };
 		05AFD3542C224CCD0086C672 /* LibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AFD3532C224CCD0086C672 /* LibraryService.swift */; };
 		05B255552C2621C00084F5C3 /* InAppButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B255542C2621C00084F5C3 /* InAppButtonModifier.swift */; };
@@ -102,6 +103,7 @@
 		056D4CC52C1FA9E100E34094 /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
 		057CBEE62C29A2B0004D3D5F /* EditStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStepViewModel.swift; sourceTree = "<group>"; };
 		05A30C1E2C29008800B5843E /* EditStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStepView.swift; sourceTree = "<group>"; };
+		05AEE78D2C2D00180071C8F9 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		05AFD3512C223D060086C672 /* CreateProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewModel.swift; sourceTree = "<group>"; };
 		05AFD3532C224CCD0086C672 /* LibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryService.swift; sourceTree = "<group>"; };
 		05B255542C2621C00084F5C3 /* InAppButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppButtonModifier.swift; sourceTree = "<group>"; };
@@ -197,9 +199,10 @@
 			isa = PBXGroup;
 			children = (
 				0514C2642C1B297A00C75560 /* ImageModel.swift */,
-				0514C2662C1B32AC00C75560 /* UserModel.swift */,
+				05AEE78D2C2D00180071C8F9 /* PostModel.swift */,
 				056D4CB22C1F45E100E34094 /* ProjectModel.swift */,
 				056D4CB62C1F506C00E34094 /* ProjectStepModel.swift */,
+				0514C2662C1B32AC00C75560 /* UserModel.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -607,6 +610,7 @@
 				0514C2622C1B295C00C75560 /* PostProjectViewModel.swift in Sources */,
 				055FE07C2C23A50800497DDB /* AddProjectStepViewModel.swift in Sources */,
 				056D4CC62C1FA9E100E34094 /* CreateProjectView.swift in Sources */,
+				05AEE78E2C2D00180071C8F9 /* PostModel.swift in Sources */,
 				056D4CC22C1F693400E34094 /* ProjectView.swift in Sources */,
 				056D4CB72C1F506C00E34094 /* ProjectStepModel.swift in Sources */,
 				055FE0852C24EF1900497DDB /* ExpandableView.swift in Sources */,
