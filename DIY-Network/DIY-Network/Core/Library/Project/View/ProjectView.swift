@@ -10,6 +10,7 @@ import SwiftUI
 struct ProjectView: View {
   let user: UserModel
   let project: ProjectModel
+  @State private var showAddStep = false
 
   var body: some View {
     ScrollView {
@@ -18,28 +19,25 @@ struct ProjectView: View {
 
         ProjectStepView(project: project)
           .padding(.horizontal)
-
-        VStack {
-          NavigationLink {
-            AddProjectStepView(user: user, project: project)
-          } label: {
-            VStack(spacing: 5) {
-              Image(systemName: "plus.circle")
-                .resizable()
-                .frame(width: 30, height: 30)
-
-              Text("Add a Step")
-                .font(.callout)
-                .fontWeight(.semibold)
-            }
-            .foregroundColor(Color.blue)
-          }
-        }
-        .padding(.top, 5)
       }
     }
     .scrollIndicators(.never)
     .navigationTitle(project.projectName)
+    .navigationBarTitleDisplayMode(.inline)
+    .toolbar {
+      ToolbarItem {
+        Button {
+          showAddStep.toggle()
+        } label: {
+          Image(systemName: "plus")
+            .imageScale(.large)
+            .foregroundColor(Color.primary)
+        }
+      }
+    }
+    .fullScreenCover(isPresented: $showAddStep) {
+      AddProjectStepView(user: user, project: project)
+    }
   }
 }
 
