@@ -24,12 +24,23 @@ extension PostModel {
     .init(
       id: NSUUID().uuidString,
       ownerId: "h9FV9ysmbOff2ZefQJEhjVs3yXi1",
-      projectId: "70293A4D-2BCC-4696-ACFB-B644B3BC5870",
-      imageUrl:
-        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2F99B838C4-785F-4D2F-A86E-5473BA78D1A4?alt=media&token=695015fe-453d-42e2-92da-9b3f207a9068",
+      projectId: "C2AEDABC-3A3A-4BDF-A2ED-AB2C8F54A4C3",
+      imageUrl: "panda",
       caption: "This is a test caption for a test project",
       likes: 1938,
-      timestamp: Timestamp()
-    )
+      timestamp: Timestamp(),
+      user: UserModel.MOCK_USERS[0]
+    ),
+
+    .init(
+      id: NSUUID().uuidString,
+      ownerId: "EVihsvJEqsNADP3bU0RnFXKtHwO2",
+      projectId: "F7DBC26E-DB31-412D-92AB-03D944DFB0B5",
+      imageUrl: "duck",
+      caption: "I am a duck and I am graduated",
+      likes: 10335,
+      timestamp: Timestamp(),
+      user: UserModel.MOCK_USERS[1]
+    ),
   ]
 }
