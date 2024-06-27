@@ -25,7 +25,7 @@ struct MainTabView: View {
         }
         .tag("Search")
 
-      Text("Post Project")
+      PostProjectView(user: user)
         .tabItem {
           Image(systemName: "plus.square")
         }
