@@ -36,4 +36,24 @@ class PostDetailsViewModel: ObservableObject {
     self.uiImage = uiImage
     self.postImage = Image(uiImage: uiImage)
   }
+
+  func createPost() async throws {
+    if let uiImage = uiImage {
+      guard let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) else { return }
+
+      try await PostService.uploadPostData(
+        ownerId: project.ownerId,
+        projectId: project.id,
+        imageUrl: imageUrl,
+        caption: caption
+      )
+    } else {
+      try await PostService.uploadPostData(
+        ownerId: project.ownerId,
+        projectId: project.id,
+        imageUrl: project.projectImageUrl ?? "",
+        caption: caption
+      )
+    }
+  }
 }
