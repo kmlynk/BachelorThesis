@@ -38,6 +38,7 @@ struct EditProjectView: View {
               Text("Select a project image")
                 .font(.footnote)
                 .fontWeight(.semibold)
+                .foregroundColor(Color.blue)
             }
           }
           .padding(.vertical)
