@@ -1,16 +1,16 @@
 //
-//  PostProjectView.swift
+//  TestView.swift
 //  DIY-Network
 //
-//  Created by Kamil Uyanık on 13.06.24.
+//  Created by Kamil Uyanık on 27.06.24.
 //
 
+import SwiftUI
 import Kingfisher
 import PhotosUI
-import SwiftUI
 
-struct PostProjectView: View {
-  @StateObject var viewModel = PostProjectViewModel()
+struct TestView: View {
+  @StateObject var viewModel = TestViewModel()
 
   var body: some View {
     NavigationStack {
@@ -45,6 +45,6 @@ struct PostProjectView: View {
   }
 }
 
-#Preview{
-  PostProjectView()
+#Preview {
+    TestView()
 }

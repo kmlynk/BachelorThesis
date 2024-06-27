@@ -1,8 +1,8 @@
 //
-//  PostProjectViewModel.swift
+//  TestViewModel.swift
 //  DIY-Network
 //
-//  Created by Kamil Uyanık on 13.06.24.
+//  Created by Kamil Uyanık on 27.06.24.
 //
 
 import Firebase
@@ -12,7 +12,7 @@ import PhotosUI
 import SwiftUI
 
 @MainActor
-class PostProjectViewModel: ObservableObject {
+class TestViewModel: ObservableObject {
   @Published var images = [ImageModel]()
   @Published var selectedItem: PhotosPickerItem? {
     didSet { Task { try await uploadImage() } }

@@ -13,7 +13,7 @@ struct MainTabView: View {
 
   var body: some View {
     TabView(selection: $selectedTab) {
-      Text("Feed")
+      TestView()
         .tabItem {
           Image(systemName: "house")
         }
@@ -25,7 +25,7 @@ struct MainTabView: View {
         }
         .tag("Search")
 
-      PostProjectView()
+      Text("Post Project")
         .tabItem {
           Image(systemName: "plus.square")
         }
