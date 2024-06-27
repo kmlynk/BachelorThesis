@@ -23,40 +23,32 @@ struct EditProjectView: View {
         ScrollView {
           ProjectDividerView(minusWidth: 0, height: 2)
 
-          ZStack {
+          PhotosPicker(selection: $viewModel.selectedImage) {
             VStack {
-              PhotosPicker(selection: $viewModel.selectedImage) {
-                VStack {
-                  if let image = viewModel.projectImage {
-                    image
-                      .resizable()
-                      .clipShape(Rectangle())
-                      .frame(width: 180, height: 120)
-                  } else {
-                    ProjectImageView(
-                      width: 180, height: 120, imageUrl: viewModel.project.projectImageUrl ?? "")
-                  }
-
-                  Text("Select a project image")
-                    .font(.footnote)
-                    .fontWeight(.semibold)
-                }
+              if let image = viewModel.projectImage {
+                image
+                  .resizable()
+                  .clipShape(Rectangle())
+                  .frame(width: 180, height: 120)
+              } else {
+                ProjectImageView(
+                  width: 180, height: 120, imageUrl: viewModel.project.projectImageUrl ?? "")
               }
-              .padding(.top)
 
-              VStack {
-                EditProjectRowView(
-                  title: "Project Name", placeholder: "Name", text: $viewModel.name)
-
-                EditProjectRowView(
-                  title: "Project Description", placeholder: "Description", text: $viewModel.desc)
-              }
-              .padding()
+              Text("Select a project image")
+                .font(.footnote)
+                .fontWeight(.semibold)
             }
           }
-          .frame(width: UIScreen.main.bounds.width - 10)
+          .padding(.vertical)
 
           VStack {
+            EditProjectRowView(
+              title: "Project Name", placeholder: "Name", text: $viewModel.name)
+
+            EditProjectRowView(
+              title: "Project Description", placeholder: "Description", text: $viewModel.desc)
+
             Button {
               Task {
                 showProgressView.toggle()
@@ -66,9 +58,12 @@ struct EditProjectView: View {
             } label: {
               Text("Save the changes")
             }
-            .modifier(InAppButtonModifier(width: 180, height: 50, radius: 30))
+            .modifier(InAppButtonModifier(width: 160, height: 50, radius: 30))
+            .padding(.vertical)
           }
+          .padding()
         }
+        .scrollIndicators(.never)
         .navigationTitle("Edit Project")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -76,7 +71,7 @@ struct EditProjectView: View {
             Button {
               dismiss()
             } label: {
-              Image(systemName: "chevron.left")
+              Image(systemName: "xmark")
                 .imageScale(.large)
             }
             .foregroundColor(Color.primary)
@@ -90,29 +85,38 @@ struct EditProjectView: View {
 }
 
 struct EditProjectRowView: View {
+  @Environment(\.colorScheme) var currentMode
   let title: String
   let placeholder: String
   @Binding var text: String
 
   var body: some View {
-    VStack {
-      HStack {
-        Text(title)
-          .font(.headline)
-          .fontWeight(.semibold)
+    ZStack {
+      VStack {
+        HStack {
+          Text(title)
+            .fontWeight(.semibold)
 
-        Spacer()
+          Spacer()
+        }
+
+        HStack {
+          TextField(placeholder, text: $text, axis: .vertical)
+            .multilineTextAlignment(.leading)
+        }
+        .font(.subheadline)
+
+        Divider()
       }
-
-      HStack {
-        TextField(placeholder, text: $text, axis: .vertical)
-          .multilineTextAlignment(.leading)
-          .font(.subheadline)
-      }
-
-      ProjectDividerView(minusWidth: 30, height: 1)
+      .padding()
     }
-    .padding(.vertical, 10)
+    .mask {
+      RoundedRectangle(cornerRadius: 20, style: .continuous)
+    }
+    .background(currentMode == .dark ? Color.black : Color.white)
+    .cornerRadius(20)
+    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
+    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
   }
 }
 
