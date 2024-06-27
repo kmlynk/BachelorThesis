@@ -12,8 +12,7 @@ struct EditStepView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: EditStepViewModel
   @State private var showProgressView = false
-  @State var selectedImage: PhotosPickerItem?
-
+  
   init(step: ProjectStepModel) {
     self._viewModel = StateObject(wrappedValue: EditStepViewModel(step: step))
   }

@@ -12,7 +12,6 @@ struct CreateProjectView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: CreateProjectViewModel
   @State private var showProgressView = false
-  @State var selectedImage: PhotosPickerItem?
 
   init(user: UserModel) {
     self._viewModel = StateObject(wrappedValue: CreateProjectViewModel(user: user))
@@ -76,6 +75,7 @@ struct CreateProjectView: View {
               dismiss()
             } label: {
               Image(systemName: "xmark")
+                .imageScale(.large)
             }
             .foregroundColor(Color.primary)
           }

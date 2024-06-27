@@ -12,7 +12,6 @@ struct AddProjectStepView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: AddProjectStepViewModel
   @State private var showProgressView = false
-  @State var selectedImage: PhotosPickerItem?
 
   init(user: UserModel, project: ProjectModel) {
     self._viewModel = StateObject(
@@ -68,7 +67,7 @@ struct AddProjectStepView: View {
             } label: {
               Text("Create the Step")
             }
-            .modifier(InAppButtonModifier(width: 160, height: 44, radius: 30))
+            .modifier(InAppButtonModifier(width: 160, height: 50, radius: 30))
             .padding(.vertical)
           }
           .padding()
@@ -83,6 +82,7 @@ struct AddProjectStepView: View {
               dismiss()
             } label: {
               Image(systemName: "xmark")
+                .imageScale(.large)
             }
             .foregroundColor(Color.primary)
           }
