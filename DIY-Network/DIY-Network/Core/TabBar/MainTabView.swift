@@ -18,7 +18,7 @@ struct MainTabView: View {
           Image(systemName: "house")
         }
         .tag("Feed")
-      
+
       SearchView()
         .tabItem {
           Image(systemName: "magnifyingglass")
@@ -37,7 +37,7 @@ struct MainTabView: View {
         }
         .tag("Library")
 
-      CurrentUserProfileView()
+      CurrentUserProfileView(user: user)
         .tabItem {
           Image(systemName: "person")
         }

@@ -5,80 +5,56 @@
 //  Created by Kamil Uyanık on 15.06.24.
 //
 
+import Kingfisher
 import SwiftUI
 
 struct CurrentUserProfileView: View {
   @EnvironmentObject var authViewModel: AuthViewModel
+  @StateObject var viewModel: ProfileViewModel
   @State private var showEditProfile = false
-  
+
+  init(user: UserModel) {
+    self._viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
+  }
+
   private let gridItems: [GridItem] = [
     .init(.flexible(), spacing: 5),
-    .init(.flexible(), spacing: 5)
+    .init(.flexible(), spacing: 5),
   ]
-  
+
   private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 2) - 1
 
   var body: some View {
-    let user = authViewModel.currentUser
-    
-    var posts: [PostModel] {
-      return PostModel.MOCK_POSTS.filter({ $0.user?.username == user?.username })
-    }
-
     NavigationStack {
       ScrollView {
-        VStack(spacing: 10) {
-          HStack {
-            CircularProfileImageView(size: 80, imageUrl: user?.profileImageUrl ?? "")
-          }
-          .padding(.top, 10)
+        ProfileHeaderView(user: viewModel.user)
 
-          VStack(spacing: 5) {
-            if let fullname = user?.fullname {
-              Text(fullname)
-                .font(.footnote)
-                .fontWeight(.semibold)
-            }
+        Button {
+          showEditProfile.toggle()
+        } label: {
+          Text("Edit Profile")
+            .font(.subheadline)
+            .fontWeight(.semibold)
+            .frame(width: 360, height: 32)
+            .foregroundColor(Color.primary)
+            .overlay(
+              RoundedRectangle(cornerRadius: 10)
+                .stroke(Color.gray, lineWidth: 1)
+            )
+        }
 
-            if let bio = user?.bio {
-              Text(bio)
-                .font(.footnote)
-            }
-          }
-          .frame(maxWidth: .infinity)
-          .multilineTextAlignment(.center)
-          .padding(.horizontal)
+        ProjectDividerView(minusWidth: 0, height: 2)
+          .padding(.vertical, 5)
 
-          Button {
-            showEditProfile.toggle()
-          } label: {
-            Text("Edit Profile")
-              .font(.subheadline)
-              .fontWeight(.semibold)
-              .frame(width: 360, height: 32)
-              .foregroundColor(Color.primary)
-              .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                  .stroke(Color.gray, lineWidth: 1)
-              )
-          }
-
-          ProjectDividerView(minusWidth: 0, height: 2)
-            .padding(.vertical, 5)
-          
-          LazyVGrid(columns: gridItems, spacing: 5) {
-            ForEach(posts) { post in
-              Image(post.imageUrl)
-                .resizable()
-                .scaledToFill()
-                .frame(width: imageDimension, height: imageDimension)
-                .clipped()
-            }
+        LazyVGrid(columns: gridItems, spacing: 5) {
+          ForEach(viewModel.sortedPosts) { post in
+            KFImage(URL(string: post.imageUrl))
+              .resizable()
+              .scaledToFill()
+              .frame(width: imageDimension, height: imageDimension)
+              .clipped()
           }
         }
-      }
-      .fullScreenCover(isPresented: $showEditProfile) {
-        EditProfileView(user: user!)
       }
       .navigationTitle("Profile")
       .navigationBarTitleDisplayMode(.inline)
@@ -93,10 +69,13 @@ struct CurrentUserProfileView: View {
           }
         }
       }
+      .fullScreenCover(isPresented: $showEditProfile) {
+        EditProfileView(user: viewModel.user)
+      }
     }
   }
 }
 
 #Preview{
-  CurrentUserProfileView()
+  CurrentUserProfileView(user: UserModel.MOCK_USERS[0])
 }
