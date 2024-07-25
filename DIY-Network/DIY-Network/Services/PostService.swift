@@ -56,6 +56,19 @@ struct PostService {
     }
   }
 
+  static func likePost(postId: String, likeCount: Int) async throws {
+    var data = [String: Any]()
+
+    data["likes"] = likeCount + 1
+
+    do {
+      try await db.document(postId).updateData(data)
+    } catch {
+      print(
+        "DEBUG: Failed to update like count in database with error \(error.localizedDescription)")
+    }
+  }
+
   /*
    Sorting algorithm for posts
    */

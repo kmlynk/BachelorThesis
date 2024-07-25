@@ -5,11 +5,14 @@
 //  Created by Kamil Uyanık on 27.06.24.
 //
 
+import Firebase
 import Kingfisher
 import SwiftUI
 
 struct FeedCell: View {
-  let post: PostModel
+  @StateObject var viewModel = FeedViewModel()
+  @State var post: PostModel
+  @State private var isLiked = false
 
   var body: some View {
     VStack {
@@ -34,10 +37,12 @@ struct FeedCell: View {
 
       HStack(spacing: 16) {
         Button {
+          likePost()
           print("Like Post")
         } label: {
-          Image(systemName: "heart")
+          Image(systemName: isLiked ? "heart.fill" : "heart")
             .imageScale(.large)
+            .foregroundColor(isLiked ? .red : .primary)
         }
 
         Button {
@@ -74,11 +79,35 @@ struct FeedCell: View {
       .padding(.leading, 10)
       .padding(.top, 1)
 
-      Text("4h ago")
-        .font(.footnote)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.leading, 10)
-        .foregroundColor(Color.secondary)
+      var time = (Timestamp().seconds - post.timestamp.seconds) / 3600
+      if time < 1 {
+        Text("Less than an hour ago")
+          .font(.footnote)
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .padding(.leading, 10)
+          .foregroundColor(Color.secondary)
+      } else {
+        Text("\(time)h ago")
+          .font(.footnote)
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .padding(.leading, 10)
+          .foregroundColor(Color.secondary)
+      }
+    }
+  }
+
+  private func likePost() {
+    isLiked.toggle()
+    post.likes += isLiked ? 1 : -1
+    Task {
+      do {
+        try await PostService.likePost(postId: post.id, likeCount: post.likes)
+      } catch {
+        // Handle error (e.g., revert like count change)
+        isLiked.toggle()
+        post.likes += isLiked ? 1 : -1
+        print("Error liking post: \(error)")
+      }
     }
   }
 }

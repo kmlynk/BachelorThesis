@@ -17,22 +17,9 @@ struct FeedView: View {
           ForEach(viewModel.posts) { post in
             FeedCell(post: post)
           }
-
-          Button {
-            Task {
-              try await viewModel.fetchAllPosts()
-            }
-          } label: {
-            Text("Fetch Posts")
-          }
         }
         .padding(.top, 8)
       }
-      .onAppear(perform: {
-        Task {
-          try await viewModel.fetchAllPosts()
-        }
-      })
       .scrollIndicators(.never)
       .navigationTitle("Feed")
       .navigationBarTitleDisplayMode(.inline)
@@ -42,6 +29,9 @@ struct FeedView: View {
             .font(.subheadline)
             .fontWeight(.bold)
         }
+      }
+      .refreshable {
+        Task { try await viewModel.fetchAllPosts() }
       }
     }
   }
