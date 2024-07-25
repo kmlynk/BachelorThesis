@@ -46,6 +46,9 @@
 		056D4CC22C1F693400E34094 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CC12C1F693400E34094 /* ProjectView.swift */; };
 		056D4CC62C1FA9E100E34094 /* CreateProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CC52C1FA9E100E34094 /* CreateProjectView.swift */; };
 		057CBEE72C29A2B0004D3D5F /* EditStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CBEE62C29A2B0004D3D5F /* EditStepViewModel.swift */; };
+		05A0A3F92C32C5C800760530 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0A3F82C32C5C800760530 /* ProfileViewModel.swift */; };
+		05A0A3FB2C32CAF200760530 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0A3FA2C32CAF200760530 /* FeedViewModel.swift */; };
+		05A0A3FF2C32D30C00760530 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0A3FE2C32D30C00760530 /* ProfileHeaderView.swift */; };
 		05A30C1F2C29008800B5843E /* EditStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A30C1E2C29008800B5843E /* EditStepView.swift */; };
 		05AEE78E2C2D00180071C8F9 /* PostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AEE78D2C2D00180071C8F9 /* PostModel.swift */; };
 		05AEE7902C2D0C270071C8F9 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AEE78F2C2D0C270071C8F9 /* TestView.swift */; };
@@ -108,6 +111,9 @@
 		056D4CC12C1F693400E34094 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		056D4CC52C1FA9E100E34094 /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
 		057CBEE62C29A2B0004D3D5F /* EditStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStepViewModel.swift; sourceTree = "<group>"; };
+		05A0A3F82C32C5C800760530 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		05A0A3FA2C32CAF200760530 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		05A0A3FE2C32D30C00760530 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		05A30C1E2C29008800B5843E /* EditStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStepView.swift; sourceTree = "<group>"; };
 		05AEE78D2C2D00180071C8F9 /* PostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModel.swift; sourceTree = "<group>"; };
 		05AEE78F2C2D0C270071C8F9 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
@@ -299,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				05AEE7912C2D0C620071C8F9 /* TestViewModel.swift */,
+				05A0A3FA2C32CAF200760530 /* FeedViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -497,6 +504,7 @@
 				05D703EA2C1DD79200E0C3F7 /* CurrentUserProfileView.swift */,
 				054CF09E2C1E638E005820A5 /* EditProfileView.swift */,
 				056D4CB02C1F3B1D00E34094 /* ProfileView.swift */,
+				05A0A3FE2C32D30C00760530 /* ProfileHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -505,6 +513,7 @@
 			isa = PBXGroup;
 			children = (
 				054CF0A02C1E63B6005820A5 /* EditProfileViewModel.swift */,
+				05A0A3F82C32C5C800760530 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -608,6 +617,7 @@
 				0514C22A2C1B1E9A00C75560 /* ContentView.swift in Sources */,
 				055FE0802C23B8DA00497DDB /* ProjectStepView.swift in Sources */,
 				05DCC83C2C2DB1BE008DC4FC /* PostService.swift in Sources */,
+				05A0A3F92C32C5C800760530 /* ProfileViewModel.swift in Sources */,
 				0514C2562C1B250F00C75560 /* CircularProfileImageView.swift in Sources */,
 				056D4CB32C1F45E100E34094 /* ProjectModel.swift in Sources */,
 				05DCC8382C2DA088008DC4FC /* PostDetailsView.swift in Sources */,
@@ -639,11 +649,13 @@
 				05AEE7942C2D11A70071C8F9 /* FeedCell.swift in Sources */,
 				055FE07C2C23A50800497DDB /* AddProjectStepViewModel.swift in Sources */,
 				05DCC8362C2D9B82008DC4FC /* PostProjectCell.swift in Sources */,
+				05A0A3FB2C32CAF200760530 /* FeedViewModel.swift in Sources */,
 				056D4CC62C1FA9E100E34094 /* CreateProjectView.swift in Sources */,
 				05AEE78E2C2D00180071C8F9 /* PostModel.swift in Sources */,
 				05DCC8322C2D98C5008DC4FC /* PostProjectView.swift in Sources */,
 				056D4CC22C1F693400E34094 /* ProjectView.swift in Sources */,
 				056D4CB72C1F506C00E34094 /* ProjectStepModel.swift in Sources */,
+				05A0A3FF2C32D30C00760530 /* ProfileHeaderView.swift in Sources */,
 				055FE0852C24EF1900497DDB /* ExpandableView.swift in Sources */,
 				05AEE7902C2D0C270071C8F9 /* TestView.swift in Sources */,
 				05CD48972C276BF700146A4F /* ProjectDividerView.swift in Sources */,
