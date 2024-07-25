@@ -75,6 +75,7 @@
 		05DCC83C2C2DB1BE008DC4FC /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DCC83B2C2DB1BE008DC4FC /* PostService.swift */; };
 		05E0E14D2C2353670079D12C /* LibraryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */; };
 		05E0E14F2C2368290079D12C /* LibraryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0E14E2C2368290079D12C /* LibraryListView.swift */; };
+		05E417E92C52FD5600AD6A7B /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E417E82C52FD5600AD6A7B /* UserService.swift */; };
 		05E4F9DD2C2B18B500820243 /* ProjectStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F9DC2C2B18B500820243 /* ProjectStepCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +141,7 @@
 		05DCC83B2C2DB1BE008DC4FC /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListViewModel.swift; sourceTree = "<group>"; };
 		05E0E14E2C2368290079D12C /* LibraryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListView.swift; sourceTree = "<group>"; };
+		05E417E82C52FD5600AD6A7B /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		05E4F9DC2C2B18B500820243 /* ProjectStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStepCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -214,6 +216,7 @@
 				0514C2572C1B269500C75560 /* ImageUploader.swift */,
 				05AFD3532C224CCD0086C672 /* LibraryService.swift */,
 				05DCC83B2C2DB1BE008DC4FC /* PostService.swift */,
+				05E417E82C52FD5600AD6A7B /* UserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				056D4CB12C1F3B1D00E34094 /* ProfileView.swift in Sources */,
 				05DCC83A2C2DA4DB008DC4FC /* PostDetailsViewModel.swift in Sources */,
 				05DCC8342C2D994A008DC4FC /* PostProjectViewModel.swift in Sources */,
+				05E417E92C52FD5600AD6A7B /* UserService.swift in Sources */,
 				05AEE7942C2D11A70071C8F9 /* FeedCell.swift in Sources */,
 				055FE07C2C23A50800497DDB /* AddProjectStepViewModel.swift in Sources */,
 				05DCC8362C2D9B82008DC4FC /* PostProjectCell.swift in Sources */,

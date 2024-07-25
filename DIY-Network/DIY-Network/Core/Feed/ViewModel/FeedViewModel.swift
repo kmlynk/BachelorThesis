@@ -14,6 +14,14 @@ class FeedViewModel: ObservableObject {
 
   func fetchAllPosts() async throws {
     self.posts = try await PostService.fetchAllPosts()
+
+    for i in 0 ..< posts.count {
+      let post = posts[i]
+      let ownerId = post.ownerId
+      let postUser = try await UserService.fetchUser(withId: ownerId)
+      posts[i].user = postUser
+    }
+
     if posts.count > 1 {
       self.sortedPosts = PostService.mergeSort(arr: posts)
     } else {
