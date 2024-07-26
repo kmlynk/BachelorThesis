@@ -12,10 +12,14 @@ class FeedViewModel: ObservableObject {
   @Published var posts = [PostModel]()
   @Published var sortedPosts = [PostModel]()
 
+  init() {
+    Task { try await fetchAllPosts() }
+  }
+
   func fetchAllPosts() async throws {
     self.posts = try await PostService.fetchAllPosts()
 
-    for i in 0 ..< posts.count {
+    for i in 0..<posts.count {
       let post = posts[i]
       let ownerId = post.ownerId
       let postUser = try await UserService.fetchUser(withId: ownerId)

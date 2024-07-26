@@ -59,7 +59,7 @@ struct PostService {
   static func likePost(postId: String, likeCount: Int) async throws {
     var data = [String: Any]()
 
-    data["likes"] = likeCount + 1
+    data["likes"] = likeCount
 
     do {
       try await db.document(postId).updateData(data)

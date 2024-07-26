@@ -58,6 +58,7 @@
 		05AFD3522C223D060086C672 /* CreateProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AFD3512C223D060086C672 /* CreateProjectViewModel.swift */; };
 		05AFD3542C224CCD0086C672 /* LibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AFD3532C224CCD0086C672 /* LibraryService.swift */; };
 		05B255552C2621C00084F5C3 /* InAppButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B255542C2621C00084F5C3 /* InAppButtonModifier.swift */; };
+		05BD73212C544167004CCCEC /* FeedCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BD73202C544167004CCCEC /* FeedCellViewModel.swift */; };
 		05CD48972C276BF700146A4F /* ProjectDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CD48962C276BF700146A4F /* ProjectDividerView.swift */; };
 		05CD48992C27867C00146A4F /* EditProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CD48982C27867C00146A4F /* EditProjectView.swift */; };
 		05CD489B2C27869100146A4F /* EditProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CD489A2C27869100146A4F /* EditProjectViewModel.swift */; };
@@ -124,6 +125,7 @@
 		05AFD3512C223D060086C672 /* CreateProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectViewModel.swift; sourceTree = "<group>"; };
 		05AFD3532C224CCD0086C672 /* LibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryService.swift; sourceTree = "<group>"; };
 		05B255542C2621C00084F5C3 /* InAppButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppButtonModifier.swift; sourceTree = "<group>"; };
+		05BD73202C544167004CCCEC /* FeedCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellViewModel.swift; sourceTree = "<group>"; };
 		05CD48962C276BF700146A4F /* ProjectDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDividerView.swift; sourceTree = "<group>"; };
 		05CD48982C27867C00146A4F /* EditProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectView.swift; sourceTree = "<group>"; };
 		05CD489A2C27869100146A4F /* EditProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectViewModel.swift; sourceTree = "<group>"; };
@@ -307,8 +309,9 @@
 		0514C25B2C1B28A700C75560 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				05AEE7912C2D0C620071C8F9 /* TestViewModel.swift */,
+				05BD73202C544167004CCCEC /* FeedCellViewModel.swift */,
 				05A0A3FA2C32CAF200760530 /* FeedViewModel.swift */,
+				05AEE7912C2D0C620071C8F9 /* TestViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -640,6 +643,7 @@
 				05AEE7922C2D0C620071C8F9 /* TestViewModel.swift in Sources */,
 				05D703F02C1DDA6600E0C3F7 /* AuthViewModel.swift in Sources */,
 				055FE07E2C23B70600497DDB /* ProjectStepViewModel.swift in Sources */,
+				05BD73212C544167004CCCEC /* FeedCellViewModel.swift in Sources */,
 				055FE0782C238B8C00497DDB /* ProjectHeaderView.swift in Sources */,
 				05D703F22C1DF09A00E0C3F7 /* RegisterView.swift in Sources */,
 				05E4F9DD2C2B18B500820243 /* ProjectStepCell.swift in Sources */,
