@@ -15,7 +15,7 @@ struct FeedView: View {
     NavigationStack {
       ScrollView {
         LazyVStack(spacing: 32) {
-          ForEach(viewModel.posts) { post in
+          ForEach(viewModel.sortedPosts) { post in
             if let user = authViewModel.currentUser {
               FeedCell(viewModel: FeedCellViewModel(post: post, user: user))
             }

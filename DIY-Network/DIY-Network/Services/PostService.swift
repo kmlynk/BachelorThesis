@@ -102,7 +102,7 @@ struct PostService {
     var right = right
 
     while left.count > 0 && right.count > 0 {
-      if left.first!.timestamp.nanoseconds < right.first!.timestamp.nanoseconds {
+      if left.first!.timestamp.seconds > right.first!.timestamp.seconds {
         mergedArr.append(left.removeFirst())
       } else {
         mergedArr.append(right.removeFirst())
