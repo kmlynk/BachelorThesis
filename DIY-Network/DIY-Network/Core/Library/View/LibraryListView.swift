@@ -27,6 +27,7 @@ struct LibraryListView: View {
       }
       .padding(.top, 20)
     }
+    .scrollIndicators(.never)
     .refreshable {
       Task { try await viewModel.fetchUserProjects() }
     }

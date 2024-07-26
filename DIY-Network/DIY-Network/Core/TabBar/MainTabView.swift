@@ -13,19 +13,19 @@ struct MainTabView: View {
 
   var body: some View {
     TabView(selection: $selectedTab) {
-      Text("Feed")
+      FeedView()
         .tabItem {
           Image(systemName: "house")
         }
         .tag("Feed")
-      
+
       SearchView()
         .tabItem {
           Image(systemName: "magnifyingglass")
         }
         .tag("Search")
 
-      PostProjectView()
+      PostProjectView(user: user)
         .tabItem {
           Image(systemName: "plus.square")
         }
@@ -37,7 +37,7 @@ struct MainTabView: View {
         }
         .tag("Library")
 
-      CurrentUserProfileView()
+      CurrentUserProfileView(user: user)
         .tabItem {
           Image(systemName: "person")
         }

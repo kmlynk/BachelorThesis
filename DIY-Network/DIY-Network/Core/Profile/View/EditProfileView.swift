@@ -41,7 +41,6 @@ struct EditProfileView: View {
               Task {
                 showProgressView = true
                 try await viewModel.updateUserData()
-                await authViewModel.fetchUser()
                 showProgressView = false
                 dismiss()
               }

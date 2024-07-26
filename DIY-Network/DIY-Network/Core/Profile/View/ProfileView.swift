@@ -5,50 +5,43 @@
 //  Created by Kamil Uyanık on 16.06.24.
 //
 
+import Kingfisher
 import SwiftUI
 
 struct ProfileView: View {
-  let user: UserModel
+  @StateObject var viewModel: ProfileViewModel
+
+  init(user: UserModel) {
+    self._viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
+  }
+
+  private let gridItems: [GridItem] = [
+    .init(.flexible(), spacing: 5),
+    .init(.flexible(), spacing: 5),
+  ]
+
+  private let imageDimension: CGFloat = (UIScreen.main.bounds.width / 2) - 1
 
   var body: some View {
     ScrollView {
-      VStack {
-        Spacer()
-        
-        // Profile Header View
-        VStack(spacing: 10) {
-          HStack {
-            CircularProfileImageView(size: 80, imageUrl: user.profileImageUrl ?? "")
-          }
-          .padding(.top, 10)
-          
-          VStack(spacing: 5) {
-            if let fullname = user.fullname {
-              Text(fullname)
-                .font(.footnote)
-                .fontWeight(.semibold)
-            }
-            
-            if let bio = user.bio {
-              Text(bio)
-                .font(.footnote)
-            }
-          }
-          .frame(maxWidth: .infinity)
-          .multilineTextAlignment(.center)
-          .padding(.horizontal)
+      ProfileHeaderView(user: viewModel.user)
+
+      ProjectDividerView(minusWidth: 0, height: 2)
+        .padding(.vertical, 5)
+
+      LazyVGrid(columns: gridItems, spacing: 5) {
+        ForEach(viewModel.sortedPosts) { post in
+          KFImage(URL(string: post.imageUrl))
+            .resizable()
+            .scaledToFill()
+            .frame(width: imageDimension, height: imageDimension)
+            .clipped()
         }
-        
-        Divider()
-        
-        VStack {
-          Text("...POSTS...")
-        }
-        .padding(.top, 15)
       }
-      .padding(.top, 20)
+      .padding(.top, 15)
     }
-    .navigationTitle(user.username)
+    .padding(.top, 20)
+    .navigationTitle(viewModel.user.username)
     .navigationBarTitleDisplayMode(.inline)
   }
 }
