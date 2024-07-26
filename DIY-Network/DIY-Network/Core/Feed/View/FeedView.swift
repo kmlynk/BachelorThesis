@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FeedView: View {
+  @EnvironmentObject var authViewModel: AuthViewModel
   @StateObject var viewModel = FeedViewModel()
 
   var body: some View {
@@ -15,7 +16,9 @@ struct FeedView: View {
       ScrollView {
         LazyVStack(spacing: 32) {
           ForEach(viewModel.posts) { post in
-            FeedCell(viewModel: FeedCellViewModel(post: post))
+            if let user = authViewModel.currentUser {
+              FeedCell(viewModel: FeedCellViewModel(post: post, user: user))
+            }
           }
         }
         .padding(.top, 8)

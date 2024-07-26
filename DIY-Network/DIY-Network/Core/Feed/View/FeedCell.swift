@@ -35,7 +35,7 @@ struct FeedCell: View {
 
       HStack(spacing: 16) {
         Button {
-          viewModel.likePost()
+          viewModel.toggleLike()
         } label: {
           Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
             .imageScale(.large)
@@ -96,5 +96,6 @@ struct FeedCell: View {
 }
 
 #Preview{
-  FeedCell(viewModel: FeedCellViewModel(post: PostModel.MOCK_POSTS[0]))
+  FeedCell(
+    viewModel: FeedCellViewModel(post: PostModel.MOCK_POSTS[0], user: UserModel.MOCK_USERS[0]))
 }

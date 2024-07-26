@@ -9,23 +9,28 @@ import Firebase
 import Foundation
 
 class FeedCellViewModel: ObservableObject {
+  let user: UserModel
   @Published var post: PostModel
-  @Published var isLiked: Bool = false
+  @Published var isLiked: Bool
 
-  init(post: PostModel) {
+  init(post: PostModel, user: UserModel) {
     self.post = post
+    self.user = user
+    self.isLiked = post.likedBy?.contains(user.id) ?? false
   }
 
-  func likePost() {
+  func toggleLike() {
     isLiked.toggle()
     post.likes += isLiked ? 1 : -1
     Task {
       do {
-        try await PostService.likePost(postId: post.id, likeCount: post.likes)
+        try await PostService.handleLike(postId: post.id, user: user)
       } catch {
         isLiked.toggle()
         post.likes += isLiked ? 1 : -1
-        print("DEBUG: Error liking post: \(error.localizedDescription)")
+        print(
+          "DEBUG: Failed to toggle like for post \(post.id) with error \(error.localizedDescription)"
+        )
       }
     }
   }

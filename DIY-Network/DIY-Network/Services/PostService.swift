@@ -56,16 +56,30 @@ struct PostService {
     }
   }
 
-  static func likePost(postId: String, likeCount: Int) async throws {
-    var data = [String: Any]()
+  static func handleLike(postId: String, user: UserModel) async throws {
+    let snapshot = try await db.document(postId).getDocument()
+    var postData = try snapshot.data(as: PostModel.self)
 
-    data["likes"] = likeCount
+    var likedBy = postData.likedBy ?? []
+    let isLiked = likedBy.contains(user.id)
+
+    if isLiked {
+      likedBy.removeAll { $0 == user.id }
+      postData.likes -= 1
+    } else {
+      likedBy.append(user.id)
+      postData.likes += 1
+    }
+
+    let data: [String: Any] = [
+      "likes": postData.likes,
+      "likedBy": likedBy,
+    ]
 
     do {
       try await db.document(postId).updateData(data)
     } catch {
-      print(
-        "DEBUG: Failed to update like count in database with error \(error.localizedDescription)")
+      print("DEBUG: Failed to handle like in database with error \(error.localizedDescription)")
     }
   }
 
