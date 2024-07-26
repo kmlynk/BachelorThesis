@@ -17,6 +17,7 @@ struct PostModel: Identifiable, Hashable, Codable {
   var likes: Int
   let timestamp: Timestamp
   var user: UserModel?
+  var likedBy: [String]?
 }
 
 extension PostModel {
