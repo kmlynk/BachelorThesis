@@ -10,7 +10,7 @@ import Kingfisher
 import SwiftUI
 
 struct FeedCell: View {
-  @StateObject var viewModel: FeedCellViewModel
+  @ObservedObject var viewModel: FeedCellViewModel
 
   var body: some View {
     VStack {
