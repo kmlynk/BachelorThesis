@@ -376,9 +376,9 @@
 			isa = PBXGroup;
 			children = (
 				055FE0772C238B8C00497DDB /* ProjectHeaderView.swift */,
+				05E4F9DC2C2B18B500820243 /* ProjectStepCell.swift */,
 				055FE07F2C23B8DA00497DDB /* ProjectStepView.swift */,
 				056D4CC12C1F693400E34094 /* ProjectView.swift */,
-				05E4F9DC2C2B18B500820243 /* ProjectStepCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
