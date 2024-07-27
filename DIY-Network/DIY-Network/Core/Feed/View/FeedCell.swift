@@ -52,10 +52,14 @@ struct FeedCell: View {
         Spacer()
 
         Button {
+          viewModel.toggleImport()
           print("Add project to the library")
         } label: {
-          Image(systemName: "square.and.arrow.down.on.square")
-            .imageScale(.large)
+          Image(
+            systemName: viewModel.isImported
+              ? "checkmark.rectangle.stack.fill" : "square.and.arrow.down.on.square"
+          )
+          .imageScale(.large)
         }
       }
       .padding(.horizontal, 8)
