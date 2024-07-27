@@ -16,20 +16,61 @@ struct LibraryListView: View {
   }
 
   var body: some View {
-    ScrollView {
-      LazyVStack {
-        ForEach(viewModel.projects) { project in
-          NavigationLink(value: project) {
-            LibraryCell(project: project)
+    if viewModel.projects.count == 0 {
+      GeometryReader { geometry in
+        ScrollView {
+          VStack(alignment: .center) {
+            VStack(spacing: 8) {
+              Text("You have no projects at the moment")
+                .font(.title3)
+                .fontWeight(.bold)
+              Text("Create a project")
+                .font(.title3)
+            }
+
+            VStack {
+              Text("Pull to refresh")
+                .font(.caption)
+                .fontWeight(.thin)
+              Image(systemName: "arrow.down")
+                .imageScale(.small)
+            }
+            .padding(.top, 48)
+            .foregroundColor(Color.gray)
           }
-          .foregroundColor(Color.primary)
+          .frame(width: geometry.size.width)
+          .frame(minHeight: geometry.size.height)
+        }
+        .refreshable {
+          Task { try await viewModel.fetchUserProjects() }
         }
       }
-      .padding(.top, 20)
-    }
-    .scrollIndicators(.never)
-    .refreshable {
-      Task { try await viewModel.fetchUserProjects() }
+    } else {
+      ScrollView {
+        LazyVStack {
+          ForEach(viewModel.projects) { project in
+            NavigationLink(value: project) {
+              LibraryCell(project: project)
+            }
+            .foregroundColor(Color.primary)
+          }
+        }
+        .padding(.top, 16)
+
+        VStack {
+          Text("Pull to refresh")
+            .font(.caption)
+            .fontWeight(.thin)
+          Image(systemName: "arrow.down")
+            .imageScale(.small)
+        }
+        .padding(.top, 48)
+        .foregroundColor(Color.gray)
+      }
+      .scrollIndicators(.never)
+      .refreshable {
+        Task { try await viewModel.fetchUserProjects() }
+      }
     }
   }
 }
