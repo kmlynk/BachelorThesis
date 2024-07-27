@@ -8,7 +8,7 @@
 import Foundation
 
 struct ProjectModel: Identifiable, Hashable, Codable {
-  let id: String
+  var id: String
   var ownerId: String
   var projectName: String
   var projectDesc: String

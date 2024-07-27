@@ -18,6 +18,7 @@ struct PostModel: Identifiable, Hashable, Codable {
   let timestamp: Timestamp
   var user: UserModel?
   var likedBy: [String]?
+  var importedBy: [String]?
 }
 
 extension PostModel {

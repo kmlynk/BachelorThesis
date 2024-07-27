@@ -9,6 +9,21 @@ import Firebase
 
 struct LibraryService {
   private static let projectDB = Firestore.firestore().collection("projects")
+  private static let postDB = Firestore.firestore().collection("posts")
+
+  static func fetchSingleProject(withId projectId: String) async throws -> ProjectModel {
+    print("DEBUG: Trying to reach to steps collection...")
+    let snapshot = try await projectDB.document(projectId).getDocument()
+    print("DEBUG: Project data fetched!")
+    return try snapshot.data(as: ProjectModel.self)
+  }
+
+  static func fetchSingleProject(project: ProjectModel) async throws -> ProjectModel {
+    print("DEBUG: Trying to reach to steps collection...")
+    let snapshot = try await projectDB.document(project.id).getDocument()
+    print("DEBUG: Project data fetched!")
+    return try snapshot.data(as: ProjectModel.self)
+  }
 
   // It gets projects steps and retuns as an array
   static func fetchProjectStepData(project: ProjectModel) async throws -> [ProjectStepModel] {
@@ -174,6 +189,46 @@ struct LibraryService {
         print(
           "DEBUG: Failed to update step data in database with error \(error.localizedDescription)")
       }
+    }
+  }
+
+  static func importProjectToUserLibrary(post: PostModel, newOwner: UserModel)
+    async throws
+  {
+    do {
+      let originProject = try await fetchSingleProject(withId: post.projectId)
+      let originSteps = try await fetchProjectStepData(project: originProject)
+
+      var newProject = originProject
+      newProject.id = NSUUID().uuidString
+      newProject.ownerId = newOwner.id
+
+      let encodedProject = try Firestore.Encoder().encode(newProject)
+      try await projectDB.document(newProject.id).setData(encodedProject)
+
+      for step in originSteps {
+        if let imageUrl = step.stepImageUrl {
+          await uploadProjectStepData(
+            withImage: imageUrl, project: newProject, stepNumber: step.stepNumber,
+            stepName: step.stepName, stepDesc: step.stepDesc)
+        } else {
+          await uploadProjectStepData(
+            project: newProject, stepNumber: step.stepNumber, stepName: step.stepName,
+            stepDesc: step.stepDesc)
+        }
+      }
+
+      var importedBy = post.importedBy ?? []
+      importedBy.append(newOwner.id)
+
+      let data: [String: Any] = [
+        "importedBy": importedBy
+      ]
+
+      try await postDB.document(post.id).updateData(data)
+    } catch {
+      print(
+        "DEBUG: Failed to import project to users library with error \(error.localizedDescription)")
     }
   }
 
