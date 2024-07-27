@@ -9,13 +9,12 @@ import Foundation
 
 @MainActor
 class ProfileViewModel: ObservableObject {
-  let user: UserModel
+  @Published var user: UserModel
   @Published var posts = [PostModel]()
   @Published var sortedPosts = [PostModel]()
 
   init(user: UserModel) {
     self.user = user
-
     Task { try await fetchUserPosts() }
   }
 
@@ -26,5 +25,9 @@ class ProfileViewModel: ObservableObject {
     } else {
       self.sortedPosts = self.posts
     }
+  }
+
+  func fetchUserData() async throws {
+    self.user = try await UserService.fetchUser(withId: user.id)
   }
 }
