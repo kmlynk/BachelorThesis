@@ -60,6 +60,9 @@ struct CurrentUserProfileView: View {
             }
           }
         }
+        .refreshable {
+          Task { try await viewModel.fetchUserPosts() }
+        }
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -76,11 +79,7 @@ struct CurrentUserProfileView: View {
         .fullScreenCover(isPresented: $showEditProfile) {
           EditProfileView(user: viewModel.user)
             .onDisappear {
-              Task {
-                showProgressView.toggle()
-                try await viewModel.fetchUserData()
-                showProgressView.toggle()
-              }
+              Task { try await viewModel.fetchUserData() }
             }
         }
       }
