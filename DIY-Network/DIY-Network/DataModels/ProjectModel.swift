@@ -19,13 +19,13 @@ struct ProjectModel: Identifiable, Hashable, Codable {
 extension ProjectModel {
   static var MOCK_PROJECTS: [ProjectModel] = [
     .init(
-      id: "70293A4D-2BCC-4696-ACFB-B644B3BC5870",
-      ownerId: "h9FV9ysmbOff2ZefQJEhjVs3yXi1",
-      projectName: "Project Yago",
+      id: "4389E0C6-A8F3-423B-A951-5EB768EB320B",
+      ownerId: "pwxKOtpz2iau4mI9Eh801GymAPw2",
+      projectName: "Admins Test Project",
       projectDesc:
-        "Creating best football reporter ever",
+        "Test Project",
       projectImageUrl:
-        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2F99B838C4-785F-4D2F-A86E-5473BA78D1A4?alt=media&token=695015fe-453d-42e2-92da-9b3f207a9068"
+        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2F0FEC9107-EC81-4421-AE89-CCA80F84C2DA?alt=media&token=54a35f75-4a46-4f41-ac6a-e6e09a415012"
     )
   ]
 }

@@ -17,7 +17,7 @@ struct ProjectStepView: View {
   var body: some View {
     LazyVStack {
       ForEach(viewModel.sortedSteps) { step in
-        ProjectStepCell(step: step)
+        StepCell(step: step)
       }
     }
     .onAppear(perform: {

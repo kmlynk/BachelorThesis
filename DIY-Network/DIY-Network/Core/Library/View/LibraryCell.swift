@@ -9,50 +9,64 @@ import SwiftUI
 
 struct LibraryCell: View {
   @Environment(\.colorScheme) var currentMode
-  let project: ProjectModel
+  @ObservedObject var viewModel: LibraryCellViewModel
   @State private var showSheet = false
+  @State private var showProgress = false
 
   var body: some View {
-    HStack {
-      VStack {
-        HStack {
-          Spacer()
+    if showProgress {
+      ProgressView("Loading...")
+    } else {
+      HStack {
+        VStack {
+          HStack {
+            Spacer()
 
-          Button {
-            print("DEBUG: Show bottom sheet")
-            showSheet.toggle()
-          } label: {
-            Image(systemName: "ellipsis")
-              .imageScale(.large)
+            Button {
+              print("DEBUG: Show bottom sheet")
+              showSheet.toggle()
+            } label: {
+              Image(systemName: "ellipsis")
+                .imageScale(.large)
+            }
+            .padding(.trailing, 5)
           }
-          .padding(.trailing, 5)
-        }
 
-        HStack {
-          ProjectImageView(
-            width: 100,
-            height: 100,
-            imageUrl: project.projectImageUrl ?? ""
-          )
+          HStack {
+            ProjectImageView(
+              width: 100,
+              height: 100,
+              imageUrl: viewModel.project.projectImageUrl ?? ""
+            )
 
-          Text(project.projectName)
-            .multilineTextAlignment(.leading)
-            .fontWeight(.heavy)
+            Text(viewModel.project.projectName)
+              .multilineTextAlignment(.leading)
+              .fontWeight(.heavy)
 
-          Spacer()
+            Spacer()
+          }
         }
       }
-    }
-    .padding()
-    .background(currentMode == .dark ? Color.black : Color.white)
-    .cornerRadius(20)
-    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
-    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
-    .padding(.horizontal)
-    .padding(.top)
-    .sheet(isPresented: $showSheet) {
-      ProjectBottomSheet(project: project)
-        .presentationDetents([.height(150)])
+      .padding()
+      .background(currentMode == .dark ? Color.black : Color.white)
+      .cornerRadius(20)
+      .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
+      .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
+      .padding(.horizontal)
+      .padding(.top)
+      .sheet(
+        isPresented: $showSheet,
+        onDismiss: {
+          Task {
+            showProgress.toggle()
+            try await viewModel.fetchProject()
+            showProgress.toggle()
+          }
+        }
+      ) {
+        ProjectBottomSheet(project: viewModel.project)
+          .presentationDetents([.height(150)])
+      }
     }
   }
 }
@@ -102,5 +116,5 @@ struct ProjectBottomSheet: View {
 }
 
 #Preview{
-  LibraryCell(project: ProjectModel.MOCK_PROJECTS[0])
+  LibraryCell(viewModel: LibraryCellViewModel(project: ProjectModel.MOCK_PROJECTS[0]))
 }

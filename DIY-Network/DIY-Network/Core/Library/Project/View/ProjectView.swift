@@ -36,7 +36,7 @@ struct ProjectView: View {
       }
     }
     .fullScreenCover(isPresented: $showAddStep) {
-      AddProjectStepView(user: user, project: project)
+      AddProjectStepView(project: project)
     }
   }
 }

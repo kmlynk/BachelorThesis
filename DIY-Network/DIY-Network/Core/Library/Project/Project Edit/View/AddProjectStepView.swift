@@ -12,10 +12,10 @@ struct AddProjectStepView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: AddProjectStepViewModel
   @State private var showProgressView = false
-
-  init(user: UserModel, project: ProjectModel) {
+  
+  init(project: ProjectModel) {
     self._viewModel = StateObject(
-      wrappedValue: AddProjectStepViewModel(user: user, project: project))
+      wrappedValue: AddProjectStepViewModel(project: project))
   }
 
   var body: some View {
@@ -131,5 +131,5 @@ struct AddProjectStepRowView: View {
 }
 
 #Preview{
-  AddProjectStepView(user: UserModel.MOCK_USERS[0], project: ProjectModel.MOCK_PROJECTS[0])
+  AddProjectStepView(project: ProjectModel.MOCK_PROJECTS[0])
 }

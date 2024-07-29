@@ -20,23 +20,19 @@ struct UserModel: Identifiable, Hashable, Codable {
 extension UserModel {
   static var MOCK_USERS: [UserModel] = [
     .init(
-      id: "h9FV9ysmbOff2ZefQJEhjVs3yXi1",
+      id: "pwxKOtpz2iau4mI9Eh801GymAPw2",
       email: "admin@grr.la",
       username: "theAdmin",
       profileImageUrl:
-        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2FA1664A74-6211-4E23-8BCD-E05C56AA0893?alt=media&token=ba395989-4edb-4210-8384-cd746eefbfd8",
-      fullname: "Admin Adminoglu",
-      bio: "Admin since 3 weeks"
+        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2F290825E5-935D-4DA1-9977-FA3FC0E8B3BE?alt=media&token=634c21a9-91b6-4b0d-a4aa-5a559a09c7a9",
+      fullname: "The Admin1",
+      bio: "I am the Admin"
     ),
 
     .init(
-      id: "EVihsvJEqsNADP3bU0RnFXKtHwO2",
-      email: "testerOne@grr.la",
-      username: "testerOne",
-      profileImageUrl:
-        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2FBE1D068B-AA9F-4A65-A313-A1629C8C0B99?alt=media&token=d540d39e-e3dc-4898-bfce-35e0b7a4716b",
-      fullname: "Tester One",
-      bio: "This is the Tester One"
+      id: "KBorptK7rfTS0fXj8SPInzeIUxX2",
+      email: "emptyuser@grr.la",
+      username: "emptyUser"
     ),
   ]
 }

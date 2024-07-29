@@ -39,6 +39,11 @@ struct LibraryService {
       return []
     }
   }
+  
+  static func fetchSingleStepData(step: ProjectStepModel) async throws -> ProjectStepModel {
+    let snapshot = try await projectDB.document(step.projectId).collection("steps").document(step.id).getDocument()
+    return try snapshot.data(as: ProjectStepModel.self)
+  }
 
   // It gets users projects and returns as an array
   static func fetchUserProjects(ownerId: String) async throws -> [ProjectModel] {
