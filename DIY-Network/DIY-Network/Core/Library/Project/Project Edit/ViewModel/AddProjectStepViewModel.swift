@@ -11,7 +11,6 @@ import SwiftUI
 
 @MainActor
 class AddProjectStepViewModel: ObservableObject {
-  private let user: UserModel
   private var project: ProjectModel
   @Published var steps = [ProjectStepModel]()
 
@@ -25,8 +24,7 @@ class AddProjectStepViewModel: ObservableObject {
   @Published var stepImage: Image?
   private var uiImage: UIImage?
 
-  init(user: UserModel, project: ProjectModel) {
-    self.user = user
+  init(project: ProjectModel) {
     self.project = project
   }
 
