@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0508230E2C58072A00FF2F36 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0508230D2C58072A00FF2F36 /* NewProjectView.swift */; };
+		050823122C58089300FF2F36 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050823112C58089300FF2F36 /* ProjectViewModel.swift */; };
+		050823162C580E5600FF2F36 /* StepCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050823152C580E5600FF2F36 /* StepCellViewModel.swift */; };
 		0514C2282C1B1E9A00C75560 /* DIY_NetworkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0514C2272C1B1E9A00C75560 /* DIY_NetworkApp.swift */; };
 		0514C22A2C1B1E9A00C75560 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0514C2292C1B1E9A00C75560 /* ContentView.swift */; };
 		0514C22C2C1B1E9C00C75560 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0514C22B2C1B1E9C00C75560 /* Assets.xcassets */; };
@@ -59,6 +62,9 @@
 		05AFD3542C224CCD0086C672 /* LibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05AFD3532C224CCD0086C672 /* LibraryService.swift */; };
 		05B255552C2621C00084F5C3 /* InAppButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B255542C2621C00084F5C3 /* InAppButtonModifier.swift */; };
 		05BD73212C544167004CCCEC /* FeedCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05BD73202C544167004CCCEC /* FeedCellViewModel.swift */; };
+		05C767842C57BE35009E6A1D /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C767832C57BE35009E6A1D /* LibraryViewModel.swift */; };
+		05C767862C57BE43009E6A1D /* NewLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C767852C57BE43009E6A1D /* NewLibraryView.swift */; };
+		05C7678C2C57C9F5009E6A1D /* LibraryCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C7678B2C57C9F5009E6A1D /* LibraryCellViewModel.swift */; };
 		05CD48972C276BF700146A4F /* ProjectDividerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CD48962C276BF700146A4F /* ProjectDividerView.swift */; };
 		05CD48992C27867C00146A4F /* EditProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CD48982C27867C00146A4F /* EditProjectView.swift */; };
 		05CD489B2C27869100146A4F /* EditProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05CD489A2C27869100146A4F /* EditProjectViewModel.swift */; };
@@ -77,10 +83,13 @@
 		05E0E14D2C2353670079D12C /* LibraryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */; };
 		05E0E14F2C2368290079D12C /* LibraryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0E14E2C2368290079D12C /* LibraryListView.swift */; };
 		05E417E92C52FD5600AD6A7B /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E417E82C52FD5600AD6A7B /* UserService.swift */; };
-		05E4F9DD2C2B18B500820243 /* ProjectStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F9DC2C2B18B500820243 /* ProjectStepCell.swift */; };
+		05E4F9DD2C2B18B500820243 /* StepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F9DC2C2B18B500820243 /* StepCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0508230D2C58072A00FF2F36 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
+		050823112C58089300FF2F36 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
+		050823152C580E5600FF2F36 /* StepCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCellViewModel.swift; sourceTree = "<group>"; };
 		0514C2242C1B1E9A00C75560 /* DIY-Network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DIY-Network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0514C2272C1B1E9A00C75560 /* DIY_NetworkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIY_NetworkApp.swift; sourceTree = "<group>"; };
 		0514C2292C1B1E9A00C75560 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -126,6 +135,9 @@
 		05AFD3532C224CCD0086C672 /* LibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryService.swift; sourceTree = "<group>"; };
 		05B255542C2621C00084F5C3 /* InAppButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppButtonModifier.swift; sourceTree = "<group>"; };
 		05BD73202C544167004CCCEC /* FeedCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCellViewModel.swift; sourceTree = "<group>"; };
+		05C767832C57BE35009E6A1D /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
+		05C767852C57BE43009E6A1D /* NewLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLibraryView.swift; sourceTree = "<group>"; };
+		05C7678B2C57C9F5009E6A1D /* LibraryCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCellViewModel.swift; sourceTree = "<group>"; };
 		05CD48962C276BF700146A4F /* ProjectDividerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDividerView.swift; sourceTree = "<group>"; };
 		05CD48982C27867C00146A4F /* EditProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectView.swift; sourceTree = "<group>"; };
 		05CD489A2C27869100146A4F /* EditProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProjectViewModel.swift; sourceTree = "<group>"; };
@@ -144,7 +156,7 @@
 		05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListViewModel.swift; sourceTree = "<group>"; };
 		05E0E14E2C2368290079D12C /* LibraryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListView.swift; sourceTree = "<group>"; };
 		05E417E82C52FD5600AD6A7B /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
-		05E4F9DC2C2B18B500820243 /* ProjectStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectStepCell.swift; sourceTree = "<group>"; };
+		05E4F9DC2C2B18B500820243 /* StepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -375,10 +387,11 @@
 		055FE0822C2470CE00497DDB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0508230D2C58072A00FF2F36 /* NewProjectView.swift */,
 				055FE0772C238B8C00497DDB /* ProjectHeaderView.swift */,
-				05E4F9DC2C2B18B500820243 /* ProjectStepCell.swift */,
 				055FE07F2C23B8DA00497DDB /* ProjectStepView.swift */,
 				056D4CC12C1F693400E34094 /* ProjectView.swift */,
+				05E4F9DC2C2B18B500820243 /* StepCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -387,6 +400,8 @@
 			isa = PBXGroup;
 			children = (
 				055FE07D2C23B70600497DDB /* ProjectStepViewModel.swift */,
+				050823112C58089300FF2F36 /* ProjectViewModel.swift */,
+				050823152C580E5600FF2F36 /* StepCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -442,6 +457,7 @@
 				056D4CBF2C1F5CBD00E34094 /* LibraryCell.swift */,
 				05E0E14E2C2368290079D12C /* LibraryListView.swift */,
 				056D4CBB2C1F56E100E34094 /* LibraryView.swift */,
+				05C767852C57BE43009E6A1D /* NewLibraryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -450,6 +466,8 @@
 			isa = PBXGroup;
 			children = (
 				05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */,
+				05C767832C57BE35009E6A1D /* LibraryViewModel.swift */,
+				05C7678B2C57C9F5009E6A1D /* LibraryCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -627,6 +645,7 @@
 				0514C2562C1B250F00C75560 /* CircularProfileImageView.swift in Sources */,
 				056D4CB32C1F45E100E34094 /* ProjectModel.swift in Sources */,
 				05DCC8382C2DA088008DC4FC /* PostDetailsView.swift in Sources */,
+				050823122C58089300FF2F36 /* ProjectViewModel.swift in Sources */,
 				05E0E14F2C2368290079D12C /* LibraryListView.swift in Sources */,
 				056D4CBC2C1F56E100E34094 /* LibraryView.swift in Sources */,
 				05AFD3542C224CCD0086C672 /* LibraryService.swift in Sources */,
@@ -638,7 +657,9 @@
 				056D4CAF2C1F35B300E34094 /* SearchViewModel.swift in Sources */,
 				05D703EB2C1DD79200E0C3F7 /* CurrentUserProfileView.swift in Sources */,
 				05CD48992C27867C00146A4F /* EditProjectView.swift in Sources */,
+				0508230E2C58072A00FF2F36 /* NewProjectView.swift in Sources */,
 				0514C2282C1B1E9A00C75560 /* DIY_NetworkApp.swift in Sources */,
+				05C7678C2C57C9F5009E6A1D /* LibraryCellViewModel.swift in Sources */,
 				055FE07A2C23A27400497DDB /* AddProjectStepView.swift in Sources */,
 				05AEE7922C2D0C620071C8F9 /* TestViewModel.swift in Sources */,
 				05D703F02C1DDA6600E0C3F7 /* AuthViewModel.swift in Sources */,
@@ -646,7 +667,8 @@
 				05BD73212C544167004CCCEC /* FeedCellViewModel.swift in Sources */,
 				055FE0782C238B8C00497DDB /* ProjectHeaderView.swift in Sources */,
 				05D703F22C1DF09A00E0C3F7 /* RegisterView.swift in Sources */,
-				05E4F9DD2C2B18B500820243 /* ProjectStepCell.swift in Sources */,
+				05C767862C57BE43009E6A1D /* NewLibraryView.swift in Sources */,
+				05E4F9DD2C2B18B500820243 /* StepCell.swift in Sources */,
 				054CF0A12C1E63B6005820A5 /* EditProfileViewModel.swift in Sources */,
 				056D4CAD2C1F34EF00E34094 /* SearchView.swift in Sources */,
 				055FE0762C237D1600497DDB /* ProjectImageView.swift in Sources */,
@@ -659,8 +681,10 @@
 				05DCC8362C2D9B82008DC4FC /* PostProjectCell.swift in Sources */,
 				05A0A3FB2C32CAF200760530 /* FeedViewModel.swift in Sources */,
 				056D4CC62C1FA9E100E34094 /* CreateProjectView.swift in Sources */,
+				050823162C580E5600FF2F36 /* StepCellViewModel.swift in Sources */,
 				05AEE78E2C2D00180071C8F9 /* PostModel.swift in Sources */,
 				05DCC8322C2D98C5008DC4FC /* PostProjectView.swift in Sources */,
+				05C767842C57BE35009E6A1D /* LibraryViewModel.swift in Sources */,
 				056D4CC22C1F693400E34094 /* ProjectView.swift in Sources */,
 				056D4CB72C1F506C00E34094 /* ProjectStepModel.swift in Sources */,
 				05A0A3FF2C32D30C00760530 /* ProfileHeaderView.swift in Sources */,

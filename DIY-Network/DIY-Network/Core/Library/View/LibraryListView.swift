@@ -50,7 +50,7 @@ struct LibraryListView: View {
         LazyVStack {
           ForEach(viewModel.projects) { project in
             NavigationLink(value: project) {
-              LibraryCell(project: project)
+              LibraryCell(viewModel: LibraryCellViewModel(project: project))
             }
             .foregroundColor(Color.primary)
           }
