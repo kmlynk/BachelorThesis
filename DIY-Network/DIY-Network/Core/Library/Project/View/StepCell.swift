@@ -110,6 +110,7 @@ struct StepCell: View {
   }
 }
 
+// TODO: Implement ObservedObject StepCellViewModel
 struct StepBottomSheet: View {
   @Environment(\.dismiss) var dismiss
   var step: ProjectStepModel
