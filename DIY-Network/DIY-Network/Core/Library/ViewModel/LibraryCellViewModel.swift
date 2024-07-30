@@ -8,6 +8,7 @@
 import Firebase
 import Foundation
 
+@MainActor
 class LibraryCellViewModel: ObservableObject {
   @Published var project: ProjectModel
 

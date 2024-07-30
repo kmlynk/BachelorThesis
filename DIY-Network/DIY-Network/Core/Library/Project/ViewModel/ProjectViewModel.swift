@@ -8,6 +8,7 @@
 import Firebase
 import Foundation
 
+@MainActor
 class ProjectViewModel: ObservableObject {
   let project: ProjectModel
   @Published var steps = [ProjectStepModel]()
