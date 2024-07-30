@@ -60,6 +60,16 @@ struct NewProjectView: View {
               StepCell(step: step)
             }
           }
+
+          VStack {
+            Text("Pull to refresh")
+              .font(.caption)
+              .fontWeight(.thin)
+            Image(systemName: "arrow.down")
+              .imageScale(.small)
+          }
+          .padding(.top, 48)
+          .foregroundColor(Color.gray)
         }
       }
       .navigationTitle(viewModel.project.projectName)
