@@ -22,13 +22,33 @@ struct NewProjectView: View {
     } else if viewModel.steps.count < 1 {
       VStack(alignment: .center) {
         VStack(spacing: 8) {
-          Text("This project has no steps at the moment")
-            .font(.title3)
+          Text("Project has no steps at the moment")
             .fontWeight(.bold)
-          Text("Create a step")
-            .font(.title3)
+            .foregroundColor(Color.gray)
+          Button {
+            showCreateStep.toggle()
+          } label: {
+            VStack(spacing: 8) {
+              Text("Create a step")
+              Image(systemName: "plus.circle")
+                .imageScale(.large)
+            }
+            .foregroundColor(Color.blue)
+          }
         }
-        .foregroundColor(Color.gray)
+      }
+      .font(.title3)
+      .fullScreenCover(
+        isPresented: $showCreateStep,
+        onDismiss: {
+          Task {
+            showProgress.toggle()
+            try await viewModel.getProjectSteps()
+            showProgress.toggle()
+          }
+        }
+      ) {
+        AddProjectStepView(project: viewModel.project)
       }
     } else {
       ScrollView {
