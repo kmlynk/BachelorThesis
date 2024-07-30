@@ -31,7 +31,7 @@ struct MainTabView: View {
         }
         .tag("Post")
 
-      LibraryView(user: user)
+      NewLibraryView(user: user)
         .tabItem {
           Image(systemName: "books.vertical")
         }
