@@ -20,6 +20,12 @@ class LibraryCellViewModel: ObservableObject {
     do {
       self.project = try await LibraryService.fetchSingleProject(project: project)
     } catch {
+      self.project = ProjectModel(
+        id: "0000",
+        ownerId: "0000",
+        projectName: "Deleted Project",
+        projectDesc: "Please refresh the page"
+      )
       print("DEBUG: Project couldn't fetched with error \(error.localizedDescription)")
     }
   }
