@@ -25,6 +25,9 @@ struct PostProjectView: View {
           }
         }
       }
+      .onAppear(perform: {
+        Task { try await viewModel.fetchUserProjects() }
+      })
       .scrollIndicators(.never)
       .navigationTitle("Choose a project to post")
       .navigationBarTitleDisplayMode(.inline)
