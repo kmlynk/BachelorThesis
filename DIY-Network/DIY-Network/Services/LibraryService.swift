@@ -10,6 +10,7 @@ import Firebase
 struct LibraryService {
   private static let projectDB = Firestore.firestore().collection("projects")
   private static let postDB = Firestore.firestore().collection("posts")
+  private static let postedProjectDB = Firestore.firestore().collection("posted-projects")
 
   static func fetchSingleProject(withId projectId: String) async throws -> ProjectModel {
     print("DEBUG: Trying to reach to steps collection...")
@@ -25,11 +26,34 @@ struct LibraryService {
     return try snapshot.data(as: ProjectModel.self)
   }
 
+  static func fetchPostedProject(projectId: String) async throws -> ProjectModel {
+    print("DEBUG: Trying to reach to steps collection...")
+    let snapshot = try await postedProjectDB.document(projectId).getDocument()
+    print("DEBUG: Project data fetched!")
+    return try snapshot.data(as: ProjectModel.self)
+
+  }
+
   // It gets projects steps and retuns as an array
   static func fetchProjectStepData(project: ProjectModel) async throws -> [ProjectStepModel] {
     do {
       print("DEBUG: Trying to reach to steps collection...")
       let snapshot = try await projectDB.document(project.id).collection("steps").getDocuments()
+      print("DEBUG: Project ID: \(project.id)")
+      print("DEBUG: Projects step data fetched!")
+      return try snapshot.documents.compactMap({ try $0.data(as: ProjectStepModel.self) })
+    } catch {
+      print(
+        "DEBUG: Failed to fetch step data from database with error \(error.localizedDescription)")
+      return []
+    }
+  }
+
+  static func fetchPostedProjectStepData(project: ProjectModel) async throws -> [ProjectStepModel] {
+    do {
+      print("DEBUG: Trying to reach to steps collection...")
+      let snapshot = try await postedProjectDB.document(project.id).collection("steps")
+        .getDocuments()
       print("DEBUG: Project ID: \(project.id)")
       print("DEBUG: Projects step data fetched!")
       return try snapshot.documents.compactMap({ try $0.data(as: ProjectStepModel.self) })
@@ -79,6 +103,27 @@ struct LibraryService {
     }
   }
 
+  static func uploadPostedProjectData(project: ProjectModel) async throws -> String {
+    do {
+      let id = NSUUID().uuidString
+      let project = ProjectModel(
+        id: id,
+        ownerId: project.ownerId,
+        projectName: project.projectName,
+        projectDesc: project.projectDesc,
+        projectImageUrl: project.projectImageUrl
+      )
+      let encodedProject = try Firestore.Encoder().encode(project)
+      try await postedProjectDB.document(id).setData(encodedProject)
+      return id
+    } catch {
+      print(
+        "DEBUG: Failed to upload posted project data to database with error \(error.localizedDescription)"
+      )
+      return ""
+    }
+  }
+
   static func uploadProjectStepData(
     project: ProjectModel, stepNumber: Int, stepName: String, stepDesc: String, imageUrl: String?
   ) async {
@@ -97,6 +142,28 @@ struct LibraryService {
     } catch {
       print(
         "DEBUG: Failed to upload step data to database with error \(error.localizedDescription)")
+    }
+  }
+
+  static func uploadPostedProjectStepData(
+    projectId: String, stepNumber: Int, stepName: String, stepDesc: String, imageUrl: String?
+  ) async {
+    do {
+      let step = ProjectStepModel(
+        id: NSUUID().uuidString,
+        projectId: projectId,
+        stepNumber: stepNumber,
+        stepName: stepName,
+        stepDesc: stepDesc,
+        stepImageUrl: imageUrl
+      )
+      let encodedStep = try Firestore.Encoder().encode(step)
+      try await postedProjectDB.document(projectId).collection("steps").document(step.id).setData(
+        encodedStep)
+    } catch {
+      print(
+        "DEBUG: Failed to upload posted step data to database with error \(error.localizedDescription)"
+      )
     }
   }
 
@@ -166,8 +233,8 @@ struct LibraryService {
     async throws
   {
     do {
-      let originProject = try await fetchSingleProject(withId: post.projectId)
-      let originSteps = try await fetchProjectStepData(project: originProject)
+      let originProject = try await fetchPostedProject(projectId: post.projectId)
+      let originSteps = try await fetchPostedProjectStepData(project: originProject)
 
       var newProject = originProject
       newProject.id = NSUUID().uuidString

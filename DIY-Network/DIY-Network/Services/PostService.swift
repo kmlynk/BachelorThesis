@@ -15,10 +15,34 @@ struct PostService {
     async throws
   {
     do {
+      let originProject = try await LibraryService.fetchSingleProject(withId: projectId)
+      let originSteps = try await LibraryService.fetchProjectStepData(project: originProject)
+      let postedProjectId = try await LibraryService.uploadPostedProjectData(project: originProject)
+
+      for step in originSteps {
+        if let imageUrl = step.stepImageUrl {
+          await LibraryService.uploadPostedProjectStepData(
+            projectId: postedProjectId,
+            stepNumber: step.stepNumber,
+            stepName: step.stepName,
+            stepDesc: step.stepDesc,
+            imageUrl: imageUrl
+          )
+        } else {
+          await LibraryService.uploadPostedProjectStepData(
+            projectId: postedProjectId,
+            stepNumber: step.stepNumber,
+            stepName: step.stepName,
+            stepDesc: step.stepDesc,
+            imageUrl: nil
+          )
+        }
+      }
+
       let post = PostModel(
         id: NSUUID().uuidString,
         ownerId: ownerId,
-        projectId: projectId,
+        projectId: postedProjectId,
         imageUrl: imageUrl,
         caption: caption,
         likes: 0,
