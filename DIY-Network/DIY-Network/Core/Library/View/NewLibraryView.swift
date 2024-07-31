@@ -26,12 +26,32 @@ struct NewLibraryView: View {
         VStack(alignment: .center) {
           VStack(spacing: 8) {
             Text("You have no projects at the moment")
-              .font(.title3)
               .fontWeight(.bold)
-            Text("Create a project")
-              .font(.title3)
+              .foregroundColor(Color.gray)
+            Button {
+              showCreateProject.toggle()
+            } label: {
+              VStack(spacing: 8) {
+                Text("Create a project")
+                Image(systemName: "plus.circle")
+                  .imageScale(.large)
+              }
+              .foregroundColor(Color.blue)
+            }
           }
-          .foregroundColor(Color.gray)
+        }
+        .font(.title3)
+        .fullScreenCover(
+          isPresented: $showCreateProject,
+          onDismiss: {
+            Task {
+              showProgress.toggle()
+              try await viewModel.getUsersProjects()
+              showProgress.toggle()
+            }
+          }
+        ) {
+          CreateProjectView(user: viewModel.user)
         }
       } else {
         ScrollView {
