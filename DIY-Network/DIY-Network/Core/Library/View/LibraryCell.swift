@@ -106,7 +106,12 @@ struct ProjectBottomSheet: View {
           .foregroundColor(Color.red)
         }
       }
-      .fullScreenCover(isPresented: $showEditView) {
+      .fullScreenCover(
+        isPresented: $showEditView,
+        onDismiss: {
+          dismiss()
+        }
+      ) {
         EditProjectView(project: project)
       }
     } else {

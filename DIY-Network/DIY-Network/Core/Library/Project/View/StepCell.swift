@@ -149,7 +149,12 @@ struct StepBottomSheet: View {
           .foregroundColor(Color.red)
         }
       }
-      .fullScreenCover(isPresented: $showEditView) {
+      .fullScreenCover(
+        isPresented: $showEditView,
+        onDismiss: {
+          dismiss()
+        }
+      ) {
         EditStepView(step: step)
       }
     } else {
