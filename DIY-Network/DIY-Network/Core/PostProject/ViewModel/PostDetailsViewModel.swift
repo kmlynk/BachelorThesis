@@ -27,6 +27,7 @@ class PostDetailsViewModel: ObservableObject {
     self.name = project.projectName
   }
 
+  @MainActor
   func loadImage(fromItem item: PhotosPickerItem?) async {
     guard let item = item else { return }
     guard let data = try? await item.loadTransferable(type: Data.self) else { return }
