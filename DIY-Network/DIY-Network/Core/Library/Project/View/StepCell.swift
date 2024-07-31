@@ -23,7 +23,14 @@ struct StepCell: View {
         thumbnail: ThumbnailView(content: {
           VStack {
             VStack {
-              Text("Step Number \(viewModel.step.stepNumber)")
+              Toggle(isOn: $viewModel.step.isCompleted) {
+                Text("Step Number \(viewModel.step.stepNumber)")
+              }
+              .toggleStyle(CheckboxToggleStyle())
+              .padding(.horizontal)
+              .onChange(of: viewModel.step.isCompleted) { _ in
+                viewModel.toggleComplete()
+              }
             }
             .padding(.bottom, 5)
 
@@ -106,6 +113,19 @@ struct StepCell: View {
         }),
         color: currentMode == .dark ? Color.black : Color.white
       )
+    }
+  }
+}
+
+struct CheckboxToggleStyle: ToggleStyle {
+  func makeBody(configuration: Self.Configuration) -> some View {
+    HStack {
+      configuration.label
+      Spacer()
+      Image(systemName: configuration.isOn ? "checkmark.square.fill" : "square")
+        .resizable()
+        .frame(width: 24, height: 24)
+        .onTapGesture { configuration.isOn.toggle() }
     }
   }
 }
