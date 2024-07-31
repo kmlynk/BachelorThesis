@@ -134,7 +134,8 @@ struct LibraryService {
         stepNumber: stepNumber,
         stepName: stepName,
         stepDesc: stepDesc,
-        stepImageUrl: imageUrl
+        stepImageUrl: imageUrl,
+        isCompleted: false
       )
       let encodedStep = try Firestore.Encoder().encode(step)
       try await projectDB.document(project.id).collection("steps").document(step.id).setData(
@@ -155,7 +156,8 @@ struct LibraryService {
         stepNumber: stepNumber,
         stepName: stepName,
         stepDesc: stepDesc,
-        stepImageUrl: imageUrl
+        stepImageUrl: imageUrl,
+        isCompleted: false
       )
       let encodedStep = try Firestore.Encoder().encode(step)
       try await postedProjectDB.document(projectId).collection("steps").document(step.id).setData(
@@ -226,6 +228,26 @@ struct LibraryService {
         print(
           "DEBUG: Failed to update step data in database with error \(error.localizedDescription)")
       }
+    }
+  }
+
+  static func handleCompletion(step: ProjectStepModel) async throws {
+    let snapshot = try await projectDB.document(step.projectId).collection("steps").document(
+      step.id
+    ).getDocument()
+    var stepData = try snapshot.data(as: ProjectStepModel.self)
+    stepData.isCompleted.toggle()
+
+    let data: [String: Bool] = [
+      "isCompleted": stepData.isCompleted
+    ]
+
+    do {
+      try await projectDB.document(step.projectId).collection("steps").document(step.id).updateData(
+        data)
+    } catch {
+      print(
+        "DEBUG: Failed to handle completion in database with error \(error.localizedDescription)")
     }
   }
 

@@ -14,6 +14,7 @@ struct ProjectStepModel: Identifiable, Hashable, Codable {
   var stepName: String
   var stepDesc: String
   var stepImageUrl: String?
+  var isCompleted: Bool
 }
 
 extension ProjectStepModel {
@@ -24,8 +25,8 @@ extension ProjectStepModel {
       stepNumber: 1,
       stepName: "Main Branch Step One",
       stepDesc: "Test Step One",
-      stepImageUrl:
-        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2FEB06F101-853C-47BB-9566-AFBF934808C5?alt=media&token=81076c42-9ba1-4590-b7d3-fdd1447eea8b"
+      stepImageUrl: "",
+      isCompleted: true
     )
   ]
 }
