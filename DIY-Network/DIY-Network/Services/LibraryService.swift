@@ -39,9 +39,11 @@ struct LibraryService {
       return []
     }
   }
-  
+
   static func fetchSingleStepData(step: ProjectStepModel) async throws -> ProjectStepModel {
-    let snapshot = try await projectDB.document(step.projectId).collection("steps").document(step.id).getDocument()
+    let snapshot = try await projectDB.document(step.projectId).collection("steps").document(
+      step.id
+    ).getDocument()
     return try snapshot.data(as: ProjectStepModel.self)
   }
 
@@ -58,24 +60,8 @@ struct LibraryService {
     }
   }
 
-  static func uploadProjectData(ownerId: String, projectName: String, projectDesc: String) async {
-    do {
-      let project = ProjectModel(
-        id: NSUUID().uuidString,
-        ownerId: ownerId,
-        projectName: projectName,
-        projectDesc: projectDesc
-      )
-      let encodedProject = try Firestore.Encoder().encode(project)
-      try await projectDB.document(project.id).setData(encodedProject)
-    } catch {
-      print(
-        "DEBUG: Failed to upload project data to database with error \(error.localizedDescription)")
-    }
-  }
-
   static func uploadProjectData(
-    withImage imageUrl: String, ownerId: String, projectName: String, projectDesc: String
+    ownerId: String, projectName: String, projectDesc: String, imageUrl: String?
   ) async {
     do {
       let project = ProjectModel(
@@ -94,28 +80,7 @@ struct LibraryService {
   }
 
   static func uploadProjectStepData(
-    project: ProjectModel, stepNumber: Int, stepName: String, stepDesc: String
-  ) async {
-    do {
-      let step = ProjectStepModel(
-        id: NSUUID().uuidString,
-        projectId: project.id,
-        stepNumber: stepNumber,
-        stepName: stepName,
-        stepDesc: stepDesc
-      )
-      let encodedStep = try Firestore.Encoder().encode(step)
-      try await projectDB.document(project.id).collection("steps").document(step.id).setData(
-        encodedStep)
-    } catch {
-      print(
-        "DEBUG: Failed to upload step data to database with error \(error.localizedDescription)")
-    }
-  }
-
-  static func uploadProjectStepData(
-    withImage imageUrl: String, project: ProjectModel, stepNumber: Int, stepName: String,
-    stepDesc: String
+    project: ProjectModel, stepNumber: Int, stepName: String, stepDesc: String, imageUrl: String?
   ) async {
     do {
       let step = ProjectStepModel(
@@ -214,12 +179,20 @@ struct LibraryService {
       for step in originSteps {
         if let imageUrl = step.stepImageUrl {
           await uploadProjectStepData(
-            withImage: imageUrl, project: newProject, stepNumber: step.stepNumber,
-            stepName: step.stepName, stepDesc: step.stepDesc)
+            project: newProject,
+            stepNumber: step.stepNumber,
+            stepName: step.stepName,
+            stepDesc: step.stepDesc,
+            imageUrl: imageUrl
+          )
         } else {
           await uploadProjectStepData(
-            project: newProject, stepNumber: step.stepNumber, stepName: step.stepName,
-            stepDesc: step.stepDesc)
+            project: newProject,
+            stepNumber: step.stepNumber,
+            stepName: step.stepName,
+            stepDesc: step.stepDesc,
+            imageUrl: nil
+          )
         }
       }
 

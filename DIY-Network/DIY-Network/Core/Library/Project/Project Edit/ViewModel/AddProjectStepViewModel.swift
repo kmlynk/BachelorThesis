@@ -40,11 +40,11 @@ class AddProjectStepViewModel: ObservableObject {
         guard let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) else { return }
 
         await LibraryService.uploadProjectStepData(
-          withImage: imageUrl,
           project: project,
           stepNumber: stepNumber,
           stepName: name,
-          stepDesc: desc
+          stepDesc: desc,
+          imageUrl: imageUrl
         )
         print("DEBUG: Step with image is created!")
       } else {
@@ -53,7 +53,8 @@ class AddProjectStepViewModel: ObservableObject {
           project: project,
           stepNumber: stepNumber,
           stepName: name,
-          stepDesc: desc
+          stepDesc: desc,
+          imageUrl: nil
         )
         print("DEBUG: Step is created!")
       }

@@ -30,16 +30,17 @@ class CreateProjectViewModel: ObservableObject {
       guard let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) else { return }
 
       await LibraryService.uploadProjectData(
-        withImage: imageUrl,
         ownerId: user.id,
         projectName: projectName,
-        projectDesc: projectDesc
+        projectDesc: projectDesc,
+        imageUrl: imageUrl
       )
     } else {
       await LibraryService.uploadProjectData(
         ownerId: user.id,
         projectName: projectName,
-        projectDesc: projectDesc
+        projectDesc: projectDesc,
+        imageUrl: nil
       )
     }
   }
