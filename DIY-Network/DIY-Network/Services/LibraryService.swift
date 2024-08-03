@@ -302,16 +302,24 @@ struct LibraryService {
   static func calcCompletionRate(project: ProjectModel) async throws -> CGFloat {
     let steps = try await fetchProjectStepData(project: project)
     var completedSteps = 0
-    for step in steps {
-      if step.isCompleted {
-        completedSteps += 1
+    if steps.count == 0 {
+      return 0
+    } else {
+      for step in steps {
+        if step.isCompleted {
+          completedSteps += 1
+        }
       }
+      return (CGFloat(completedSteps) / CGFloat(steps.count)) * 100
     }
-    return (CGFloat(completedSteps) / CGFloat(steps.count)) * 100
   }
 
   static func deleteProjectData(project: ProjectModel) async {
     do {
+      let steps = try await fetchProjectStepData(project: project)
+      for step in steps {
+        await deleteStepData(step: step)
+      }
       try await projectDB.document(project.id).delete()
     } catch {
       print(
