@@ -80,6 +80,7 @@
 		05DCC8382C2DA088008DC4FC /* PostDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DCC8372C2DA088008DC4FC /* PostDetailsView.swift */; };
 		05DCC83A2C2DA4DB008DC4FC /* PostDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DCC8392C2DA4DB008DC4FC /* PostDetailsViewModel.swift */; };
 		05DCC83C2C2DB1BE008DC4FC /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DCC83B2C2DB1BE008DC4FC /* PostService.swift */; };
+		05DF234A2C5AFBA10015F745 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DF23492C5AFBA10015F745 /* ProgressBar.swift */; };
 		05E0E14D2C2353670079D12C /* LibraryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */; };
 		05E0E14F2C2368290079D12C /* LibraryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0E14E2C2368290079D12C /* LibraryListView.swift */; };
 		05E417E92C52FD5600AD6A7B /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E417E82C52FD5600AD6A7B /* UserService.swift */; };
@@ -153,6 +154,7 @@
 		05DCC8372C2DA088008DC4FC /* PostDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsView.swift; sourceTree = "<group>"; };
 		05DCC8392C2DA4DB008DC4FC /* PostDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailsViewModel.swift; sourceTree = "<group>"; };
 		05DCC83B2C2DB1BE008DC4FC /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
+		05DF23492C5AFBA10015F745 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListViewModel.swift; sourceTree = "<group>"; };
 		05E0E14E2C2368290079D12C /* LibraryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListView.swift; sourceTree = "<group>"; };
 		05E417E82C52FD5600AD6A7B /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 				0514C2552C1B250F00C75560 /* CircularProfileImageView.swift */,
 				055FE0752C237D1600497DDB /* ProjectImageView.swift */,
 				05CD48962C276BF700146A4F /* ProjectDividerView.swift */,
+				05DF23492C5AFBA10015F745 /* ProgressBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				056D4CB32C1F45E100E34094 /* ProjectModel.swift in Sources */,
 				05DCC8382C2DA088008DC4FC /* PostDetailsView.swift in Sources */,
 				050823122C58089300FF2F36 /* ProjectViewModel.swift in Sources */,
+				05DF234A2C5AFBA10015F745 /* ProgressBar.swift in Sources */,
 				05E0E14F2C2368290079D12C /* LibraryListView.swift in Sources */,
 				056D4CBC2C1F56E100E34094 /* LibraryView.swift in Sources */,
 				05AFD3542C224CCD0086C672 /* LibraryService.swift in Sources */,
