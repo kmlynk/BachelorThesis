@@ -12,6 +12,7 @@ struct LibraryCell: View {
   @ObservedObject var viewModel: LibraryCellViewModel
   @State private var showSheet = false
   @State private var showProgress = false
+  @State private var perc: CGFloat = 0
 
   var body: some View {
     if showProgress {
@@ -45,10 +46,29 @@ struct LibraryCell: View {
 
             Spacer()
           }
+
+          Divider()
+            .foregroundColor(Color.primary)
+
+          VStack {
+            ProgressBar(
+              width: 300, height: 20, percent: perc,
+              color1: Color.secondary, color2: Color.primary
+            )
+            .animation(.easeIn)
+            .onAppear(perform: {
+              Task {
+                perc = try await LibraryService.calcCompletionRate(project: viewModel.project)
+              }
+            })
+
+            Text("\(Int(perc))% Completed")
+              .font(.headline)
+          }
         }
       }
       .padding()
-      .background(currentMode == .dark ? Color.black : Color.white)
+      .background(currentMode == .dark ? Color.black : Color.white)  // TODO: Implement new colors
       .cornerRadius(20)
       .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
       .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
