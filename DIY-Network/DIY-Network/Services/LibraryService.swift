@@ -284,15 +284,6 @@ struct LibraryService {
           )
         }
       }
-
-      var importedBy = post.importedBy ?? []
-      importedBy.append(newOwner.id)
-
-      let data: [String: Any] = [
-        "importedBy": importedBy
-      ]
-
-      try await postDB.document(post.id).updateData(data)
     } catch {
       print(
         "DEBUG: Failed to import project to users library with error \(error.localizedDescription)")

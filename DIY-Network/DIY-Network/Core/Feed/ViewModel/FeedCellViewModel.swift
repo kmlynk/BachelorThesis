@@ -12,13 +12,11 @@ class FeedCellViewModel: ObservableObject {
   let user: UserModel
   @Published var post: PostModel
   @Published var isLiked: Bool
-  @Published var isImported: Bool
 
   init(post: PostModel, user: UserModel) {
     self.post = post
     self.user = user
     self.isLiked = post.likedBy?.contains(user.id) ?? false
-    self.isImported = post.importedBy?.contains(user.id) ?? false
   }
 
   func toggleLike() {
@@ -37,21 +35,7 @@ class FeedCellViewModel: ObservableObject {
     }
   }
 
-  func toggleImport() {
-    isImported.toggle()
-    Task {
-      do {
-        try await importProjectFromPost()
-      } catch {
-        isImported.toggle()
-        print(
-          "DEBUG: Failed to toggle import for post \(post.id) with error \(error.localizedDescription)"
-        )
-      }
-    }
-  }
-
-  func importProjectFromPost() async throws {
+  func importProject() async throws {
     try await LibraryService.importProjectToUserLibrary(post: post, newOwner: user)
   }
 }

@@ -52,12 +52,13 @@ struct FeedCell: View {
         Spacer()
 
         Button {
-          viewModel.toggleImport()
+          Task {
+            try await viewModel.importProject()
+          }
           print("Add project to the library")
         } label: {
           Image(
-            systemName: viewModel.isImported
-              ? "checkmark.rectangle.stack.fill" : "square.and.arrow.down.on.square"
+            systemName: "square.and.arrow.down.on.square"
           )
           .imageScale(.large)
         }
