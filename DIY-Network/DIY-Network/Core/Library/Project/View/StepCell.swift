@@ -10,11 +10,13 @@ import SwiftUI
 struct StepCell: View {
   @Environment(\.colorScheme) var currentMode
   @StateObject var viewModel: StepCellViewModel
+  let editable: Bool
   @State private var showSheet = false
   @State private var showProgress = false
 
-  init(step: ProjectStepModel) {
+  init(step: ProjectStepModel, editable: Bool) {
     self._viewModel = StateObject(wrappedValue: StepCellViewModel(step: step))
+    self.editable = editable
   }
 
   var body: some View {
@@ -22,17 +24,21 @@ struct StepCell: View {
       ExpandableView(
         thumbnail: ThumbnailView(content: {
           VStack {
-            VStack {
-              Toggle(isOn: $viewModel.step.isCompleted) {
-                Text("Step Number \(viewModel.step.stepNumber)")
+            if editable {
+              VStack {
+                Toggle(isOn: $viewModel.step.isCompleted) {
+                  Text("Step Number \(viewModel.step.stepNumber)")
+                }
+                .toggleStyle(CheckboxToggleStyle())
+                .padding(.horizontal)
+                .onChange(of: viewModel.step.isCompleted) { _ in
+                  viewModel.toggleComplete()
+                }
               }
-              .toggleStyle(CheckboxToggleStyle())
-              .padding(.horizontal)
-              .onChange(of: viewModel.step.isCompleted) { _ in
-                viewModel.toggleComplete()
-              }
+              .padding(.bottom, 5)
+            } else {
+              Text("Step Number \(viewModel.step.stepNumber)")
             }
-            .padding(.bottom, 5)
 
             ProjectDividerView(minusWidth: 60, height: 0.8)
 
@@ -61,18 +67,25 @@ struct StepCell: View {
             ProgressView("Loading...")
           } else {
             VStack {
-              HStack {
+              if editable {
+                HStack {
+                  Text("\(viewModel.step.stepNumber). \(viewModel.step.stepName)")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .font(.footnote)
+                    .lineLimit(2)
+
+                  Button {
+                    showSheet.toggle()
+                  } label: {
+                    Image(systemName: "ellipsis")
+                      .imageScale(.large)
+                  }
+                }
+              } else {
                 Text("\(viewModel.step.stepNumber). \(viewModel.step.stepName)")
                   .frame(maxWidth: .infinity, alignment: .leading)
                   .font(.footnote)
                   .lineLimit(2)
-
-                Button {
-                  showSheet.toggle()
-                } label: {
-                  Image(systemName: "ellipsis")
-                    .imageScale(.large)
-                }
               }
 
               ProjectDividerView(minusWidth: 60, height: 0.8)
@@ -184,5 +197,5 @@ struct StepBottomSheet: View {
 }
 
 #Preview{
-  StepCell(step: ProjectStepModel.MOCK_STEPS[0])
+  StepCell(step: ProjectStepModel.MOCK_STEPS[0], editable: false)
 }

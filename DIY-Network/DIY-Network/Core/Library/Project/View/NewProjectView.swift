@@ -57,7 +57,7 @@ struct NewProjectView: View {
 
           LazyVStack {
             ForEach(viewModel.steps) { step in
-              StepCell(step: step)
+              StepCell(step: step, editable: true)
             }
           }
 
