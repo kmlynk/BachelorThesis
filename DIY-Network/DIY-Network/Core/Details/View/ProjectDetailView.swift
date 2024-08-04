@@ -19,7 +19,11 @@ struct ProjectDetailView: View {
         ScrollView {
           ProjectHeaderView(project: viewModel.project)
           
-          ProjectStepView(project: viewModel.project)
+          LazyVStack {
+            ForEach(viewModel.steps) { step in
+              StepCell(step: step, editable: false)
+            }
+          }
         }
         .navigationTitle("Project Details")
         .navigationBarTitleDisplayMode(.inline)
