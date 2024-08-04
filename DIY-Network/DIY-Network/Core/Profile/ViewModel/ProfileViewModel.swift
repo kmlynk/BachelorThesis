@@ -20,6 +20,14 @@ class ProfileViewModel: ObservableObject {
 
   func fetchUserPosts() async throws {
     self.posts = try await PostService.fetchUserPosts(ownerId: user.id)
+
+    for i in 0..<posts.count {
+      let post = posts[i]
+      let ownerId = post.ownerId
+      let postUser = try await UserService.fetchUser(withId: ownerId)
+      posts[i].user = postUser
+    }
+
     if posts.count > 1 {
       self.sortedPosts = PostService.mergeSort(arr: posts)
     } else {
