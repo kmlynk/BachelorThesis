@@ -34,8 +34,4 @@ class FeedCellViewModel: ObservableObject {
       }
     }
   }
-
-  func importProject() async throws {
-    try await LibraryService.importProjectToUserLibrary(post: post, newOwner: user)
-  }
 }
