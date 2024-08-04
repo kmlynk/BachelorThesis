@@ -31,7 +31,7 @@ struct FeedCell: View {
       HStack {
         KFImage(URL(string: viewModel.post.imageUrl))
           .resizable()
-          .frame(height: 400)
+          .frame(width: UIScreen.main.bounds.width, height: 400)
           .clipShape(Rectangle())
           .scaledToFill()
       }
@@ -100,7 +100,9 @@ struct FeedCell: View {
     }
     .sheet(isPresented: $showDetail) {
       ProjectDetailView(
-        viewModel: ProjectDetailViewModel(user: viewModel.user, id: viewModel.post.projectId))
+        viewModel: ProjectDetailViewModel(user: viewModel.user, id: viewModel.post.projectId)
+      )
+      .presentationDetents([.medium, .large])
     }
   }
 }
