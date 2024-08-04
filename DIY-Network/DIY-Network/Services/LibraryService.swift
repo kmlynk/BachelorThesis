@@ -251,14 +251,13 @@ struct LibraryService {
     }
   }
 
-  static func importProjectToUserLibrary(post: PostModel, newOwner: UserModel)
+  static func importProjectToUserLibrary(project: ProjectModel, newOwner: UserModel)
     async throws
   {
     do {
-      let originProject = try await fetchPostedProject(projectId: post.projectId)
-      let originSteps = try await fetchPostedProjectStepData(project: originProject)
+      let originSteps = try await fetchPostedProjectStepData(project: project)
 
-      var newProject = originProject
+      var newProject = project
       newProject.id = NSUUID().uuidString
       newProject.ownerId = newOwner.id
 
