@@ -14,14 +14,14 @@ struct FeedView: View {
   var body: some View {
     NavigationStack {
       ScrollView {
-        LazyVStack(spacing: 32) {
+        LazyVStack(spacing: 16) {
           ForEach(viewModel.sortedPosts) { post in
+            Divider()
             if let user = authViewModel.currentUser {
               FeedCell(viewModel: FeedCellViewModel(post: post, user: user))
             }
           }
         }
-        .padding(.top, 8)
       }
       .scrollIndicators(.never)
       .navigationTitle("Feed")

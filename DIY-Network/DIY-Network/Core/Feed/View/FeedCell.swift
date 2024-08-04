@@ -11,6 +11,8 @@ import SwiftUI
 
 struct FeedCell: View {
   @ObservedObject var viewModel: FeedCellViewModel
+  @State private var showAlert = false
+  @State private var showDetail = false
 
   var body: some View {
     VStack {
@@ -29,9 +31,9 @@ struct FeedCell: View {
 
       KFImage(URL(string: viewModel.post.imageUrl))
         .resizable()
-        .scaledToFill()
         .frame(height: 400)
         .clipShape(Rectangle())
+        .scaledToFill()
 
       HStack(spacing: 16) {
         Button {
@@ -54,6 +56,7 @@ struct FeedCell: View {
         Button {
           Task {
             try await viewModel.importProject()
+            showAlert.toggle()
           }
           print("Add project to the library")
         } label: {
@@ -61,6 +64,9 @@ struct FeedCell: View {
             systemName: "square.and.arrow.down.on.square"
           )
           .imageScale(.large)
+        }
+        .alert(isPresented: $showAlert) {
+          Alert(title: Text("Project is imported successfully"))
         }
       }
       .padding(.horizontal, 8)
