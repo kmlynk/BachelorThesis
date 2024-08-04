@@ -10,8 +10,7 @@ import Kingfisher
 import SwiftUI
 
 struct FeedCell: View {
-  @ObservedObject var viewModel: FeedCellViewModel
-  @State private var showAlert = false
+  @StateObject var viewModel: FeedCellViewModel
   @State private var showDetail = false
 
   var body: some View {
@@ -29,11 +28,13 @@ struct FeedCell: View {
       }
       .padding(.leading, 8)
 
-      KFImage(URL(string: viewModel.post.imageUrl))
-        .resizable()
-        .frame(height: 400)
-        .clipShape(Rectangle())
-        .scaledToFill()
+      HStack {
+        KFImage(URL(string: viewModel.post.imageUrl))
+          .resizable()
+          .frame(height: 400)
+          .clipShape(Rectangle())
+          .scaledToFill()
+      }
 
       HStack(spacing: 16) {
         Button {
@@ -54,19 +55,13 @@ struct FeedCell: View {
         Spacer()
 
         Button {
-          Task {
-            try await viewModel.importProject()
-            showAlert.toggle()
-          }
+          showDetail.toggle()
           print("Add project to the library")
         } label: {
           Image(
-            systemName: "square.and.arrow.down.on.square"
+            systemName: "folder"
           )
           .imageScale(.large)
-        }
-        .alert(isPresented: $showAlert) {
-          Alert(title: Text("Project is imported successfully"))
         }
       }
       .padding(.horizontal, 8)
@@ -102,6 +97,10 @@ struct FeedCell: View {
           .padding(.leading, 10)
           .foregroundColor(Color.secondary)
       }
+    }
+    .sheet(isPresented: $showDetail) {
+      ProjectDetailView(
+        viewModel: ProjectDetailViewModel(user: viewModel.user, id: viewModel.post.projectId))
     }
   }
 }
