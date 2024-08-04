@@ -41,6 +41,11 @@ struct NewLibraryView: View {
           }
         }
         .font(.title3)
+        .onAppear(perform: {
+          Task {
+            try await viewModel.getUsersProjects()
+          }
+        })
         .fullScreenCover(
           isPresented: $showCreateProject,
           onDismiss: {
