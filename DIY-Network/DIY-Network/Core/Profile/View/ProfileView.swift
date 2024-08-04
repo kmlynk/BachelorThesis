@@ -9,6 +9,7 @@ import Kingfisher
 import SwiftUI
 
 struct ProfileView: View {
+  @EnvironmentObject var authViewModel: AuthViewModel
   @StateObject var viewModel: ProfileViewModel
 
   init(user: UserModel) {
@@ -31,18 +32,34 @@ struct ProfileView: View {
 
       LazyVGrid(columns: gridItems, spacing: 5) {
         ForEach(viewModel.sortedPosts) { post in
-          KFImage(URL(string: post.imageUrl))
-            .resizable()
-            .scaledToFill()
-            .frame(width: imageDimension, height: imageDimension)
-            .clipped()
+          NavigationLink(value: post) {
+            KFImage(URL(string: post.imageUrl))
+              .resizable()
+              .scaledToFill()
+              .frame(width: imageDimension, height: imageDimension)
+              .clipped()
+          }
         }
       }
       .padding(.top, 15)
     }
+    .navigationDestination(
+      for: PostModel.self,
+      destination: { post in
+        if let user = authViewModel.currentUser {
+          PostDetailView(user: user, post: post, editable: false)
+            .onDisappear(perform: {
+              Task {
+                try await viewModel.fetchUserPosts()
+              }
+            })
+        }
+      }
+    )
     .padding(.top, 20)
     .navigationTitle(viewModel.user.username)
     .navigationBarTitleDisplayMode(.inline)
+    .scrollIndicators(.never)
   }
 }
 

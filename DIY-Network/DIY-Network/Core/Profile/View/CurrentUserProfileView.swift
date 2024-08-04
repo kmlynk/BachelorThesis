@@ -52,19 +52,28 @@ struct CurrentUserProfileView: View {
 
           LazyVGrid(columns: gridItems, spacing: 5) {
             ForEach(viewModel.sortedPosts) { post in
-              KFImage(URL(string: post.imageUrl))
-                .resizable()
-                .scaledToFill()
-                .frame(width: imageDimension, height: imageDimension)
-                .clipped()
+              NavigationLink(value: post) {
+                KFImage(URL(string: post.imageUrl))
+                  .resizable()
+                  .scaledToFill()
+                  .frame(width: imageDimension, height: imageDimension)
+                  .clipped()
+              }
             }
           }
         }
+        .navigationDestination(
+          for: PostModel.self,
+          destination: { post in
+            PostDetailView(user: viewModel.user, post: post, editable: true)
+          }
+        )
         .refreshable {
           Task { try await viewModel.fetchUserPosts() }
         }
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
+        .scrollIndicators(.never)
         .toolbar {
           ToolbarItem(placement: .topBarTrailing) {
             Button {
