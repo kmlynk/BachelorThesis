@@ -10,6 +10,8 @@
 		0508230E2C58072A00FF2F36 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0508230D2C58072A00FF2F36 /* NewProjectView.swift */; };
 		050823122C58089300FF2F36 /* ProjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050823112C58089300FF2F36 /* ProjectViewModel.swift */; };
 		050823162C580E5600FF2F36 /* StepCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 050823152C580E5600FF2F36 /* StepCellViewModel.swift */; };
+		0511154E2C5F351500AF0263 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0511154D2C5F351500AF0263 /* ProjectDetailView.swift */; };
+		051115522C5F357D00AF0263 /* ProjectDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051115512C5F357D00AF0263 /* ProjectDetailViewModel.swift */; };
 		0514C2282C1B1E9A00C75560 /* DIY_NetworkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0514C2272C1B1E9A00C75560 /* DIY_NetworkApp.swift */; };
 		0514C22A2C1B1E9A00C75560 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0514C2292C1B1E9A00C75560 /* ContentView.swift */; };
 		0514C22C2C1B1E9C00C75560 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0514C22B2C1B1E9C00C75560 /* Assets.xcassets */; };
@@ -91,6 +93,8 @@
 		0508230D2C58072A00FF2F36 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
 		050823112C58089300FF2F36 /* ProjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewModel.swift; sourceTree = "<group>"; };
 		050823152C580E5600FF2F36 /* StepCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCellViewModel.swift; sourceTree = "<group>"; };
+		0511154D2C5F351500AF0263 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
+		051115512C5F357D00AF0263 /* ProjectDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewModel.swift; sourceTree = "<group>"; };
 		0514C2242C1B1E9A00C75560 /* DIY-Network.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DIY-Network.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0514C2272C1B1E9A00C75560 /* DIY_NetworkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIY_NetworkApp.swift; sourceTree = "<group>"; };
 		0514C2292C1B1E9A00C75560 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -180,6 +184,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0511154C2C5F350000AF0263 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				0511154F2C5F352D00AF0263 /* View */,
+				051115502C5F353400AF0263 /* ViewModel */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		0511154F2C5F352D00AF0263 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0511154D2C5F351500AF0263 /* ProjectDetailView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		051115502C5F353400AF0263 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				051115512C5F357D00AF0263 /* ProjectDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		0514C21B2C1B1E9A00C75560 = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +283,7 @@
 			children = (
 				0514C2682C1B34E000C75560 /* Authentication */,
 				0514C2542C1B24FC00C75560 /* Components */,
+				0511154C2C5F350000AF0263 /* Details */,
 				0514C2592C1B288900C75560 /* Feed */,
 				056D4CB82C1F56BF00E34094 /* Library */,
 				0514C25C2C1B28C700C75560 /* PostProject */,
@@ -657,6 +687,7 @@
 				05A30C1F2C29008800B5843E /* EditStepView.swift in Sources */,
 				055FE0872C24FCD700497DDB /* ThumbnailView.swift in Sources */,
 				0514C2582C1B269500C75560 /* ImageUploader.swift in Sources */,
+				0511154E2C5F351500AF0263 /* ProjectDetailView.swift in Sources */,
 				055FE0892C24FD2300497DDB /* ExpandedView.swift in Sources */,
 				056D4CAF2C1F35B300E34094 /* SearchViewModel.swift in Sources */,
 				05D703EB2C1DD79200E0C3F7 /* CurrentUserProfileView.swift in Sources */,
@@ -701,6 +732,7 @@
 				057CBEE72C29A2B0004D3D5F /* EditStepViewModel.swift in Sources */,
 				05D703E82C1D315800E0C3F7 /* AuthButtonModifier.swift in Sources */,
 				05D703E22C1D2EC400E0C3F7 /* LoginView.swift in Sources */,
+				051115522C5F357D00AF0263 /* ProjectDetailViewModel.swift in Sources */,
 				05E0E14D2C2353670079D12C /* LibraryListViewModel.swift in Sources */,
 				0514C2672C1B32AC00C75560 /* UserModel.swift in Sources */,
 				0514C2652C1B297A00C75560 /* ImageModel.swift in Sources */,
