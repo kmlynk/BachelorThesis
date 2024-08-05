@@ -14,6 +14,7 @@ struct ProjectModel: Identifiable, Hashable, Codable {
   var projectDesc: String
   var projectImageUrl: String?
   var user: UserModel?
+  var videoUrl: String?
 }
 
 extension ProjectModel {
@@ -25,7 +26,8 @@ extension ProjectModel {
       projectDesc:
         "Initial Project of the Admin",
       projectImageUrl:
-        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2F0FEC9107-EC81-4421-AE89-CCA80F84C2DA?alt=media&token=54a35f75-4a46-4f41-ac6a-e6e09a415012"
+        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2F0FEC9107-EC81-4421-AE89-CCA80F84C2DA?alt=media&token=54a35f75-4a46-4f41-ac6a-e6e09a415012",
+      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     )
   ]
 }

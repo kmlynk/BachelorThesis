@@ -20,12 +20,13 @@ struct ProjectStepModel: Identifiable, Hashable, Codable {
 extension ProjectStepModel {
   static var MOCK_STEPS: [ProjectStepModel] = [
     .init(
-      id: "551A6B66-5E0C-4C96-AA4E-A154C2236781",
-      projectId: "A753F134-DA85-4BA0-B3BD-7792919BEB6C",
+      id: "3B415437-85F7-4EEF-A4CE-6979F987821A",
+      projectId: "5B8A67E7-950C-46D9-8C36-D6EB36B418F1",
       stepNumber: 1,
-      stepName: "Main Branch Step One",
-      stepDesc: "Test Step One",
-      stepImageUrl: "",
+      stepName: "Step Number One",
+      stepDesc: "This is the first step",
+      stepImageUrl:
+        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2F008F7EBA-8A83-4A03-8144-501AABA58EB5?alt=media&token=21b1bb9c-a5b8-440f-85ec-f6c9fbf75179",
       isCompleted: true
     )
   ]
