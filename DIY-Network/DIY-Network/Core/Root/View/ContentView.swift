@@ -12,7 +12,7 @@ struct ContentView: View {
 
   var body: some View {
     Group {
-      if authViewModel.userSession == nil {
+      if authViewModel.currentUser == nil {
         LoginView()
       } else {
         if let user = authViewModel.currentUser {
