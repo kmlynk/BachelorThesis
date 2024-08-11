@@ -89,6 +89,8 @@
 		05E0E14F2C2368290079D12C /* LibraryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0E14E2C2368290079D12C /* LibraryListView.swift */; };
 		05E417E92C52FD5600AD6A7B /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E417E82C52FD5600AD6A7B /* UserService.swift */; };
 		05E4F9DD2C2B18B500820243 /* StepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E4F9DC2C2B18B500820243 /* StepCell.swift */; };
+		05FC63442C618DF7007C6593 /* NewExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FC63432C618DF7007C6593 /* NewExpandableView.swift */; };
+		05FC63462C6190F0007C6593 /* NewStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FC63452C6190F0007C6593 /* NewStepCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -166,6 +168,8 @@
 		05E0E14E2C2368290079D12C /* LibraryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListView.swift; sourceTree = "<group>"; };
 		05E417E82C52FD5600AD6A7B /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		05E4F9DC2C2B18B500820243 /* StepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCell.swift; sourceTree = "<group>"; };
+		05FC63432C618DF7007C6593 /* NewExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExpandableView.swift; sourceTree = "<group>"; };
+		05FC63452C6190F0007C6593 /* NewStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStepCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -429,6 +433,7 @@
 				055FE07F2C23B8DA00497DDB /* ProjectStepView.swift */,
 				056D4CC12C1F693400E34094 /* ProjectView.swift */,
 				05E4F9DC2C2B18B500820243 /* StepCell.swift */,
+				05FC63452C6190F0007C6593 /* NewStepCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -449,6 +454,7 @@
 				055FE0842C24EF1900497DDB /* ExpandableView.swift */,
 				055FE0882C24FD2300497DDB /* ExpandedView.swift */,
 				055FE0862C24FCD700497DDB /* ThumbnailView.swift */,
+				05FC63432C618DF7007C6593 /* NewExpandableView.swift */,
 			);
 			path = ExpandableView;
 			sourceTree = "<group>";
@@ -723,6 +729,7 @@
 				055FE07C2C23A50800497DDB /* AddProjectStepViewModel.swift in Sources */,
 				05DCC8362C2D9B82008DC4FC /* PostProjectCell.swift in Sources */,
 				05A0A3FB2C32CAF200760530 /* FeedViewModel.swift in Sources */,
+				05FC63442C618DF7007C6593 /* NewExpandableView.swift in Sources */,
 				056D4CC62C1FA9E100E34094 /* CreateProjectView.swift in Sources */,
 				050823162C580E5600FF2F36 /* StepCellViewModel.swift in Sources */,
 				05AEE78E2C2D00180071C8F9 /* PostModel.swift in Sources */,
@@ -732,6 +739,7 @@
 				056D4CB72C1F506C00E34094 /* ProjectStepModel.swift in Sources */,
 				05A0A3FF2C32D30C00760530 /* ProfileHeaderView.swift in Sources */,
 				055FE0852C24EF1900497DDB /* ExpandableView.swift in Sources */,
+				05FC63462C6190F0007C6593 /* NewStepCell.swift in Sources */,
 				05AEE7902C2D0C270071C8F9 /* TestView.swift in Sources */,
 				05CD48972C276BF700146A4F /* ProjectDividerView.swift in Sources */,
 				0514C2532C1B222200C75560 /* MainTabView.swift in Sources */,
