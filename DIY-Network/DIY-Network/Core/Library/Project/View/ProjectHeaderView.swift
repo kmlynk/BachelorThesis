@@ -13,66 +13,92 @@ struct ProjectHeaderView: View {
   @State private var showVideo = false
 
   var body: some View {
-    VStack(spacing: 8) {
-      if let imageUrl = project.projectImageUrl {
-        ProjectImageView(width: 320, height: 320, imageUrl: imageUrl)
-      }
+    VStack {
+      GroupBox {
+        Divider()
 
-      Text(project.projectDesc)
-        .font(.footnote)
-        .fontWeight(.bold)
-        .multilineTextAlignment(.center)
+        if let imageUrl = project.projectImageUrl {
+          ProjectImageView(width: 300, height: 300, imageUrl: imageUrl)
+        }
 
-      if let url = project.videoUrl {
-        if showVideo {
-          Button {
-            showVideo.toggle()
-          } label: {
-            Text("Hide Video")
-              .font(.footnote)
-              .fontWeight(.bold)
-              .foregroundColor(Color.blue)
-          }
+        GroupBox {
+          Text(project.projectDesc)
+            .font(.footnote)
+            .fontWeight(.semibold)
+            .multilineTextAlignment(.center)
+            .padding(.bottom, 8)
 
-          YouTubePlayerView(
-            YouTubePlayer(
-              source: .url(url),
-              configuration: YouTubePlayer.Configuration(
-                fullscreenMode: .system,
-                autoPlay: false,
-                loopEnabled: false
-              )
-            )
-          ) { state in
-            switch state {
-            case .idle:
-              ProgressView()
-            case .ready:
-              EmptyView()
-            case .error(let error):
-              Text(error.localizedDescription)
+          if let url = project.videoUrl {
+            if showVideo {
+              YouTubePlayerView(
+                YouTubePlayer(
+                  source: .url(url),
+                  configuration: YouTubePlayer.Configuration(
+                    fullscreenMode: .system,
+                    autoPlay: false,
+                    loopEnabled: false
+                  )
+                )
+              ) { state in
+                switch state {
+                case .idle:
+                  ProgressView()
+                case .ready:
+                  EmptyView()
+                case .error(let error):
+                  Text(error.localizedDescription)
+                }
+              }
+              .frame(width: 300, height: 200)
+              .contentShape(Rectangle())
+              .padding(.vertical, 16)
+
+              Button {
+                showVideo.toggle()
+              } label: {
+                Text("Hide Video")
+                  .font(.caption)
+                  .fontWeight(.bold)
+                  .foregroundColor(Color.blue)
+              }
+            } else {
+              Button {
+                showVideo.toggle()
+              } label: {
+                Text("Show Video")
+                  .font(.caption)
+                  .fontWeight(.bold)
+                  .foregroundColor(Color.blue)
+              }
             }
           }
-          .frame(width: UIScreen.main.bounds.width - 60, height: 200)
-          .contentShape(Rectangle())
-          .padding(.vertical, 16)
-        } else {
-          Button {
-            showVideo.toggle()
-          } label: {
-            Text("Show Video")
-              .font(.footnote)
-              .fontWeight(.bold)
-              .foregroundColor(Color.blue)
-          }
         }
+      } label: {
+        Text(project.projectName)
       }
-
-      ProjectDividerView(minusWidth: 35, height: 0.1)
+      .groupBoxStyle(.projectHeader)
+      .frame(width: UIScreen.main.bounds.width)
     }
   }
 }
 
 #Preview{
   ProjectHeaderView(project: ProjectModel.MOCK_PROJECTS[0])
+}
+
+extension GroupBoxStyle where Self == ProjectHeaderBoxStyle {
+  static var projectHeader: ProjectHeaderBoxStyle { .init() }
+}
+
+struct ProjectHeaderBoxStyle: GroupBoxStyle {
+  func makeBody(configuration: Configuration) -> some View {
+    VStack(alignment: .center) {
+      configuration.label
+        .font(.callout)
+        .fontWeight(.bold)
+      configuration.content
+    }
+    .padding()
+    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 12))
+  }
 }
