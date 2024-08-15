@@ -130,19 +130,6 @@ struct StepCell: View {
   }
 }
 
-struct CheckboxToggleStyle: ToggleStyle {
-  func makeBody(configuration: Self.Configuration) -> some View {
-    HStack {
-      configuration.label
-      Spacer()
-      Image(systemName: configuration.isOn ? "checkmark.square.fill" : "square")
-        .resizable()
-        .frame(width: 24, height: 24)
-        .onTapGesture { configuration.isOn.toggle() }
-    }
-  }
-}
-
 // TODO: Implement ObservedObject StepCellViewModel
 struct StepBottomSheet: View {
   @Environment(\.dismiss) var dismiss
