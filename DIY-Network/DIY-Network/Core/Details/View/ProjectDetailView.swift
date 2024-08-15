@@ -21,7 +21,7 @@ struct ProjectDetailView: View {
           
           LazyVStack {
             ForEach(viewModel.steps) { step in
-              StepCell(step: step, editable: false)
+              NewStepCell(step: step, editable: false)
             }
           }
         }
