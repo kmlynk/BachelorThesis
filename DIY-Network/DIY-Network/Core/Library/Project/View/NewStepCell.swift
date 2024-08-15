@@ -73,6 +73,10 @@ struct NewStepCell: View {
                   Image(systemName: "ellipsis")
                     .imageScale(.large)
                 }
+              } else {
+                Text("\(viewModel.step.stepNumber). \(viewModel.step.stepName)")
+                  .font(.footnote)
+                  .lineLimit(2)
               }
             }
 
