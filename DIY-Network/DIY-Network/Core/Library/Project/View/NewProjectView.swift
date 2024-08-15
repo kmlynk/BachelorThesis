@@ -55,9 +55,11 @@ struct NewProjectView: View {
         VStack {
           ProjectHeaderView(project: viewModel.project)
 
+          Divider()
+
           LazyVStack {
             ForEach(viewModel.steps) { step in
-              StepCell(step: step, editable: true)
+              NewStepCell(step: step, editable: true)
             }
           }
 
