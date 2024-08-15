@@ -83,20 +83,11 @@ struct FeedCell: View {
       .padding(.leading, 10)
       .padding(.top, 1)
 
-      let time = (Timestamp().seconds - viewModel.post.timestamp.seconds) / 3600
-      if time < 1 {
-        Text("Less than an hour ago")
-          .font(.footnote)
-          .frame(maxWidth: .infinity, alignment: .leading)
-          .padding(.leading, 10)
-          .foregroundColor(Color.secondary)
-      } else {
-        Text("\(time)h ago")
-          .font(.footnote)
-          .frame(maxWidth: .infinity, alignment: .leading)
-          .padding(.leading, 10)
-          .foregroundColor(Color.secondary)
-      }
+      Text("Posted at \(viewModel.post.timestamp.dateValue().formatted(date: Date.FormatStyle.DateStyle.numeric, time: Date.FormatStyle.TimeStyle.omitted))")
+        .font(.footnote)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.leading, 10)
+        .foregroundColor(Color.secondary)
     }
     .sheet(isPresented: $showDetail) {
       ProjectDetailView(
