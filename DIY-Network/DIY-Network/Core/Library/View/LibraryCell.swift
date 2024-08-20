@@ -55,7 +55,7 @@ struct LibraryCell: View {
               width: 300, height: 20, percent: perc,
               color1: Color.secondary, color2: Color.primary
             )
-            .animation(.easeIn)
+            .animation(.bouncy)
             .onAppear(perform: {
               Task {
                 perc = try await LibraryService.calcCompletionRate(project: viewModel.project)
