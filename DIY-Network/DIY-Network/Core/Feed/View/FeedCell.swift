@@ -10,8 +10,11 @@ import Kingfisher
 import SwiftUI
 
 struct FeedCell: View {
+  @EnvironmentObject var authViewModel: AuthViewModel
   @StateObject var viewModel: FeedCellViewModel
   @State private var showDetail = false
+  @State private var showLabels = false
+  @State private var showComments = false
 
   var body: some View {
     VStack {
@@ -46,7 +49,7 @@ struct FeedCell: View {
         }
 
         Button {
-          print("Comment on post")
+          showComments.toggle()
         } label: {
           Image(systemName: "bubble.right")
             .imageScale(.large)
@@ -83,17 +86,92 @@ struct FeedCell: View {
       .padding(.leading, 10)
       .padding(.top, 1)
 
-      Text("Posted at \(viewModel.post.timestamp.dateValue().formatted(date: Date.FormatStyle.DateStyle.numeric, time: Date.FormatStyle.TimeStyle.omitted))")
-        .font(.footnote)
+      HStack {
+        Text(
+          "Posted at \(viewModel.post.timestamp.dateValue().formatted(date: Date.FormatStyle.DateStyle.numeric, time: Date.FormatStyle.TimeStyle.omitted))"
+        )
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.leading, 10)
         .foregroundColor(Color.secondary)
+
+        VStack {
+          if showLabels {
+            Button {
+              showLabels.toggle()
+            } label: {
+              Text("Labels: \(viewModel.post.labels)")
+            }
+          } else {
+            Button {
+              showLabels.toggle()
+            } label: {
+              Text("See Labels")
+            }
+          }
+        }
+        .animation(.bouncy)
+      }
+      .font(.footnote)
+      .padding(.horizontal, 10)
     }
     .sheet(isPresented: $showDetail) {
       ProjectDetailView(
         viewModel: ProjectDetailViewModel(user: viewModel.user, id: viewModel.post.projectId)
       )
       .presentationDetents([.medium, .large])
+    }
+    .sheet(isPresented: $showComments) {
+      ScrollView {
+        if let comments = viewModel.post.comments {
+          VStack {
+            ForEach(comments, id: \.self) { comment in
+              HStack {
+                CircularProfileImageView(size: 30, imageUrl: comment.userPic ?? "")
+
+                Text("\(comment.userName) ").fontWeight(.semibold)
+                  + Text(comment.text)
+              }
+              .font(.footnote)
+              .frame(maxWidth: .infinity, alignment: .leading)
+              .padding(.horizontal, 10)
+
+              Divider()
+            }
+          }
+          .animation(.bouncy)
+          .padding(.top)
+        } else {
+          VStack {
+            Text("No comment")
+          }
+          .padding(.top)
+        }
+
+        GroupBox {
+          HStack {
+            Text("Comment")
+              .fontWeight(.semibold)
+
+            Spacer()
+          }
+
+          Divider()
+
+          HStack {
+            TextField("Enter here your comment", text: $viewModel.comment, axis: .vertical)
+              .multilineTextAlignment(.leading)
+          }
+        }
+        .font(.subheadline)
+        .padding(.top)
+
+        Button {
+          viewModel.makeComment(user: authViewModel.currentUser!)
+        } label: {
+          Text("Send")
+        }
+        .modifier(InAppButtonModifier(width: 150, height: 40, radius: 10))
+      }
+      .presentationDetents([.height(250), .medium])
     }
   }
 }

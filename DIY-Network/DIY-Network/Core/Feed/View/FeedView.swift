@@ -10,12 +10,20 @@ import SwiftUI
 struct FeedView: View {
   @EnvironmentObject var authViewModel: AuthViewModel
   @StateObject var viewModel = FeedViewModel()
+  @State var searchTerm = ""
+
+  var filteredPosts: [PostModel] {
+    guard !searchTerm.isEmpty else { return viewModel.sortedPosts }
+    return viewModel.sortedPosts.filter {
+      $0.labels.description.localizedCaseInsensitiveContains(searchTerm)
+    }
+  }
 
   var body: some View {
     NavigationStack {
       ScrollView {
         VStack(spacing: 16) {
-          ForEach(viewModel.sortedPosts, id: \.self) { post in
+          ForEach(filteredPosts, id: \.self) { post in
             Divider()
             if let user = authViewModel.currentUser {
               FeedCell(viewModel: FeedCellViewModel(post: post, user: user))
@@ -23,8 +31,12 @@ struct FeedView: View {
           }
         }
       }
+      .searchable(text: $searchTerm, prompt: "Search for a label...")
+      .refreshable {
+        Task { try await viewModel.fetchAllPosts() }
+      }
       .scrollIndicators(.never)
-      .navigationTitle("Feed")
+      .navigationTitle("Discover")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
@@ -32,9 +44,6 @@ struct FeedView: View {
             .font(.subheadline)
             .fontWeight(.bold)
         }
-      }
-      .refreshable {
-        Task { try await viewModel.fetchAllPosts() }
       }
     }
   }
