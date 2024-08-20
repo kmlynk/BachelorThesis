@@ -51,6 +51,7 @@
 		056D4CC02C1F5CBD00E34094 /* LibraryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CBF2C1F5CBD00E34094 /* LibraryCell.swift */; };
 		056D4CC22C1F693400E34094 /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CC12C1F693400E34094 /* ProjectView.swift */; };
 		056D4CC62C1FA9E100E34094 /* CreateProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 056D4CC52C1FA9E100E34094 /* CreateProjectView.swift */; };
+		057813A92C73DD1D00A07509 /* CommentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057813A82C73DD1D00A07509 /* CommentModel.swift */; };
 		057CBEE72C29A2B0004D3D5F /* EditStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057CBEE62C29A2B0004D3D5F /* EditStepViewModel.swift */; };
 		05A0A3F92C32C5C800760530 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0A3F82C32C5C800760530 /* ProfileViewModel.swift */; };
 		05A0A3FB2C32CAF200760530 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A0A3FA2C32CAF200760530 /* FeedViewModel.swift */; };
@@ -131,6 +132,7 @@
 		056D4CBF2C1F5CBD00E34094 /* LibraryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCell.swift; sourceTree = "<group>"; };
 		056D4CC12C1F693400E34094 /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		056D4CC52C1FA9E100E34094 /* CreateProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProjectView.swift; sourceTree = "<group>"; };
+		057813A82C73DD1D00A07509 /* CommentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentModel.swift; sourceTree = "<group>"; };
 		057CBEE62C29A2B0004D3D5F /* EditStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStepViewModel.swift; sourceTree = "<group>"; };
 		05A0A3F82C32C5C800760530 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		05A0A3FA2C32CAF200760530 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 		0514C24B2C1B214D00C75560 /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				057813A82C73DD1D00A07509 /* CommentModel.swift */,
 				0514C2642C1B297A00C75560 /* ImageModel.swift */,
 				05AEE78D2C2D00180071C8F9 /* PostModel.swift */,
 				056D4CB22C1F45E100E34094 /* ProjectModel.swift */,
@@ -710,6 +713,7 @@
 				0514C2282C1B1E9A00C75560 /* DIY_NetworkApp.swift in Sources */,
 				05C7678C2C57C9F5009E6A1D /* LibraryCellViewModel.swift in Sources */,
 				055FE07A2C23A27400497DDB /* AddProjectStepView.swift in Sources */,
+				057813A92C73DD1D00A07509 /* CommentModel.swift in Sources */,
 				05AEE7922C2D0C620071C8F9 /* TestViewModel.swift in Sources */,
 				05D703F02C1DDA6600E0C3F7 /* AuthViewModel.swift in Sources */,
 				055FE07E2C23B70600497DDB /* ProjectStepViewModel.swift in Sources */,
