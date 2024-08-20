@@ -18,27 +18,38 @@ class PostDetailsViewModel: ObservableObject {
   @Published var postImage: Image?
   @Published var caption = ""
   @Published var name = ""
-
+  @Published var label1 = ""
+  @Published var label2 = ""
+  @Published var label3 = ""
+  
   private var uiImage: UIImage?
-
+  
   init(project: ProjectModel) {
     self.project = project
-
+    
     self.name = project.projectName
   }
-
+  
   @MainActor
   func loadImage(fromItem item: PhotosPickerItem?) async {
     guard let item = item else { return }
     guard let data = try? await item.loadTransferable(type: Data.self) else { return }
     print("DEBUG: Image data is \(data)")
-
+    
     guard let uiImage = UIImage(data: data) else { return }
     self.uiImage = uiImage
     self.postImage = Image(uiImage: uiImage)
   }
-
+  
   func createPost() async throws {
+    var labels = [label1]
+    if label2 != "" {
+      labels.append(label2)
+    }
+    if label3 != "" {
+      labels.append(label3)
+    }
+    
     if let uiImage = uiImage {
       guard let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) else { return }
 
@@ -46,14 +57,16 @@ class PostDetailsViewModel: ObservableObject {
         ownerId: project.ownerId,
         projectId: project.id,
         imageUrl: imageUrl,
-        caption: caption
+        caption: caption,
+        labels: labels
       )
     } else {
       try await PostService.uploadPostData(
         ownerId: project.ownerId,
         projectId: project.id,
         imageUrl: project.projectImageUrl ?? "",
-        caption: caption
+        caption: caption,
+        labels: labels
       )
     }
   }

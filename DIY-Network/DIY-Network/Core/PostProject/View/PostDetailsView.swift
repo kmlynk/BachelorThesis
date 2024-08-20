@@ -21,22 +21,17 @@ struct PostDetailsView: View {
     if !showProgressView {
       NavigationStack {
         ScrollView {
-          ProjectDividerView(minusWidth: 0, height: 2)
+          Divider()
 
           VStack {
             Text(viewModel.project.projectName)
               .font(.title3)
               .fontWeight(.semibold)
           }
-          .padding(.vertical)
+          .padding(.vertical, 2)
 
           PhotosPicker(selection: $viewModel.selectedImage) {
             VStack {
-              Text("Choose a new image for the post \n or continue with projects own image")
-                .font(.footnote)
-                .fontWeight(.semibold)
-                .frame(maxWidth: UIScreen.main.bounds.width - 20)
-
               if let image = viewModel.postImage {
                 image
                   .resizable()
@@ -47,42 +42,88 @@ struct PostDetailsView: View {
                 ProjectImageView(
                   width: 400, height: 400, imageUrl: viewModel.project.projectImageUrl ?? "")
               }
+
+              Text("Choose a new image for the post \n or continue with projects own image")
+                .font(.footnote)
+                .fontWeight(.semibold)
+                .frame(maxWidth: UIScreen.main.bounds.width - 20)
             }
           }
 
-          VStack {
+          GroupBox {
             HStack {
-              Text("Your Caption")
+              Text("Caption")
                 .fontWeight(.semibold)
 
               Spacer()
             }
 
+            Divider()
+
             HStack {
               TextField("Enter here your caption", text: $viewModel.caption, axis: .vertical)
                 .multilineTextAlignment(.leading)
             }
-
-            Divider()
           }
           .font(.subheadline)
-          .padding()
+          .padding(.horizontal)
 
-          Button {
-            Task {
-              showProgressView.toggle()
-              try await viewModel.createPost()
-              print("DEBUG: Posting the project \(viewModel.project.projectName)")
-              dismiss()
+          GroupBox {
+            HStack {
+              Text("Label 1")
+                .fontWeight(.semibold)
+
+              Spacer()
             }
-          } label: {
-            Text("Post the project")
+
+            Divider()
+
+            HStack {
+              TextField("Enter here the first label", text: $viewModel.label1, axis: .vertical)
+                .multilineTextAlignment(.leading)
+            }
           }
-          .modifier(InAppButtonModifier(width: 160, height: 50, radius: 30))
-          .padding(.top, 16)
+          .font(.subheadline)
+          .padding(.horizontal)
+
+          GroupBox {
+            HStack {
+              Text("Labels 2")
+                .fontWeight(.semibold)
+
+              Spacer()
+            }
+
+            Divider()
+
+            HStack {
+              TextField("Enter here the second label", text: $viewModel.label2, axis: .vertical)
+                .multilineTextAlignment(.leading)
+            }
+          }
+          .font(.subheadline)
+          .padding(.horizontal)
+
+          GroupBox {
+            HStack {
+              Text("Labels 3")
+                .fontWeight(.semibold)
+
+              Spacer()
+            }
+
+            Divider()
+
+            HStack {
+              TextField("Enter here the third label", text: $viewModel.label3, axis: .vertical)
+                .multilineTextAlignment(.leading)
+            }
+          }
+          .font(.subheadline)
+          .padding(.horizontal)
         }
         .scrollIndicators(.never)
-        .navigationTitle("Configure your post")
+        .navigationTitle("Post Details")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
           ToolbarItem(placement: .topBarLeading) {
@@ -90,8 +131,14 @@ struct PostDetailsView: View {
               dismiss()
             } label: {
               Image(systemName: "xmark")
-                .imageScale(.large)
-                .foregroundColor(Color.primary)
+            }
+          }
+
+          ToolbarItem(placement: .topBarTrailing) {
+            Button {
+              Task { try await viewModel.createPost() }
+            } label: {
+              Text("Done")
             }
           }
         }
