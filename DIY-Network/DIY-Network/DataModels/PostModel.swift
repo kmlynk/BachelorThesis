@@ -18,6 +18,8 @@ struct PostModel: Identifiable, Hashable, Codable {
   let timestamp: Timestamp
   var user: UserModel?
   var likedBy: [String]?
+  var labels: [String]
+  var comments: [CommentModel]?
 }
 
 extension PostModel {
@@ -31,7 +33,22 @@ extension PostModel {
       caption: "This is the first post 🙂",
       likes: 1938,
       timestamp: Timestamp(),
-      user: UserModel.MOCK_USERS[0]
+      user: UserModel.MOCK_USERS[0],
+      labels: ["Test", "Car"],
+      comments: [
+        CommentModel(
+          id: NSUUID().uuidString,
+          userName: UserModel.MOCK_USERS[0].username, 
+          userPic: "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2F290825E5-935D-4DA1-9977-FA3FC0E8B3BE?alt=media&token=634c21a9-91b6-4b0d-a4aa-5a559a09c7a9",
+          text: "Very good idea!",
+          timestamp: Timestamp()),
+        CommentModel(
+          id: NSUUID().uuidString,
+          userName: UserModel.MOCK_USERS[1].username, 
+          userPic: "", 
+          text: "Congs",
+          timestamp: Timestamp()),
+      ]
     ),
 
     .init(
@@ -42,7 +59,8 @@ extension PostModel {
       caption: "I am a duck and I am graduated",
       likes: 10335,
       timestamp: Timestamp(),
-      user: UserModel.MOCK_USERS[1]
+      user: UserModel.MOCK_USERS[1],
+      labels: [""]
     ),
   ]
 }
