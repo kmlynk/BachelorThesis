@@ -11,7 +11,9 @@ import Foundation
 struct PostService {
   private static let db = Firestore.firestore().collection("posts")
 
-  static func uploadPostData(ownerId: String, projectId: String, imageUrl: String, caption: String)
+  static func uploadPostData(
+    ownerId: String, projectId: String, imageUrl: String, caption: String, labels: [String]
+  )
     async throws
   {
     do {
@@ -46,7 +48,8 @@ struct PostService {
         imageUrl: imageUrl,
         caption: caption,
         likes: 0,
-        timestamp: Timestamp()
+        timestamp: Timestamp(),
+        labels: labels
       )
       let encodedPost = try Firestore.Encoder().encode(post)
       try await db.document(post.id).setData(encodedPost)
@@ -104,6 +107,51 @@ struct PostService {
       try await db.document(postId).updateData(data)
     } catch {
       print("DEBUG: Failed to handle like in database with error \(error.localizedDescription)")
+    }
+  }
+
+  static func uploadComment(postId: String, text: String, user: UserModel) async throws {
+    let postRef = db.document(postId)
+
+    // Create a new comment model
+    let comment = CommentModel(
+      id: UUID().uuidString,
+      userName: user.username,
+      userPic: user.profileImageUrl,
+      text: text,
+      timestamp: Timestamp()
+    )
+
+    do {
+      _ = try await Firestore.firestore().runTransaction { (transaction, errorPointer) -> Any? in
+        do {
+          let postSnapshot = try transaction.getDocument(postRef)
+
+          guard let postData = try? postSnapshot.data(as: PostModel.self) else {
+            errorPointer?.pointee = NSError(
+              domain: "FirestoreError", code: -1,
+              userInfo: [NSLocalizedDescriptionKey: "Failed to decode post data"])
+            return nil
+          }
+
+          // Append the new comment to the existing comments array
+          var comments = postData.comments ?? []
+          comments.append(comment)
+
+          // Convert the comments array to a format Firestore can store
+          let commentDictionaries = try comments.map { try Firestore.Encoder().encode($0) }
+
+          // Update the comments array in Firestore
+          transaction.updateData(["comments": commentDictionaries], forDocument: postRef)
+
+        } catch let error {
+          errorPointer?.pointee = error as NSError
+          return nil
+        }
+        return nil
+      }
+    } catch {
+      print("DEBUG: Failed to comment on post with error \(error.localizedDescription)")
     }
   }
 
