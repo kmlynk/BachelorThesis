@@ -34,9 +34,9 @@ struct FeedCell: View {
       HStack {
         KFImage(URL(string: viewModel.post.imageUrl))
           .resizable()
-          .frame(width: UIScreen.main.bounds.width, height: 400)
-          .clipShape(Rectangle())
           .scaledToFill()
+          .frame(width: UIScreen.main.bounds.width, height: 400)
+          .clipped()
       }
 
       HStack(spacing: 16) {
@@ -46,6 +46,7 @@ struct FeedCell: View {
           Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
             .imageScale(.large)
             .foregroundColor(viewModel.isLiked ? .red : .primary)
+            .animation(.bouncy)
         }
 
         Button {
