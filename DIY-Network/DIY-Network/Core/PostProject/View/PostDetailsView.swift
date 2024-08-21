@@ -137,6 +137,7 @@ struct PostDetailsView: View {
           ToolbarItem(placement: .topBarTrailing) {
             Button {
               Task { try await viewModel.createPost() }
+              dismiss()
             } label: {
               Text("Done")
             }
