@@ -125,7 +125,7 @@ struct LibraryService {
   }
 
   static func uploadProjectStepData(
-    project: ProjectModel, stepNumber: Int, stepName: String, stepDesc: String, imageUrl: String?
+    project: ProjectModel, stepNumber: Int, stepName: String, stepDesc: String, imageUrls: [String]?
   ) async {
     do {
       let step = ProjectStepModel(
@@ -134,7 +134,7 @@ struct LibraryService {
         stepNumber: stepNumber,
         stepName: stepName,
         stepDesc: stepDesc,
-        stepImageUrl: imageUrl,
+        stepImageUrls: imageUrls,
         isCompleted: false
       )
       let encodedStep = try Firestore.Encoder().encode(step)
@@ -147,7 +147,7 @@ struct LibraryService {
   }
 
   static func uploadPostedProjectStepData(
-    projectId: String, stepNumber: Int, stepName: String, stepDesc: String, imageUrl: String?
+    projectId: String, stepNumber: Int, stepName: String, stepDesc: String, imageUrls: [String]?
   ) async {
     do {
       let step = ProjectStepModel(
@@ -156,7 +156,7 @@ struct LibraryService {
         stepNumber: stepNumber,
         stepName: stepName,
         stepDesc: stepDesc,
-        stepImageUrl: imageUrl,
+        stepImageUrls: imageUrls,
         isCompleted: false
       )
       let encodedStep = try Firestore.Encoder().encode(step)
@@ -199,27 +199,31 @@ struct LibraryService {
   }
 
   static func updateStepData(
-    step: ProjectStepModel, uiImage: UIImage?, number: Int, name: String, desc: String
+    step: ProjectStepModel, imageUrls: [String], number: Int, name: String, desc: String
   ) async throws {
     var data = [String: Any]()
 
-    if let uiImage = uiImage {
-      let imageUrl = try await ImageUploader.uploadImage(withData: uiImage)
-      data["stepImageUrl"] = imageUrl
+    // Update image URLs if there are any new URLs
+    if !imageUrls.isEmpty {
+      data["stepImageUrls"] = imageUrls
     }
 
+    // Update step number if it's different from the existing one
     if step.stepNumber != number {
       data["stepNumber"] = number
     }
 
+    // Update step name if it's different from the existing one
     if !name.isEmpty && step.stepName != name {
       data["stepName"] = name
     }
 
+    // Update step description if it's different from the existing one
     if !desc.isEmpty && step.stepDesc != desc {
       data["stepDesc"] = desc
     }
 
+    // Only update the database if there's something to change
     if !data.isEmpty {
       do {
         try await projectDB.document(step.projectId).collection("steps").document(step.id)
@@ -265,13 +269,13 @@ struct LibraryService {
       try await projectDB.document(newProject.id).setData(encodedProject)
 
       for step in originSteps {
-        if let imageUrl = step.stepImageUrl {
+        if let imageUrls = step.stepImageUrls {
           await uploadProjectStepData(
             project: newProject,
             stepNumber: step.stepNumber,
             stepName: step.stepName,
             stepDesc: step.stepDesc,
-            imageUrl: imageUrl
+            imageUrls: imageUrls
           )
         } else {
           await uploadProjectStepData(
@@ -279,7 +283,7 @@ struct LibraryService {
             stepNumber: step.stepNumber,
             stepName: step.stepName,
             stepDesc: step.stepDesc,
-            imageUrl: nil
+            imageUrls: nil
           )
         }
       }

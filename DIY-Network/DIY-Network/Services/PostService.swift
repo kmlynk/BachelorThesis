@@ -22,13 +22,13 @@ struct PostService {
       let postedProjectId = try await LibraryService.uploadPostedProjectData(project: originProject)
 
       for step in originSteps {
-        if let imageUrl = step.stepImageUrl {
+        if let imageUrls = step.stepImageUrls {
           await LibraryService.uploadPostedProjectStepData(
             projectId: postedProjectId,
             stepNumber: step.stepNumber,
             stepName: step.stepName,
             stepDesc: step.stepDesc,
-            imageUrl: imageUrl
+            imageUrls: imageUrls
           )
         } else {
           await LibraryService.uploadPostedProjectStepData(
@@ -36,7 +36,7 @@ struct PostService {
             stepNumber: step.stepNumber,
             stepName: step.stepName,
             stepDesc: step.stepDesc,
-            imageUrl: nil
+            imageUrls: nil
           )
         }
       }

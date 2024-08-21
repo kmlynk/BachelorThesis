@@ -13,7 +13,7 @@ struct ProjectStepModel: Identifiable, Hashable, Codable {
   var stepNumber: Int
   var stepName: String
   var stepDesc: String
-  var stepImageUrl: String?
+  var stepImageUrls: [String]?
   var isCompleted: Bool
 }
 
@@ -25,8 +25,10 @@ extension ProjectStepModel {
       stepNumber: 1,
       stepName: "Step Number One",
       stepDesc: "This is the first step",
-      stepImageUrl:
+      stepImageUrls: [
         "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2F008F7EBA-8A83-4A03-8144-501AABA58EB5?alt=media&token=21b1bb9c-a5b8-440f-85ec-f6c9fbf75179",
+        "https://firebasestorage.googleapis.com:443/v0/b/diy-network-75d15.appspot.com/o/images%2FBBEC7D80-8FC2-4B89-8D8D-9A7ADAB16FB4?alt=media&token=48eef765-d7c6-4df7-9174-d2d25c735117",
+      ],
       isCompleted: true
     )
   ]

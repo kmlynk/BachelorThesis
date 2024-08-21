@@ -24,4 +24,16 @@ struct ImageUploader {
       return nil
     }
   }
+
+  static func uploadImages(withData images: [UIImage]) async throws -> [String] {
+    var uploadedURLs = [String]()
+
+    for image in images {
+      if let url = try await uploadImage(withData: image) {
+        uploadedURLs.append(url)
+      }
+    }
+
+    return uploadedURLs
+  }
 }

@@ -12,7 +12,7 @@ struct AddProjectStepView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: AddProjectStepViewModel
   @State private var showProgressView = false
-  
+
   init(project: ProjectModel) {
     self._viewModel = StateObject(
       wrappedValue: AddProjectStepViewModel(project: project))
@@ -24,20 +24,28 @@ struct AddProjectStepView: View {
         ScrollView {
           ProjectDividerView(minusWidth: 0, height: 2)
 
-          PhotosPicker(selection: $viewModel.selectedImage) {
+          PhotosPicker(
+            selection: $viewModel.selectedImages, maxSelectionCount: 5, matching: .images
+          ) {
             VStack {
-              if let image = viewModel.stepImage {
-                image
-                  .resizable()
-                  .clipShape(Rectangle())
-                  .frame(width: 100, height: 80)
-              } else {
+              if viewModel.stepImages.isEmpty {
                 ProjectImageView(width: 100, height: 80, imageUrl: "")
+                Text("Add Images to the Step")
+                  .font(.footnote)
+                  .fontWeight(.semibold)
+              } else {
+                ScrollView(.horizontal) {
+                  HStack {
+                    ForEach(Array(viewModel.stepImages.enumerated()), id: \.offset) {
+                      index, image in
+                      image
+                        .resizable()
+                        .clipShape(Rectangle())
+                        .frame(width: 100, height: 80)
+                    }
+                  }
+                }
               }
-
-              Text("Add a Image to the Step")
-                .font(.footnote)
-                .fontWeight(.semibold)
             }
           }
           .padding(.vertical)

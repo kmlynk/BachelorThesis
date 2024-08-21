@@ -43,7 +43,7 @@ struct NewStepCell: View {
             Divider()
 
             HStack {
-              if let imageUrl = viewModel.step.stepImageUrl {
+              if let imageUrl = viewModel.step.stepImageUrls?.first {
                 ProjectImageView(width: 100, height: 80, imageUrl: imageUrl)
               }
 
@@ -83,8 +83,14 @@ struct NewStepCell: View {
             Divider()
 
             VStack {
-              if let imageUrl = viewModel.step.stepImageUrl {
-                ProjectImageView(width: 200, height: 260, imageUrl: imageUrl)
+              if let imageUrls = viewModel.step.stepImageUrls {
+                ScrollView(.horizontal) {
+                  HStack {
+                    ForEach(imageUrls, id: \.self) { imageUrl in
+                      ProjectImageView(width: 320, height: 250, imageUrl: imageUrl)
+                    }
+                  }
+                }
               }
 
               Text(viewModel.step.stepDesc)
@@ -116,6 +122,59 @@ struct NewStepCell: View {
 
 #Preview{
   NewStepCell(step: ProjectStepModel.MOCK_STEPS[0], editable: true)
+}
+
+// TODO: Implement ObservedObject StepCellViewModel
+struct StepBottomSheet: View {
+  @Environment(\.dismiss) var dismiss
+  var step: ProjectStepModel
+  @State private var showEditView = false
+  @State private var showProgressView = false
+
+  var body: some View {
+    if !showProgressView {
+      List {
+        Button {
+          showEditView.toggle()
+        } label: {
+          HStack(spacing: 10) {
+            Image(systemName: "pencil")
+              .imageScale(.large)
+            Text("Edit Step")
+          }
+          .foregroundColor(Color.blue)
+        }
+
+        Button {
+          Task {
+            print("DEBUG: Deleting Step...")
+            print("DEBUG: Step Name: \(step.stepName)")
+            print("DEBUG: Project ID: \(step.projectId)")
+            showProgressView.toggle()
+            await LibraryService.deleteStepData(step: step)
+            dismiss()
+          }
+        } label: {
+          HStack(spacing: 10) {
+            Image(systemName: "trash.fill")
+              .imageScale(.large)
+            Text("Delete Step")
+          }
+          .foregroundColor(Color.red)
+        }
+      }
+      .fullScreenCover(
+        isPresented: $showEditView,
+        onDismiss: {
+          dismiss()
+        }
+      ) {
+        EditStepView(step: step)
+      }
+    } else {
+      ProgressView("Deleting Step...")
+    }
+  }
 }
 
 struct CheckboxToggleStyle: ToggleStyle {

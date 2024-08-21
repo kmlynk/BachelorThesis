@@ -18,11 +18,11 @@ class AddProjectStepViewModel: ObservableObject {
   @Published var name = ""
   @Published var desc = ""
 
-  @Published var selectedImage: PhotosPickerItem? {
-    didSet { Task { await loadImage(fromItem: selectedImage) } }
+  @Published var selectedImages: [PhotosPickerItem] = [] {
+    didSet { Task { await loadImages(fromItems: selectedImages) } }
   }
-  @Published var stepImage: Image?
-  private var uiImage: UIImage?
+  @Published var stepImages: [Image] = []
+  private var uiImages: [UIImage] = []
 
   init(project: ProjectModel) {
     self.project = project
@@ -35,18 +35,18 @@ class AddProjectStepViewModel: ObservableObject {
     }
 
     if !name.isEmpty && !desc.isEmpty {
-      if let uiImage = uiImage {
-        print("DEBUG: Conditions are checked. Creating the step with image...")
-        guard let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) else { return }
+      if !uiImages.isEmpty {
+        print("DEBUG: Conditions are checked. Creating the step with images...")
+        let imageUrls = try await ImageUploader.uploadImages(withData: uiImages)
 
         await LibraryService.uploadProjectStepData(
           project: project,
           stepNumber: stepNumber,
           stepName: name,
           stepDesc: desc,
-          imageUrl: imageUrl
+          imageUrls: imageUrls
         )
-        print("DEBUG: Step with image is created!")
+        print("DEBUG: Step with images is created!")
       } else {
         print("DEBUG: Conditions are checked. Creating the step...")
         await LibraryService.uploadProjectStepData(
@@ -54,7 +54,7 @@ class AddProjectStepViewModel: ObservableObject {
           stepNumber: stepNumber,
           stepName: name,
           stepDesc: desc,
-          imageUrl: nil
+          imageUrls: []
         )
         print("DEBUG: Step is created!")
       }
@@ -63,14 +63,19 @@ class AddProjectStepViewModel: ObservableObject {
     }
   }
 
-  func loadImage(fromItem item: PhotosPickerItem?) async {
-    guard let item = item else { return }
-    guard let data = try? await item.loadTransferable(type: Data.self) else { return }
+  func loadImages(fromItems items: [PhotosPickerItem]) async {
+    uiImages = []
+    stepImages = []
 
-    print("DEBUG: Image data is \(data)")
+    for item in items {
+      guard let data = try? await item.loadTransferable(type: Data.self) else { continue }
 
-    guard let uiImage = UIImage(data: data) else { return }
-    self.uiImage = uiImage
-    self.stepImage = Image(uiImage: uiImage)
+      print("DEBUG: Image data is \(data)")
+
+      if let uiImage = UIImage(data: data) {
+        uiImages.append(uiImage)
+        stepImages.append(Image(uiImage: uiImage))
+      }
+    }
   }
 }

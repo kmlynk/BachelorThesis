@@ -12,7 +12,7 @@ struct EditStepView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: EditStepViewModel
   @State private var showProgressView = false
-  
+
   init(step: ProjectStepModel) {
     self._viewModel = StateObject(wrappedValue: EditStepViewModel(step: step))
   }
@@ -23,19 +23,31 @@ struct EditStepView: View {
         ScrollView {
           ProjectDividerView(minusWidth: 0, height: 2)
 
-          PhotosPicker(selection: $viewModel.selectedImage) {
+          PhotosPicker(
+            selection: $viewModel.selectedImages, matching: .images, photoLibrary: .shared()
+          ) {
             VStack {
-              if let image = viewModel.stepImage {
-                image
-                  .resizable()
-                  .clipShape(Rectangle())
-                  .frame(width: 180, height: 120)
+              if !viewModel.stepImages.isEmpty {
+                ScrollView(.horizontal, showsIndicators: false) {
+                  HStack(spacing: 10) {
+                    ForEach(Array(viewModel.stepImages.enumerated()), id: \.offset) {
+                      index, image in
+                      image
+                        .resizable()
+                        .clipShape(Rectangle())
+                        .frame(width: 180, height: 120)
+                    }
+                  }
+                }
               } else {
-                ProjectImageView(
-                  width: 180, height: 120, imageUrl: viewModel.step.stepImageUrl ?? "")
+                if let imageUrl = viewModel.step.stepImageUrls?.first {
+                  ProjectImageView(width: 180, height: 120, imageUrl: imageUrl)
+                } else {
+                  Text("No image selected")
+                }
               }
 
-              Text("Select a step image")
+              Text("Select step images")
                 .font(.footnote)
                 .fontWeight(.semibold)
             }
