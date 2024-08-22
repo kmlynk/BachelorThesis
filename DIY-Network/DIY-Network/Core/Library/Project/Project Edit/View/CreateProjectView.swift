@@ -5,6 +5,8 @@
 //  Created by Kamil Uyanık on 17.06.24.
 //
 
+import AVKit
+import AZVideoPlayer
 import PhotosUI
 import SwiftUI
 
@@ -12,6 +14,8 @@ struct CreateProjectView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: CreateProjectViewModel
   @State private var showProgressView = false
+  @State private var error = ""
+  @State private var showAlert = false
 
   init(user: UserModel) {
     self._viewModel = StateObject(wrappedValue: CreateProjectViewModel(user: user))
@@ -21,9 +25,9 @@ struct CreateProjectView: View {
     if !showProgressView {
       NavigationStack {
         ScrollView {
-          ProjectDividerView(minusWidth: 0, height: 2)
-          
-          PhotosPicker(selection: $viewModel.selectedImage) {
+          Divider()
+
+          PhotosPicker(selection: $viewModel.selectedImage, matching: .any(of: [.images])) {
             VStack {
               if let image = viewModel.projectImage {
                 image
@@ -52,16 +56,32 @@ struct CreateProjectView: View {
               placeholder: "Describtion",
               text: $viewModel.projectDesc)
 
-            Button {
-              Task {
-                showProgressView.toggle()
-                try await viewModel.createNewProject()
-                dismiss()
+            CreateProjectRowView(
+              title: "YouTube Link",
+              placeholder: "Link",
+              text: $viewModel.ytLink)
+
+            PhotosPicker(
+              selection: $viewModel.selectedVideo, matching: .any(of: [.videos, .not(.images)])
+            ) {
+              VStack {
+                if let video = viewModel.projectVideoData {
+                  HStack {
+                    Text("Video is loaded")
+
+                    Image(systemName: "checkmark.circle.fill")
+                  }
+                } else {
+                  VStack {
+                    Image(systemName: "plus.circle")
+                      .imageScale(.large)
+
+                    Text("Upload a Video")
+                  }
+                }
               }
-            } label: {
-              Text("Create the project")
+              .animation(.bouncy)
             }
-            .modifier(InAppButtonModifier(width: 160, height: 44, radius: 30))
             .padding(.vertical)
           }
           .padding()
@@ -74,10 +94,28 @@ struct CreateProjectView: View {
             Button {
               dismiss()
             } label: {
-              Image(systemName: "xmark")
-                .imageScale(.large)
+              Text("Cancel")
             }
-            .foregroundColor(Color.primary)
+          }
+
+          ToolbarItem(placement: .topBarTrailing) {
+            Button {
+              Task {
+                showProgressView.toggle()
+                self.error = try await viewModel.createNewProject() ?? "Unable to create project"
+                showProgressView.toggle()
+              }
+              if error != "" {
+                showAlert.toggle()
+              } else {
+                dismiss()
+              }
+            } label: {
+              Text("Create")
+            }
+            .alert(error, isPresented: $showAlert) {
+              Button("OK", role: .cancel) {}
+            }
           }
         }
       }
@@ -94,32 +132,16 @@ struct CreateProjectRowView: View {
   @Binding var text: String
 
   var body: some View {
-    ZStack {
-      VStack {
-        HStack {
-          Text(title)
-            .fontWeight(.semibold)
-
-          Spacer()
-        }
-
-        HStack {
-          TextField(placeholder, text: $text, axis: .vertical)
-            .multilineTextAlignment(.leading)
-        }
-        .font(.subheadline)
-
-        Divider()
-      }
-      .padding()
+    GroupBox {
+      TextField(placeholder, text: $text, axis: .vertical)
+        .multilineTextAlignment(.leading)
+    } label: {
+      Text(title)
     }
-    .mask {
-      RoundedRectangle(cornerRadius: 20, style: .continuous)
-    }
-    .background(currentMode == .dark ? Color.black : Color.white)
-    .cornerRadius(20)
-    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
-    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
+    .frame(width: UIScreen.main.bounds.width - 30)
+    .shadow(radius: 10)
+    .padding(.horizontal)
+    .padding(.vertical, 5)
   }
 }
 
