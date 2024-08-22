@@ -51,17 +51,17 @@ struct AddProjectStepView: View {
           .padding(.vertical)
 
           VStack {
-            AddProjectStepRowView(
+            RowView(
               title: "Step Number",
               placeholder: "Number",
               text: $viewModel.number)
 
-            AddProjectStepRowView(
+            RowView(
               title: "Step Name",
               placeholder: "Name",
               text: $viewModel.name)
 
-            AddProjectStepRowView(
+            RowView(
               title: "Step Description",
               placeholder: "Description",
               text: $viewModel.desc)
@@ -99,42 +99,6 @@ struct AddProjectStepView: View {
     } else {
       ProgressView("Creating the Step...")
     }
-  }
-}
-
-struct AddProjectStepRowView: View {
-  @Environment(\.colorScheme) var currentMode
-  let title: String
-  let placeholder: String
-  @Binding var text: String
-
-  var body: some View {
-    ZStack {
-      VStack {
-        HStack {
-          Text(title)
-            .fontWeight(.semibold)
-
-          Spacer()
-        }
-
-        HStack {
-          TextField(placeholder, text: $text, axis: .vertical)
-            .multilineTextAlignment(.leading)
-        }
-        .font(.subheadline)
-
-        Divider()
-      }
-      .padding()
-    }
-    .mask {
-      RoundedRectangle(cornerRadius: 20, style: .continuous)
-    }
-    .background(currentMode == .dark ? Color.black : Color.white)
-    .cornerRadius(20)
-    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
-    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
   }
 }
 

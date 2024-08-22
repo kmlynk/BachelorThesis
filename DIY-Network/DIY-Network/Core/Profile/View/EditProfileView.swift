@@ -71,39 +71,14 @@ struct EditProfileView: View {
         }
         .padding(.vertical, 10)
 
-        VStack {
-          EditProfileRowView(
+          RowView(
             title: "Fullname", placeholder: "Enter your name", text: $viewModel.fullname)
 
-          EditProfileRowView(title: "Bio", placeholder: "Enter your Bio", text: $viewModel.bio)
-        }
-        .padding()
-
+          RowView(title: "Bio", placeholder: "Enter your Bio", text: $viewModel.bio)
+        
         Spacer()
       }
     }
-  }
-}
-
-struct EditProfileRowView: View {
-  let title: String
-  let placeholder: String
-  @Binding var text: String
-
-  var body: some View {
-    HStack {
-      Text(title)
-        .padding(.leading, 10)
-        .frame(width: 100, alignment: .leading)
-
-      VStack {
-        TextField(placeholder, text: $text)
-
-        Divider()
-      }
-    }
-    .font(.subheadline)
-    .frame(height: 40)
   }
 }
 

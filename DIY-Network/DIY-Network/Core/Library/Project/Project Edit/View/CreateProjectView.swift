@@ -46,17 +46,17 @@ struct CreateProjectView: View {
           .padding(.vertical)
 
           VStack {
-            CreateProjectRowView(
+            RowView(
               title: "Project Name",
               placeholder: "Name",
               text: $viewModel.projectName)
 
-            CreateProjectRowView(
+            RowView(
               title: "Project Describtion",
               placeholder: "Describtion",
               text: $viewModel.projectDesc)
 
-            CreateProjectRowView(
+            RowView(
               title: "YouTube Link",
               placeholder: "Link",
               text: $viewModel.ytLink)
@@ -122,26 +122,6 @@ struct CreateProjectView: View {
     } else {
       ProgressView("Creating the project...")
     }
-  }
-}
-
-struct CreateProjectRowView: View {
-  @Environment(\.colorScheme) var currentMode
-  let title: String
-  let placeholder: String
-  @Binding var text: String
-
-  var body: some View {
-    GroupBox {
-      TextField(placeholder, text: $text, axis: .vertical)
-        .multilineTextAlignment(.leading)
-    } label: {
-      Text(title)
-    }
-    .frame(width: UIScreen.main.bounds.width - 30)
-    .shadow(radius: 10)
-    .padding(.horizontal)
-    .padding(.vertical, 5)
   }
 }
 

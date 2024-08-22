@@ -50,77 +50,17 @@ struct PostDetailsView: View {
             }
           }
 
-          GroupBox {
-            HStack {
-              Text("Caption")
-                .fontWeight(.semibold)
+          RowView(
+            title: "Caption", placeholder: "Enter here your caption", text: $viewModel.caption)
 
-              Spacer()
-            }
+          RowView(
+            title: "Label 1", placeholder: "Enter here the first label", text: $viewModel.label1)
 
-            Divider()
+          RowView(
+            title: "Label 2", placeholder: "Enter here the second label", text: $viewModel.label2)
 
-            HStack {
-              TextField("Enter here your caption", text: $viewModel.caption, axis: .vertical)
-                .multilineTextAlignment(.leading)
-            }
-          }
-          .font(.subheadline)
-          .padding(.horizontal)
-
-          GroupBox {
-            HStack {
-              Text("Label 1")
-                .fontWeight(.semibold)
-
-              Spacer()
-            }
-
-            Divider()
-
-            HStack {
-              TextField("Enter here the first label", text: $viewModel.label1, axis: .vertical)
-                .multilineTextAlignment(.leading)
-            }
-          }
-          .font(.subheadline)
-          .padding(.horizontal)
-
-          GroupBox {
-            HStack {
-              Text("Labels 2")
-                .fontWeight(.semibold)
-
-              Spacer()
-            }
-
-            Divider()
-
-            HStack {
-              TextField("Enter here the second label", text: $viewModel.label2, axis: .vertical)
-                .multilineTextAlignment(.leading)
-            }
-          }
-          .font(.subheadline)
-          .padding(.horizontal)
-
-          GroupBox {
-            HStack {
-              Text("Labels 3")
-                .fontWeight(.semibold)
-
-              Spacer()
-            }
-
-            Divider()
-
-            HStack {
-              TextField("Enter here the third label", text: $viewModel.label3, axis: .vertical)
-                .multilineTextAlignment(.leading)
-            }
-          }
-          .font(.subheadline)
-          .padding(.horizontal)
+          RowView(
+            title: "Label 3", placeholder: "Enter here the third label", text: $viewModel.label3)
         }
         .scrollIndicators(.never)
         .navigationTitle("Post Details")

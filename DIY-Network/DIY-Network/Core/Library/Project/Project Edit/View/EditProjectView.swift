@@ -44,10 +44,10 @@ struct EditProjectView: View {
           .padding(.vertical)
 
           VStack {
-            EditProjectRowView(
+            RowView(
               title: "Project Name", placeholder: "Name", text: $viewModel.name)
 
-            EditProjectRowView(
+            RowView(
               title: "Project Description", placeholder: "Description", text: $viewModel.desc)
 
             Button {
@@ -82,42 +82,6 @@ struct EditProjectView: View {
     } else {
       ProgressView("Saving the changes...")
     }
-  }
-}
-
-struct EditProjectRowView: View {
-  @Environment(\.colorScheme) var currentMode
-  let title: String
-  let placeholder: String
-  @Binding var text: String
-
-  var body: some View {
-    ZStack {
-      VStack {
-        HStack {
-          Text(title)
-            .fontWeight(.semibold)
-
-          Spacer()
-        }
-
-        HStack {
-          TextField(placeholder, text: $text, axis: .vertical)
-            .multilineTextAlignment(.leading)
-        }
-        .font(.subheadline)
-
-        Divider()
-      }
-      .padding()
-    }
-    .mask {
-      RoundedRectangle(cornerRadius: 20, style: .continuous)
-    }
-    .background(currentMode == .dark ? Color.black : Color.white)
-    .cornerRadius(20)
-    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
-    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
   }
 }
 

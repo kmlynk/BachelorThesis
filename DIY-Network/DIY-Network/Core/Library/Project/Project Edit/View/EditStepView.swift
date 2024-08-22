@@ -55,12 +55,12 @@ struct EditStepView: View {
           .padding(.vertical)
 
           VStack {
-            EditStepRowView(
+            RowView(
               title: "Step Number", placeholder: "Number", text: $viewModel.number)
 
-            EditStepRowView(title: "Step Name", placeholder: "Name", text: $viewModel.name)
+            RowView(title: "Step Name", placeholder: "Name", text: $viewModel.name)
 
-            EditStepRowView(
+            RowView(
               title: "Step Description", placeholder: "Description", text: $viewModel.desc)
 
             Button {
