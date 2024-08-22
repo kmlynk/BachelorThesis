@@ -5,12 +5,15 @@
 //  Created by Kamil Uyanık on 19.06.24.
 //
 
+import AVKit
+import AZVideoPlayer
 import SwiftUI
 import YouTubePlayerKit
 
 struct ProjectHeaderView: View {
   let project: ProjectModel
   @State private var showVideo = false
+  @State private var showYTVideo = false
 
   var body: some View {
     VStack {
@@ -28,47 +31,77 @@ struct ProjectHeaderView: View {
             .multilineTextAlignment(.center)
             .padding(.bottom, 8)
 
-          if let url = project.videoUrl {
-            if showVideo {
-              YouTubePlayerView(
-                YouTubePlayer(
-                  source: .url(url),
-                  configuration: YouTubePlayer.Configuration(
-                    fullscreenMode: .system,
-                    autoPlay: false,
-                    loopEnabled: false
-                  )
-                )
-              ) { state in
-                switch state {
-                case .idle:
-                  ProgressView()
-                case .ready:
-                  EmptyView()
-                case .error(let error):
-                  Text(error.localizedDescription)
+          VStack {
+            if let url = project.videoUrl {
+              if !showVideo {
+                Button {
+                  showVideo.toggle()
+                } label: {
+                  Text("Show Video")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.blue)
+                }
+              } else {
+                AZVideoPlayer(player: AVPlayer(url: URL(string: url)!))
+                  .aspectRatio(16 / 9, contentMode: .fit)
+
+                Button {
+                  showVideo.toggle()
+                } label: {
+                  Text("Hide Video")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.blue)
                 }
               }
-              .frame(width: 300, height: 200)
-              .contentShape(Rectangle())
-              .padding(.vertical, 16)
+            }
+          }
+          .padding(.bottom, 3)
 
-              Button {
-                showVideo.toggle()
-              } label: {
-                Text("Hide Video")
-                  .font(.caption)
-                  .fontWeight(.bold)
-                  .foregroundColor(Color.blue)
-              }
-            } else {
-              Button {
-                showVideo.toggle()
-              } label: {
-                Text("Show Video")
-                  .font(.caption)
-                  .fontWeight(.bold)
-                  .foregroundColor(Color.blue)
+          VStack {
+            if let url = project.ytVideoUrl {
+              if !showYTVideo {
+                Button {
+                  showYTVideo.toggle()
+                } label: {
+                  Text("Show YouTube Video")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.blue)
+                }
+              } else {
+                YouTubePlayerView(
+                  YouTubePlayer(
+                    source: .url(url),
+                    configuration: YouTubePlayer.Configuration(
+                      fullscreenMode: .system,
+                      autoPlay: false,
+                      loopEnabled: false
+                    )
+                  )
+                ) { state in
+                  switch state {
+                  case .idle:
+                    ProgressView()
+                  case .ready:
+                    EmptyView()
+                  case .error(let error):
+                    Text(error.localizedDescription)
+                  }
+                }
+                .frame(height: 200)
+                .contentShape(Rectangle())
+                .padding(.vertical, 16)
+
+                Button {
+                  showYTVideo.toggle()
+                } label: {
+                  Text("Hide Video")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.blue)
+                }
               }
             }
           }
