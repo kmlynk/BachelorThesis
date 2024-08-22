@@ -1,5 +1,5 @@
 {
-  "originHash" : "1f5a3a7d81a3aa1832a03630a30dd62d74b37d4d22e14cd79286872046469caf",
+  "originHash" : "25e10db6b5c689423b0adf71d86c1c7fb52dad91498a7c6a639fe0d8326de586",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "076b241a625e25eac22f8849be256dfb960fcdfe",
         "version" : "10.19.1"
+      }
+    },
+    {
+      "identity" : "azvideoplayer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adamzarn/AZVideoPlayer",
+      "state" : {
+        "revision" : "a5b2403a35d5768ee4af6c2d27ad9f9a6fb2a789",
+        "version" : "1.4.0"
       }
     },
     {
