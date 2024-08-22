@@ -85,7 +85,7 @@ struct LibraryService {
   }
 
   static func uploadProjectData(
-    ownerId: String, projectName: String, projectDesc: String, imageUrl: String?
+    ownerId: String, projectName: String, projectDesc: String, imageUrl: String?, videoUrl: String?, ytVideoUrl: String?
   ) async {
     do {
       let project = ProjectModel(
@@ -93,7 +93,9 @@ struct LibraryService {
         ownerId: ownerId,
         projectName: projectName,
         projectDesc: projectDesc,
-        projectImageUrl: imageUrl
+        projectImageUrl: imageUrl,
+        videoUrl: videoUrl,
+        ytVideoUrl: ytVideoUrl
       )
       let encodedProject = try Firestore.Encoder().encode(project)
       try await projectDB.document(project.id).setData(encodedProject)
@@ -111,7 +113,9 @@ struct LibraryService {
         ownerId: project.ownerId,
         projectName: project.projectName,
         projectDesc: project.projectDesc,
-        projectImageUrl: project.projectImageUrl
+        projectImageUrl: project.projectImageUrl,
+        videoUrl: project.videoUrl,
+        ytVideoUrl: project.ytVideoUrl
       )
       let encodedProject = try Firestore.Encoder().encode(project)
       try await postedProjectDB.document(id).setData(encodedProject)
