@@ -12,6 +12,7 @@ struct AddProjectStepView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: AddProjectStepViewModel
   @State private var showProgressView = false
+  @State private var showAlert = false
 
   init(project: ProjectModel) {
     self._viewModel = StateObject(
@@ -65,15 +66,23 @@ struct AddProjectStepView: View {
               title: "Step Description",
               placeholder: "Description",
               text: $viewModel.desc)
-
+            
             Button {
               Task {
                 showProgressView.toggle()
                 try await viewModel.createNewStep()
-                dismiss()
+                if viewModel.error.isEmpty {
+                  dismiss()
+                } else {
+                  showProgressView.toggle()
+                  showAlert.toggle()
+                }
               }
             } label: {
               Text("Create the Step")
+            }
+            .alert(viewModel.error, isPresented: $showAlert) {
+              Button("OK", role: .cancel) {}
             }
             .modifier(InAppButtonModifier(width: 160, height: 50, radius: 30))
             .padding(.vertical)

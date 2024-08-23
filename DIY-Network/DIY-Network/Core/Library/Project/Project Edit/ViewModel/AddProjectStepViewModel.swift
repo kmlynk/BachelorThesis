@@ -17,6 +17,7 @@ class AddProjectStepViewModel: ObservableObject {
   @Published var number = ""
   @Published var name = ""
   @Published var desc = ""
+  @Published var error = ""
 
   @Published var selectedImages: [PhotosPickerItem] = [] {
     didSet { Task { await loadImages(fromItems: selectedImages) } }
@@ -29,38 +30,35 @@ class AddProjectStepViewModel: ObservableObject {
   }
 
   func createNewStep() async throws {
-    guard let stepNumber = Int(number) else {
-      print("DEBUG: There is no step number!")
+    error = ""
+
+    guard !number.trimmingCharacters(in: .whitespaces).isEmpty, let stepNumber = Int(number) else {
+      error = "Step number is required and must be a valid number."
       return
     }
 
-    if !name.isEmpty && !desc.isEmpty {
-      if !uiImages.isEmpty {
-        print("DEBUG: Conditions are checked. Creating the step with images...")
-        let imageUrls = try await ImageUploader.uploadImages(withData: uiImages)
-
-        await LibraryService.uploadProjectStepData(
-          project: project,
-          stepNumber: stepNumber,
-          stepName: name,
-          stepDesc: desc,
-          imageUrls: imageUrls
-        )
-        print("DEBUG: Step with images is created!")
-      } else {
-        print("DEBUG: Conditions are checked. Creating the step...")
-        await LibraryService.uploadProjectStepData(
-          project: project,
-          stepNumber: stepNumber,
-          stepName: name,
-          stepDesc: desc,
-          imageUrls: []
-        )
-        print("DEBUG: Step is created!")
-      }
-    } else {
-      print("DEBUG: There is no step name or description!")
+    guard !name.trimmingCharacters(in: .whitespaces).isEmpty else {
+      error = "Step name is required."
+      return
     }
+
+    guard !desc.trimmingCharacters(in: .whitespaces).isEmpty else {
+      error = "Step description is required."
+      return
+    }
+
+    var imageUrls = [String]()
+    if !uiImages.isEmpty {
+      imageUrls = try await ImageUploader.uploadImages(withData: uiImages)
+    }
+
+    await LibraryService.uploadProjectStepData(
+      project: project,
+      stepNumber: stepNumber,
+      stepName: name,
+      stepDesc: desc,
+      imageUrls: imageUrls
+    )
   }
 
   func loadImages(fromItems items: [PhotosPickerItem]) async {
