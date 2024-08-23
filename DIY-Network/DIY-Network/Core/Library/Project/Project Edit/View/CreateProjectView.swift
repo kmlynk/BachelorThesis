@@ -14,7 +14,6 @@ struct CreateProjectView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: CreateProjectViewModel
   @State private var showProgressView = false
-  @State private var error = ""
   @State private var showAlert = false
 
   init(user: UserModel) {
@@ -102,18 +101,18 @@ struct CreateProjectView: View {
             Button {
               Task {
                 showProgressView.toggle()
-                self.error = try await viewModel.createNewProject() ?? "Unable to create project"
-                showProgressView.toggle()
-              }
-              if error != "" {
-                showAlert.toggle()
-              } else {
-                dismiss()
+                try await viewModel.createNewProject()
+                if viewModel.error.isEmpty {
+                  dismiss()
+                } else {
+                  showProgressView.toggle()
+                  showAlert.toggle()
+                }
               }
             } label: {
               Text("Create")
             }
-            .alert(error, isPresented: $showAlert) {
+            .alert(viewModel.error, isPresented: $showAlert) {
               Button("OK", role: .cancel) {}
             }
           }

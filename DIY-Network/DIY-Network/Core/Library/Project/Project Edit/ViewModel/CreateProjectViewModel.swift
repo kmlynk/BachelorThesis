@@ -16,6 +16,7 @@ class CreateProjectViewModel: ObservableObject {
   @Published var projectName = ""
   @Published var projectDesc = ""
   @Published var ytLink = ""
+  @Published var error = ""
 
   @Published var selectedImage: PhotosPickerItem? {
     didSet { Task { await loadImage(fromItem: selectedImage) } }
@@ -32,25 +33,29 @@ class CreateProjectViewModel: ObservableObject {
     self.user = user
   }
 
-  func createNewProject() async throws -> String? {
-    if projectName == "" || projectDesc == "" {
-      return "Please fill in Project Name and Project Description"
+  func createNewProject() async throws {
+    error = ""
+
+    guard !projectName.trimmingCharacters(in: .whitespaces).isEmpty else {
+      error = "Project name is required."
+      return
+    }
+
+    guard !projectDesc.trimmingCharacters(in: .whitespaces).isEmpty else {
+      error = "Project description is required."
+      return
     }
 
     var image = ""
     var video = ""
 
     if let uiImage = uiImage {
-      guard let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) else {
-        return "Unable to upload image"
-      }
+      guard let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) else { return }
       image = imageUrl
     }
 
     if let videoData = projectVideoData {
-      guard let videoUrl = try await VideoUploader.uploadVideo(withData: videoData) else {
-        return "Unable to upload video"
-      }
+      guard let videoUrl = try await VideoUploader.uploadVideo(withData: videoData) else { return }
       video = videoUrl
     }
 
@@ -62,8 +67,6 @@ class CreateProjectViewModel: ObservableObject {
       videoUrl: video,
       ytVideoUrl: ytLink
     )
-
-    return ""
   }
 
   func loadImage(fromItem item: PhotosPickerItem?) async {
