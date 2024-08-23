@@ -18,6 +18,7 @@ class EditProjectViewModel: ObservableObject {
   @Published var projectImage: Image?
   @Published var name = ""
   @Published var desc = ""
+  @Published var error = ""
 
   private var uiImage: UIImage?
 
@@ -28,18 +29,29 @@ class EditProjectViewModel: ObservableObject {
     self.desc = project.projectDesc
   }
 
+  func updateProject() async throws {
+    error = ""
+
+    guard !name.trimmingCharacters(in: .whitespaces).isEmpty else {
+      error = "Project name is required."
+      return
+    }
+
+    guard !desc.trimmingCharacters(in: .whitespaces).isEmpty else {
+      error = "Project description is required."
+      return
+    }
+
+    try await LibraryService.updateProjectData(
+      project: project, uiImage: uiImage, name: name, desc: desc)
+  }
+
   func loadImage(fromItem item: PhotosPickerItem?) async {
     guard let item = item else { return }
     guard let data = try? await item.loadTransferable(type: Data.self) else { return }
-    print("DEBUG: Image data is \(data)")
 
     guard let uiImage = UIImage(data: data) else { return }
     self.uiImage = uiImage
     self.projectImage = Image(uiImage: uiImage)
-  }
-
-  func updateProject() async throws {
-    try await LibraryService.updateProjectData(
-      project: project, uiImage: uiImage, name: name, desc: desc)
   }
 }

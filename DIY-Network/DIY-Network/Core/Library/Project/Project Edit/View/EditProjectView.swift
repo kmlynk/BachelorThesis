@@ -12,6 +12,7 @@ struct EditProjectView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: EditProjectViewModel
   @State private var showProgressView = false
+  @State private var showAlert = false
 
   init(project: ProjectModel) {
     self._viewModel = StateObject(wrappedValue: EditProjectViewModel(project: project))
@@ -54,10 +55,18 @@ struct EditProjectView: View {
               Task {
                 showProgressView.toggle()
                 try await viewModel.updateProject()
-                dismiss()
+                if viewModel.error.isEmpty {
+                  dismiss()
+                } else {
+                  showProgressView.toggle()
+                  showAlert.toggle()
+                }
               }
             } label: {
               Text("Save the changes")
+            }
+            .alert(viewModel.error, isPresented: $showAlert) {
+              Button("OK", role: .cancel) {}
             }
             .modifier(InAppButtonModifier(width: 160, height: 50, radius: 30))
             .padding(.vertical)
