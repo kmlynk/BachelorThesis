@@ -12,6 +12,7 @@ struct PostDetailsView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: PostDetailsViewModel
   @State var showProgressView = false
+  @State private var showAlert = false
 
   init(project: ProjectModel) {
     self._viewModel = StateObject(wrappedValue: PostDetailsViewModel(project: project))
@@ -76,10 +77,21 @@ struct PostDetailsView: View {
 
           ToolbarItem(placement: .topBarTrailing) {
             Button {
-              Task { try await viewModel.createPost() }
-              dismiss()
+              Task {
+                showProgressView.toggle()
+                try await viewModel.createPost()
+                if viewModel.error.isEmpty {
+                  dismiss()
+                } else {
+                  showProgressView.toggle()
+                  showAlert.toggle()
+                }
+              }
             } label: {
               Text("Done")
+            }
+            .alert(viewModel.error, isPresented: $showAlert) {
+              Button("OK", role: .cancel) {}
             }
           }
         }

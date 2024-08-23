@@ -21,27 +21,24 @@ class PostDetailsViewModel: ObservableObject {
   @Published var label1 = ""
   @Published var label2 = ""
   @Published var label3 = ""
-  
+  @Published var error = ""
+
   private var uiImage: UIImage?
-  
+
   init(project: ProjectModel) {
     self.project = project
-    
+
     self.name = project.projectName
   }
-  
-  @MainActor
-  func loadImage(fromItem item: PhotosPickerItem?) async {
-    guard let item = item else { return }
-    guard let data = try? await item.loadTransferable(type: Data.self) else { return }
-    print("DEBUG: Image data is \(data)")
-    
-    guard let uiImage = UIImage(data: data) else { return }
-    self.uiImage = uiImage
-    self.postImage = Image(uiImage: uiImage)
-  }
-  
+
   func createPost() async throws {
+    error = ""
+    
+    guard !label1.trimmingCharacters(in: .whitespaces).isEmpty else {
+      error = "Label is required."
+      return
+    }
+    
     var labels = [label1]
     if label2 != "" {
       labels.append(label2)
@@ -49,7 +46,7 @@ class PostDetailsViewModel: ObservableObject {
     if label3 != "" {
       labels.append(label3)
     }
-    
+
     if let uiImage = uiImage {
       guard let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) else { return }
 
@@ -61,13 +58,27 @@ class PostDetailsViewModel: ObservableObject {
         labels: labels
       )
     } else {
+      guard project.projectImageUrl != "" else {
+        error = "An image is required."
+        return
+      }
+      
       try await PostService.uploadPostData(
         ownerId: project.ownerId,
         projectId: project.id,
-        imageUrl: project.projectImageUrl ?? "",
+        imageUrl: project.projectImageUrl!,
         caption: caption,
         labels: labels
       )
     }
+  }
+
+  func loadImage(fromItem item: PhotosPickerItem?) async {
+    guard let item = item else { return }
+    guard let data = try? await item.loadTransferable(type: Data.self) else { return }
+
+    guard let uiImage = UIImage(data: data) else { return }
+    self.uiImage = uiImage
+    self.postImage = Image(uiImage: uiImage)
   }
 }
