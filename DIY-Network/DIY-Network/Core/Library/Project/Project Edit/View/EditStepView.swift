@@ -12,6 +12,7 @@ struct EditStepView: View {
   @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: EditStepViewModel
   @State private var showProgressView = false
+  @State private var showAlert = false
 
   init(step: ProjectStepModel) {
     self._viewModel = StateObject(wrappedValue: EditStepViewModel(step: step))
@@ -67,10 +68,18 @@ struct EditStepView: View {
               Task {
                 showProgressView.toggle()
                 try await viewModel.updateStep()
-                dismiss()
+                if viewModel.error.isEmpty {
+                  dismiss()
+                } else {
+                  showProgressView.toggle()
+                  showAlert.toggle()
+                }
               }
             } label: {
               Text("Save the changes")
+            }
+            .alert(viewModel.error, isPresented: $showAlert) {
+              Button("OK", role: .cancel) {}
             }
             .modifier(InAppButtonModifier(width: 160, height: 50, radius: 30))
             .padding(.vertical)

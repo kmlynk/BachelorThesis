@@ -19,6 +19,7 @@ class EditStepViewModel: ObservableObject {
   @Published var number = ""
   @Published var name = ""
   @Published var desc = ""
+  @Published var error = ""
 
   private var uiImages: [UIImage] = []
 
@@ -28,7 +29,6 @@ class EditStepViewModel: ObservableObject {
     self.name = step.stepName
     self.desc = step.stepDesc
 
-    // Load existing step images if available
     if let imageUrls = step.stepImageUrls {
       self.stepImages = imageUrls.compactMap { urlString in
         if let url = URL(string: urlString),
@@ -40,6 +40,44 @@ class EditStepViewModel: ObservableObject {
         return nil
       }
     }
+  }
+
+  func updateStep() async throws {
+    error = ""
+
+    guard !number.trimmingCharacters(in: .whitespaces).isEmpty, let stepNumber = Int(number) else {
+      error = "Step number is required and must be a valid number."
+      return
+    }
+
+    guard !name.trimmingCharacters(in: .whitespaces).isEmpty else {
+      error = "Step name is required."
+      return
+    }
+
+    guard !desc.trimmingCharacters(in: .whitespaces).isEmpty else {
+      error = "Step description is required."
+      return
+    }
+
+    var uploadedImageUrls: [String] = []
+    for uiImage in uiImages {
+      if let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) {
+        uploadedImageUrls.append(imageUrl)
+      }
+    }
+
+    if uploadedImageUrls.isEmpty, let existingUrls = step.stepImageUrls {
+      uploadedImageUrls = existingUrls
+    }
+
+    try await LibraryService.updateStepData(
+      step: step,
+      imageUrls: uploadedImageUrls,
+      number: stepNumber,
+      name: name,
+      desc: desc
+    )
   }
 
   func loadImages(fromItems items: [PhotosPickerItem]) async {
@@ -54,32 +92,5 @@ class EditStepViewModel: ObservableObject {
       uiImages.append(uiImage)
       stepImages.append(Image(uiImage: uiImage))
     }
-  }
-
-  func updateStep() async throws {
-    guard let stepNumber = Int(number) else {
-      print("DEBUG: There is no step number!")
-      return
-    }
-
-    var uploadedImageUrls: [String] = []
-    for uiImage in uiImages {
-      if let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) {
-        uploadedImageUrls.append(imageUrl)
-      }
-    }
-
-    // If there are no new images, use the existing image URLs
-    if uploadedImageUrls.isEmpty, let existingUrls = step.stepImageUrls {
-      uploadedImageUrls = existingUrls
-    }
-
-    try await LibraryService.updateStepData(
-      step: step,
-      imageUrls: uploadedImageUrls,
-      number: stepNumber,
-      name: name,
-      desc: desc
-    )
   }
 }
