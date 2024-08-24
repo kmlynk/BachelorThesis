@@ -21,7 +21,7 @@ struct RowView: View {
       Text(title)
     }
     .frame(width: UIScreen.main.bounds.width - 30)
-    .shadow(radius: 10)
+    .shadow(color: Color.secondary, radius: 3)
     .padding(.vertical, 5)
   }
 }

@@ -55,6 +55,7 @@ struct NewStepCell: View {
             }
           }
         }
+        .shadow(color: Color.secondary, radius: 2)
         .padding(.horizontal)
       } else {
         GroupBox {
@@ -100,6 +101,7 @@ struct NewStepCell: View {
             }
           }
         }
+        .shadow(color: Color.secondary, radius: 2)
         .padding(.horizontal)
       }
     }
