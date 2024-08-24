@@ -40,7 +40,7 @@ struct EditProfileView: View {
             Button("Done") {
               Task {
                 showProgressView = true
-                try await viewModel.updateUserData()
+                try await viewModel.updateUser()
                 showProgressView = false
                 dismiss()
               }
