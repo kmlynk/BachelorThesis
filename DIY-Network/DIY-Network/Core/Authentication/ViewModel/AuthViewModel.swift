@@ -14,6 +14,7 @@ import Foundation
 class AuthViewModel: ObservableObject {
   @Published var userSession: FirebaseAuth.User?
   @Published var currentUser: UserModel?
+  @Published var authError: String?
 
   init() {
     self.userSession = Auth.auth().currentUser
@@ -22,30 +23,25 @@ class AuthViewModel: ObservableObject {
 
   func signIn(withEmail email: String, password: String) async throws {
     do {
-      print("DEBUG: Signing in...")
       let result = try await Auth.auth().signIn(withEmail: email, password: password)
       self.userSession = result.user
-      print("DEBUG: result.user -> \(result.user)")
-      print("DEBUG: self.userSession -> \(String(describing: self.userSession))")
       await fetchUser()
-      print("DEBUG: Signed in!")
     } catch {
-      print("DEBUG: Failed to login user with error \(error.localizedDescription)")
+      self.authError = "Failed to login: \(error.localizedDescription)"
+      throw error
     }
   }
 
   func createUser(withEmail email: String, password: String, username: String) async throws {
     do {
-      print("DEBUG: Registering new account for \(username)...")
       let result = try await Auth.auth().createUser(withEmail: email, password: password)
       self.userSession = result.user
-      print("DEBUG: User Session -> \(String(describing: userSession))")
       await uploadUserData(
         uid: result.user.uid, email: email, password: password, username: username)
-      print("DEBUG: Registered!")
       await fetchUser()
     } catch {
-      print("DEBUG: Failed to register user with error \(error.localizedDescription)")
+      self.authError = "Failed to register: \(error.localizedDescription)"
+      throw error
     }
   }
 
