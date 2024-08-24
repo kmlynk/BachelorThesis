@@ -45,24 +45,12 @@ class EditProfileViewModel: ObservableObject {
     self.profileImage = Image(uiImage: uiImage)
   }
 
-  func updateUserData() async throws {
-    var data = [String: Any]()
-
-    if let uiImage = uiImage {
-      let imageUrl = try await ImageUploader.uploadImage(withData: uiImage)
-      data["profileImageUrl"] = imageUrl
-    }
-
-    if !fullname.isEmpty && user.fullname != fullname {
-      data["fullname"] = fullname
-    }
-
-    if !bio.isEmpty && user.bio != bio {
-      data["bio"] = bio
-    }
-
-    if !data.isEmpty {
-      try await Firestore.firestore().collection("users").document(user.id).updateData(data)
-    }
+  func updateUser() async throws {
+    try await UserService.updateUserData(
+      user: user,
+      uiImage: uiImage,
+      fullname: fullname,
+      bio: bio
+    )
   }
 }
