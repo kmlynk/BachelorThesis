@@ -91,6 +91,7 @@
 		05E417E92C52FD5600AD6A7B /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E417E82C52FD5600AD6A7B /* UserService.swift */; };
 		05FC63442C618DF7007C6593 /* NewExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FC63432C618DF7007C6593 /* NewExpandableView.swift */; };
 		05FC63462C6190F0007C6593 /* NewStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FC63452C6190F0007C6593 /* NewStepCell.swift */; };
+		05FD1C102C794674005B7246 /* AuthValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FD1C0F2C794674005B7246 /* AuthValidator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -169,6 +170,7 @@
 		05E417E82C52FD5600AD6A7B /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		05FC63432C618DF7007C6593 /* NewExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExpandableView.swift; sourceTree = "<group>"; };
 		05FC63452C6190F0007C6593 /* NewStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStepCell.swift; sourceTree = "<group>"; };
+		05FD1C0F2C794674005B7246 /* AuthValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthValidator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -332,13 +334,14 @@
 		0514C2542C1B24FC00C75560 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				05B255532C26219F0084F5C3 /* Modifiers */,
-				055FE08A2C25057900497DDB /* ExpandableView */,
+				05FD1C0F2C794674005B7246 /* AuthValidator.swift */,
 				0514C2552C1B250F00C75560 /* CircularProfileImageView.swift */,
-				055FE0752C237D1600497DDB /* ProjectImageView.swift */,
-				05CD48962C276BF700146A4F /* ProjectDividerView.swift */,
 				05DF23492C5AFBA10015F745 /* ProgressBar.swift */,
+				05CD48962C276BF700146A4F /* ProjectDividerView.swift */,
+				055FE0752C237D1600497DDB /* ProjectImageView.swift */,
 				05853CFC2C77FC6E007FC938 /* RowView.swift */,
+				055FE08A2C25057900497DDB /* ExpandableView */,
+				05B255532C26219F0084F5C3 /* Modifiers */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				05C767862C57BE43009E6A1D /* NewLibraryView.swift in Sources */,
 				054CF0A12C1E63B6005820A5 /* EditProfileViewModel.swift in Sources */,
 				056D4CAD2C1F34EF00E34094 /* SearchView.swift in Sources */,
+				05FD1C102C794674005B7246 /* AuthValidator.swift in Sources */,
 				055FE0762C237D1600497DDB /* ProjectImageView.swift in Sources */,
 				056D4CB12C1F3B1D00E34094 /* ProfileView.swift in Sources */,
 				05DCC83A2C2DA4DB008DC4FC /* PostDetailsViewModel.swift in Sources */,
