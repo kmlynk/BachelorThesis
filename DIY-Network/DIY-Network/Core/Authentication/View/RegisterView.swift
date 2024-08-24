@@ -13,23 +13,15 @@ struct RegisterView: View {
   @State private var email = ""
   @State private var password = ""
   @State private var username = ""
+  @State private var error = ""
 
   var body: some View {
     NavigationStack {
       VStack {
-        Text("Create an Account")
+        Text("Create an account")
           .font(.title2)
           .fontWeight(.semibold)
           .padding(.top, 50)
-
-        Text(
-          "Password must be at least 8 characters long\n" + "Password also must include minimum\n"
-            + "1 lowercase and 1 uppercase letter"
-        )
-        .font(.footnote)
-        .fontWeight(.thin)
-        .multilineTextAlignment(.center)
-        .padding(.top, 10)
 
         VStack(spacing: 10) {
           TextField("E-Mail", text: $email)
@@ -48,10 +40,28 @@ struct RegisterView: View {
         }
         .padding(.top, 10)
 
+        if !error.isEmpty {
+          VStack {
+            Text(error)
+              .animation(.bouncy)
+              .foregroundColor(.red)
+              .font(.footnote)
+              .multilineTextAlignment(.center)
+              .padding(.horizontal)
+          }
+        }
+
         Button {
           Task {
-            try await authViewModel.createUser(
-              withEmail: email, password: password, username: username)
+            error = await validateRegisterForm()
+            if error.isEmpty {
+              do {
+                try await authViewModel.createUser(
+                  withEmail: email, password: password, username: username)
+              } catch {
+                self.error = authViewModel.authError ?? "Unknown error"
+              }
+            }
           }
         } label: {
           Text("Register")
@@ -73,6 +83,32 @@ struct RegisterView: View {
 
       Spacer()
     }
+  }
+
+  private func validateRegisterForm() async -> String {
+    if email.isEmpty || password.isEmpty || username.isEmpty {
+      return "All fields are required."
+    }
+    if !AuthValidator.isValidEmail(email) {
+      return "Invalid email format."
+    }
+    if !AuthValidator.isValidPassword(password) {
+      return
+        "Password must be at least 8 characters long and contain both uppercase and lowercase letters."
+    }
+    if !AuthValidator.isValidUsername(username) {
+      return "Username must be at least 3 characters long."
+    }
+
+    do {
+      if try await !UserService.isUsernameUnique(username: username) {
+        return "Username already exists."
+      }
+    } catch {
+      return "Failed to check username availiblity: \(error.localizedDescription)"
+    }
+
+    return ""
   }
 }
 
