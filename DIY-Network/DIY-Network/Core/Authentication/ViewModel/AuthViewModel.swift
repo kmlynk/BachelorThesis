@@ -37,7 +37,7 @@ class AuthViewModel: ObservableObject {
       let result = try await Auth.auth().createUser(withEmail: email, password: password)
       self.userSession = result.user
       await uploadUserData(
-        uid: result.user.uid, email: email, password: password, username: username)
+        uid: result.user.uid, email: email, username: username)
       await fetchUser()
     } catch {
       self.authError = "Failed to register: \(error.localizedDescription)"
@@ -64,15 +64,13 @@ class AuthViewModel: ObservableObject {
     print("DEBUG: Account deleted!")
   }
 
-  func uploadUserData(uid: String, email: String, password: String, username: String) async {
+  func uploadUserData(uid: String, email: String, username: String) async {
     do {
-      print("DEBUG: Uploading user data to database...")
       let user = UserModel(id: uid, email: email, username: username)
       let encodedUser = try Firestore.Encoder().encode(user)
       try await Firestore.firestore().collection("users").document(user.id).setData(encodedUser)
     } catch {
-      print(
-        "DEBUG: Failed to upload user data to database with error \(error.localizedDescription)")
+      self.authError = "Failed to upload user data: \(error.localizedDescription)"
     }
   }
 
