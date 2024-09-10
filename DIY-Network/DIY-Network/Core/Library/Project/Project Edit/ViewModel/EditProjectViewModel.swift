@@ -15,9 +15,14 @@ class EditProjectViewModel: ObservableObject {
   @Published var selectedImage: PhotosPickerItem? {
     didSet { Task { await loadImage(fromItem: selectedImage) } }
   }
+  @Published var selectedVideo: PhotosPickerItem? {
+    didSet { Task { try await loadVideo(fromItem: selectedVideo) } }
+  }
   @Published var projectImage: Image?
   @Published var name = ""
   @Published var desc = ""
+  @Published var ytLink = ""
+  @Published var videoData: Data?
   @Published var error = ""
 
   private var uiImage: UIImage?
@@ -27,6 +32,7 @@ class EditProjectViewModel: ObservableObject {
 
     self.name = project.projectName
     self.desc = project.projectDesc
+    self.ytLink = project.ytVideoUrl ?? ""
   }
 
   func updateProject() async throws {
@@ -43,7 +49,8 @@ class EditProjectViewModel: ObservableObject {
     }
 
     try await LibraryService.updateProjectData(
-      project: project, uiImage: uiImage, name: name, desc: desc)
+      project: project, uiImage: uiImage, name: name, desc: desc, videoData: videoData,
+      ytLink: ytLink)
   }
 
   func loadImage(fromItem item: PhotosPickerItem?) async {
@@ -53,5 +60,13 @@ class EditProjectViewModel: ObservableObject {
     guard let uiImage = UIImage(data: data) else { return }
     self.uiImage = uiImage
     self.projectImage = Image(uiImage: uiImage)
+  }
+
+  func loadVideo(fromItem item: PhotosPickerItem?) async throws {
+    guard let item = item else { return }
+    guard let videoData = try? await item.loadTransferable(type: Data.self) else { return }
+
+    print("DEBUG: Video data is \(videoData)")
+    self.videoData = videoData
   }
 }

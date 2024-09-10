@@ -50,6 +50,30 @@ struct EditProjectView: View {
           RowView(
             title: "Project Description", placeholder: "Description", text: $viewModel.desc)
 
+          RowView(
+            title: "YouTube Link", placeholder: "Link", text: $viewModel.ytLink)
+
+          PhotosPicker(
+            selection: $viewModel.selectedVideo, matching: .any(of: [.videos, .not(.images)])
+          ) {
+            VStack {
+              if viewModel.project.videoUrl != "" || viewModel.videoData != nil {
+                HStack {
+                  Text("Video is loaded")
+
+                  Image(systemName: "checkmark.circle.fill")
+                }
+              } else {
+                VStack {
+                  Image(systemName: "plus.circle")
+                    .imageScale(.large)
+
+                  Text("Upload a Video")
+                }
+              }
+            }
+          }
+          .padding(.vertical)
         }
         .scrollIndicators(.never)
         .navigationTitle("Edit Project")
@@ -79,6 +103,7 @@ struct EditProjectView: View {
             } label: {
               Text("Done")
                 .foregroundColor(Color.blue)
+                .fontWeight(.bold)
             }
             .alert(viewModel.error, isPresented: $showAlert) {
               Button("OK", role: .cancel) {}
