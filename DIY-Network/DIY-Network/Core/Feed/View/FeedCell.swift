@@ -46,7 +46,7 @@ struct FeedCell: View {
           Image(systemName: viewModel.isLiked ? "heart.fill" : "heart")
             .imageScale(.large)
             .foregroundColor(viewModel.isLiked ? .red : .primary)
-            .animation(.bouncy)
+            .animation(.linear)
         }
 
         Button {
@@ -109,7 +109,7 @@ struct FeedCell: View {
             }
           }
         }
-        .animation(.bouncy)
+        .animation(.linear)
       }
       .font(.footnote)
       .padding(.horizontal, 10)
@@ -138,7 +138,7 @@ struct FeedCell: View {
               Divider()
             }
           }
-          .animation(.bouncy)
+          .animation(.linear)
           .padding(.top)
         } else {
           VStack {
