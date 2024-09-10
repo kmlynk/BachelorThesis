@@ -55,6 +55,8 @@ struct NewStepCell: View {
             }
           }
         }
+        .frame(width: UIScreen.main.bounds.width - 30)
+        .cornerRadius(12)
         .shadow(color: Color.secondary, radius: 2)
         .padding(.horizontal)
       } else {
@@ -88,7 +90,7 @@ struct NewStepCell: View {
                 ScrollView(.horizontal) {
                   HStack {
                     ForEach(imageUrls, id: \.self) { imageUrl in
-                      ProjectImageView(width: 320, height: 250, imageUrl: imageUrl)
+                      ProjectImageView(width: 300, height: 250, imageUrl: imageUrl)
                     }
                   }
                 }
@@ -101,6 +103,8 @@ struct NewStepCell: View {
             }
           }
         }
+        .frame(width: UIScreen.main.bounds.width - 30)
+        .cornerRadius(12)
         .shadow(color: Color.secondary, radius: 2)
         .padding(.horizontal)
       }

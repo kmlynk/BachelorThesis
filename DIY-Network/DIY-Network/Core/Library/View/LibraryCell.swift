@@ -18,7 +18,7 @@ struct LibraryCell: View {
     if showProgress {
       ProgressView("Loading...")
     } else {
-      HStack {
+      GroupBox {
         VStack {
           HStack {
             Spacer()
@@ -48,7 +48,6 @@ struct LibraryCell: View {
           }
 
           Divider()
-            .foregroundColor(Color.primary)
 
           VStack {
             ProgressBar(
@@ -67,13 +66,8 @@ struct LibraryCell: View {
           }
         }
       }
-      .padding()
-      .background(currentMode == .dark ? Color.black : Color.white)  // TODO: Implement new colors
-      .cornerRadius(20)
-      .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
-      .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
-      .padding(.horizontal)
-      .padding(.top)
+      .animation(.bouncy)
+      .cornerRadius(16)
       .sheet(
         isPresented: $showSheet,
         onDismiss: {

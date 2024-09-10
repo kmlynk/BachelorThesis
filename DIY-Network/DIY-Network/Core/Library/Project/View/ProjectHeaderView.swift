@@ -57,9 +57,9 @@ struct ProjectHeaderView: View {
               }
             }
           }
-          .padding(.bottom, 3)
+          .padding(.top, 1)
 
-          VStack {
+          VStack(spacing: 8) {
             if let url = project.ytVideoUrl {
               if !showYTVideo {
                 Button {
@@ -108,9 +108,11 @@ struct ProjectHeaderView: View {
         }
       } label: {
         Text(project.projectName)
+          .font(.subheadline)
       }
+      .shadow(color: Color.secondary, radius: 2)
+      .frame(width: UIScreen.main.bounds.width - 30)
       .groupBoxStyle(.projectHeader)
-      .frame(width: UIScreen.main.bounds.width)
     }
   }
 }

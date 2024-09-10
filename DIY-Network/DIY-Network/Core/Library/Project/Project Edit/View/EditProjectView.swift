@@ -22,7 +22,7 @@ struct EditProjectView: View {
     if !showProgressView {
       NavigationStack {
         ScrollView {
-          ProjectDividerView(minusWidth: 0, height: 2)
+          Divider()
 
           PhotosPicker(selection: $viewModel.selectedImage) {
             VStack {
@@ -44,13 +44,27 @@ struct EditProjectView: View {
           }
           .padding(.vertical)
 
-          VStack {
-            RowView(
-              title: "Project Name", placeholder: "Name", text: $viewModel.name)
+          RowView(
+            title: "Project Name", placeholder: "Name", text: $viewModel.name)
 
-            RowView(
-              title: "Project Description", placeholder: "Description", text: $viewModel.desc)
+          RowView(
+            title: "Project Description", placeholder: "Description", text: $viewModel.desc)
 
+        }
+        .scrollIndicators(.never)
+        .navigationTitle("Edit Project")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+          ToolbarItem(placement: .topBarLeading) {
+            Button {
+              dismiss()
+            } label: {
+              Text("Cancel")
+                .foregroundColor(Color.blue)
+            }
+          }
+
+          ToolbarItem(placement: .topBarTrailing) {
             Button {
               Task {
                 showProgressView.toggle()
@@ -63,28 +77,12 @@ struct EditProjectView: View {
                 }
               }
             } label: {
-              Text("Save the changes")
+              Text("Done")
+                .foregroundColor(Color.blue)
             }
             .alert(viewModel.error, isPresented: $showAlert) {
               Button("OK", role: .cancel) {}
             }
-            .modifier(InAppButtonModifier(width: 160, height: 50, radius: 30))
-            .padding(.vertical)
-          }
-          .padding()
-        }
-        .scrollIndicators(.never)
-        .navigationTitle("Edit Project")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-          ToolbarItem(placement: .topBarLeading) {
-            Button {
-              dismiss()
-            } label: {
-              Image(systemName: "xmark")
-                .imageScale(.large)
-            }
-            .foregroundColor(Color.primary)
           }
         }
       }

@@ -13,7 +13,7 @@ struct PostProjectCell: View {
   @State var showPostScreen = false
 
   var body: some View {
-    HStack {
+    GroupBox {
       HStack {
         ProjectImageView(
           width: 100,
@@ -28,13 +28,9 @@ struct PostProjectCell: View {
         Spacer()
       }
     }
-    .padding()
-    .background(currentMode == .dark ? Color.black : Color.white)
-    .cornerRadius(20)
-    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: 5, y: 5)
-    .shadow(color: Color.primary.opacity(0.08), radius: 5, x: -5, y: -5)
-    .padding(.horizontal)
-    .padding(.top)
+    .cornerRadius(12)
+    .shadow(color: Color.secondary, radius: 2)
+    .frame(width: UIScreen.main.bounds.width - 30)
     .onTapGesture {
       showPostScreen.toggle()
     }

@@ -44,46 +44,43 @@ struct CreateProjectView: View {
           }
           .padding(.vertical)
 
-          VStack {
-            RowView(
-              title: "Project Name",
-              placeholder: "Name",
-              text: $viewModel.projectName)
+          RowView(
+            title: "Project Name",
+            placeholder: "Name",
+            text: $viewModel.projectName)
 
-            RowView(
-              title: "Project Describtion",
-              placeholder: "Describtion",
-              text: $viewModel.projectDesc)
+          RowView(
+            title: "Project Describtion",
+            placeholder: "Describtion",
+            text: $viewModel.projectDesc)
 
-            RowView(
-              title: "YouTube Link",
-              placeholder: "Link",
-              text: $viewModel.ytLink)
+          RowView(
+            title: "YouTube Link",
+            placeholder: "Link",
+            text: $viewModel.ytLink)
 
-            PhotosPicker(
-              selection: $viewModel.selectedVideo, matching: .any(of: [.videos, .not(.images)])
-            ) {
-              VStack {
-                if let video = viewModel.projectVideoData {
-                  HStack {
-                    Text("Video is loaded")
+          PhotosPicker(
+            selection: $viewModel.selectedVideo, matching: .any(of: [.videos, .not(.images)])
+          ) {
+            VStack {
+              if viewModel.projectVideoData != nil {
+                HStack {
+                  Text("Video is loaded")
 
-                    Image(systemName: "checkmark.circle.fill")
-                  }
-                } else {
-                  VStack {
-                    Image(systemName: "plus.circle")
-                      .imageScale(.large)
+                  Image(systemName: "checkmark.circle.fill")
+                }
+              } else {
+                VStack {
+                  Image(systemName: "plus.circle")
+                    .imageScale(.large)
 
-                    Text("Upload a Video")
-                  }
+                  Text("Upload a Video")
                 }
               }
-              .animation(.bouncy)
             }
-            .padding(.vertical)
           }
-          .padding()
+          .padding(.vertical)
+
         }
         .scrollIndicators(.never)
         .navigationTitle("Create a Project")
@@ -110,7 +107,7 @@ struct CreateProjectView: View {
                 }
               }
             } label: {
-              Text("Create")
+              Text("Done")
             }
             .alert(viewModel.error, isPresented: $showAlert) {
               Button("OK", role: .cancel) {}

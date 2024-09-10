@@ -60,6 +60,9 @@ struct NewLibraryView: View {
         }
       } else {
         ScrollView {
+          Divider()
+            .padding(.bottom)
+
           LazyVStack {
             ForEach(projects) { project in
               NavigationLink(value: project) {
@@ -83,6 +86,7 @@ struct NewLibraryView: View {
           for: ProjectModel.self,
           destination: { project in
             NewProjectView(project: project)
+              .navigationBarBackButtonHidden()
           }
         )
         .navigationTitle("Library")

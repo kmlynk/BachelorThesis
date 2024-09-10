@@ -23,7 +23,7 @@ struct AddProjectStepView: View {
     if !showProgressView {
       NavigationStack {
         ScrollView {
-          ProjectDividerView(minusWidth: 0, height: 2)
+          Divider()
 
           PhotosPicker(
             selection: $viewModel.selectedImages, maxSelectionCount: 5, matching: .images
@@ -51,22 +51,36 @@ struct AddProjectStepView: View {
           }
           .padding(.vertical)
 
-          VStack {
-            RowView(
-              title: "Step Number",
-              placeholder: "Number",
-              text: $viewModel.number)
+          RowView(
+            title: "Step Number",
+            placeholder: "Number",
+            text: $viewModel.number)
 
-            RowView(
-              title: "Step Name",
-              placeholder: "Name",
-              text: $viewModel.name)
+          RowView(
+            title: "Step Name",
+            placeholder: "Name",
+            text: $viewModel.name)
 
-            RowView(
-              title: "Step Description",
-              placeholder: "Description",
-              text: $viewModel.desc)
-            
+          RowView(
+            title: "Step Description",
+            placeholder: "Description",
+            text: $viewModel.desc)
+
+        }
+        .scrollIndicators(.never)
+        .navigationTitle("Create a Step")
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+          ToolbarItem(placement: .topBarLeading) {
+            Button {
+              dismiss()
+            } label: {
+              Text("Cancel")
+            }
+          }
+
+          ToolbarItem(placement: .topBarTrailing) {
             Button {
               Task {
                 showProgressView.toggle()
@@ -79,29 +93,11 @@ struct AddProjectStepView: View {
                 }
               }
             } label: {
-              Text("Create the Step")
+              Text("Done")
             }
             .alert(viewModel.error, isPresented: $showAlert) {
               Button("OK", role: .cancel) {}
             }
-            .modifier(InAppButtonModifier(width: 160, height: 50, radius: 30))
-            .padding(.vertical)
-          }
-          .padding()
-        }
-        .scrollIndicators(.never)
-        .navigationTitle("Create a Step")
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden()
-        .toolbar {
-          ToolbarItem(placement: .topBarLeading) {
-            Button {
-              dismiss()
-            } label: {
-              Image(systemName: "xmark")
-                .imageScale(.large)
-            }
-            .foregroundColor(Color.primary)
           }
         }
       }

@@ -20,6 +20,7 @@ struct RowView: View {
     } label: {
       Text(title)
     }
+    .cornerRadius(12)
     .frame(width: UIScreen.main.bounds.width - 30)
     .shadow(color: Color.secondary, radius: 3)
     .padding(.vertical, 5)

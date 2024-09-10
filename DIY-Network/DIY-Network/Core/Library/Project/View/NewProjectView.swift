@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NewProjectView: View {
+  @Environment(\.dismiss) var dismiss
   @StateObject var viewModel: ProjectViewModel
   @State private var showCreateStep = false
   @State private var showProgress = false
@@ -20,22 +21,27 @@ struct NewProjectView: View {
     if showProgress {
       ProgressView("Loading...")
     } else if viewModel.steps.count < 1 {
-      VStack(alignment: .center) {
-        VStack(spacing: 8) {
+      VStack {
+        ProjectHeaderView(project: viewModel.project)
+        
+        VStack(spacing: 16) {
           Text("Project has no steps at the moment")
             .fontWeight(.bold)
             .foregroundColor(Color.gray)
           Button {
             showCreateStep.toggle()
           } label: {
-            VStack(spacing: 8) {
-              Text("Create a step")
+            VStack(spacing: 4) {
               Image(systemName: "plus.circle")
                 .imageScale(.large)
+              Text("Create a step")
             }
             .foregroundColor(Color.blue)
           }
         }
+        .padding(.top, 32)
+        
+        Spacer()
       }
       .font(.title3)
       .fullScreenCover(
@@ -70,13 +76,23 @@ struct NewProjectView: View {
             Image(systemName: "arrow.down")
               .imageScale(.small)
           }
-          .padding(.top, 48)
+          .padding(.top, 32)
           .foregroundColor(Color.gray)
         }
       }
-      .navigationTitle(viewModel.project.projectName)
+      .navigationTitle("Project")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          Button {
+            dismiss()
+          } label: {
+            Image(systemName: "chevron.left")
+              .imageScale(.large)
+              .foregroundColor(Color.primary)
+          }
+        }
+        
         ToolbarItem(placement: .topBarTrailing) {
           Button {
             showCreateStep.toggle()
@@ -87,6 +103,7 @@ struct NewProjectView: View {
           }
         }
       }
+      .animation(.bouncy)
       .scrollIndicators(.never)
       .refreshable {
         Task { try await viewModel.getProjectSteps() }
