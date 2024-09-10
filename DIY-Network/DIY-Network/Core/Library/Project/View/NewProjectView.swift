@@ -23,7 +23,7 @@ struct NewProjectView: View {
     } else if viewModel.steps.count < 1 {
       VStack {
         ProjectHeaderView(project: viewModel.project)
-        
+
         VStack(spacing: 16) {
           Text("Project has no steps at the moment")
             .fontWeight(.bold)
@@ -40,7 +40,7 @@ struct NewProjectView: View {
           }
         }
         .padding(.top, 32)
-        
+
         Spacer()
       }
       .font(.title3)
@@ -81,7 +81,7 @@ struct NewProjectView: View {
         }
       }
       .navigationTitle("Project")
-      .navigationBarTitleDisplayMode(.inline)
+      .navigationBarTitleDisplayMode(.automatic)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           Button {
@@ -92,7 +92,7 @@ struct NewProjectView: View {
               .foregroundColor(Color.primary)
           }
         }
-        
+
         ToolbarItem(placement: .topBarTrailing) {
           Button {
             showCreateStep.toggle()
@@ -103,7 +103,6 @@ struct NewProjectView: View {
           }
         }
       }
-      .animation(.bouncy)
       .scrollIndicators(.never)
       .refreshable {
         Task { try await viewModel.getProjectSteps() }

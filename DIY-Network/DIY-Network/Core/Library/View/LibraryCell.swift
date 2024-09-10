@@ -66,8 +66,9 @@ struct LibraryCell: View {
           }
         }
       }
-      .animation(.bouncy)
-      .cornerRadius(16)
+      .cornerRadius(12)
+      .shadow(color: Color.secondary, radius: 2)
+      .frame(width: UIScreen.main.bounds.width - 30)
       .sheet(
         isPresented: $showSheet,
         onDismiss: {

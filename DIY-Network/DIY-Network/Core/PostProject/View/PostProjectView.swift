@@ -29,8 +29,8 @@ struct PostProjectView: View {
         Task { try await viewModel.fetchUserProjects() }
       })
       .scrollIndicators(.never)
-      .navigationTitle("Choose a project to post")
-      .navigationBarTitleDisplayMode(.inline)
+      .navigationTitle("Choose a project to share")
+      .navigationBarTitleDisplayMode(.automatic)
     }
   }
 }

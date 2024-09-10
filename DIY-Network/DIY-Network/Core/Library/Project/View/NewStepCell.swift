@@ -55,10 +55,9 @@ struct NewStepCell: View {
             }
           }
         }
-        .frame(width: UIScreen.main.bounds.width - 30)
         .cornerRadius(12)
         .shadow(color: Color.secondary, radius: 2)
-        .padding(.horizontal)
+        .frame(width: UIScreen.main.bounds.width - 30)
       } else {
         GroupBox {
           VStack(spacing: 16) {
@@ -103,10 +102,9 @@ struct NewStepCell: View {
             }
           }
         }
-        .frame(width: UIScreen.main.bounds.width - 30)
         .cornerRadius(12)
         .shadow(color: Color.secondary, radius: 2)
-        .padding(.horizontal)
+        .frame(width: UIScreen.main.bounds.width - 30)
       }
     }
     .onTapGesture {
@@ -130,7 +128,6 @@ struct NewStepCell: View {
   NewStepCell(step: ProjectStepModel.MOCK_STEPS[0], editable: true)
 }
 
-// TODO: Implement ObservedObject StepCellViewModel
 struct StepBottomSheet: View {
   @Environment(\.dismiss) var dismiss
   var step: ProjectStepModel

@@ -90,12 +90,11 @@ struct NewLibraryView: View {
           }
         )
         .navigationTitle("Library")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.automatic)
         .toolbar {
           ToolbarItem {
             Button {
               showCreateProject.toggle()
-              print("DEBUG: Create New Project")
             } label: {
               Image(systemName: "plus")
                 .imageScale(.large)

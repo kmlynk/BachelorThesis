@@ -110,7 +110,6 @@ struct ProjectHeaderView: View {
         Text(project.projectName)
           .font(.subheadline)
       }
-      .shadow(color: Color.secondary, radius: 2)
       .frame(width: UIScreen.main.bounds.width - 30)
       .groupBoxStyle(.projectHeader)
     }

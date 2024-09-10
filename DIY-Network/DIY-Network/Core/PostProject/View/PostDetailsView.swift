@@ -71,7 +71,7 @@ struct PostDetailsView: View {
             Button {
               dismiss()
             } label: {
-              Image(systemName: "xmark")
+              Text("Cancel")
             }
           }
 
@@ -89,6 +89,7 @@ struct PostDetailsView: View {
               }
             } label: {
               Text("Done")
+                .fontWeight(.bold)
             }
             .alert(viewModel.error, isPresented: $showAlert) {
               Button("OK", role: .cancel) {}
