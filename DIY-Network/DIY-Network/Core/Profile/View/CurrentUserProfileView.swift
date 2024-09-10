@@ -13,6 +13,7 @@ struct CurrentUserProfileView: View {
   @StateObject var viewModel: ProfileViewModel
   @State private var showEditProfile = false
   @State private var showProgressView = false
+  @State private var showSheet = false
 
   init(user: UserModel) {
     self._viewModel = StateObject(wrappedValue: ProfileViewModel(user: user))
@@ -72,14 +73,15 @@ struct CurrentUserProfileView: View {
           Task { try await viewModel.fetchUserPosts() }
         }
         .navigationTitle("Profile")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.automatic)
         .scrollIndicators(.never)
         .toolbar {
           ToolbarItem(placement: .topBarTrailing) {
             Button {
-              authViewModel.signOut()
+              //authViewModel.signOut()
+              showSheet.toggle()
             } label: {
-              Image(systemName: "door.left.hand.open")
+              Image(systemName: "gearshape.fill")
                 .imageScale(.large)
                 .foregroundColor(Color.primary)
             }
@@ -91,7 +93,61 @@ struct CurrentUserProfileView: View {
               Task { try await viewModel.fetchUserData() }
             }
         }
+        .sheet(isPresented: $showSheet) {
+          UserBottomSheet()
+            .presentationDetents([.height(150)])
+        }
       }
+    }
+  }
+}
+
+struct UserBottomSheet: View {
+  @EnvironmentObject var authViewModel: AuthViewModel
+  @Environment(\.dismiss) var dismiss
+  @State private var showProgressView = false
+  @State private var showLogoutAlert = false
+  @State private var showDeleteAlert = false
+
+  var body: some View {
+    if !showProgressView {
+      List {
+        Button {
+          showLogoutAlert.toggle()
+        } label: {
+          HStack(spacing: 10) {
+            Image(systemName: "door.left.hand.open")
+              .imageScale(.large)
+            Text("Log out")
+          }
+          .foregroundColor(Color.blue)
+        }
+        .alert("Do you want to log out?", isPresented: $showLogoutAlert) {
+          Button("Log out", role: .destructive) {
+            showProgressView.toggle()
+            authViewModel.signOut()
+          }
+        }
+
+        Button {
+          showDeleteAlert.toggle()
+        } label: {
+          HStack(spacing: 10) {
+            Image(systemName: "trash.fill")
+              .imageScale(.large)
+            Text("Delete account")
+          }
+          .foregroundColor(Color.red)
+        }
+        .alert("Do you want to delete the account permanently?", isPresented: $showDeleteAlert) {
+          Button("Delete", role: .destructive) {
+            showProgressView.toggle()
+            authViewModel.deleteAccount()
+          }
+        }
+      }
+    } else {
+      ProgressView("Processing...")
     }
   }
 }

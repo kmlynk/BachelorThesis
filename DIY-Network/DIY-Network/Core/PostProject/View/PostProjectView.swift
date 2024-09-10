@@ -30,7 +30,7 @@ struct PostProjectView: View {
       })
       .scrollIndicators(.never)
       .navigationTitle("Choose a project to share")
-      .navigationBarTitleDisplayMode(.automatic)
+      .navigationBarTitleDisplayMode(.inline)
     }
   }
 }

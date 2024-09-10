@@ -21,29 +21,44 @@ struct NewProjectView: View {
     if showProgress {
       ProgressView("Loading...")
     } else if viewModel.steps.count < 1 {
-      VStack {
-        ProjectHeaderView(project: viewModel.project)
+      ScrollView {
+        VStack {
+          ProjectHeaderView(project: viewModel.project)
 
-        VStack(spacing: 16) {
-          Text("Project has no steps at the moment")
-            .fontWeight(.bold)
-            .foregroundColor(Color.gray)
-          Button {
-            showCreateStep.toggle()
-          } label: {
-            VStack(spacing: 4) {
-              Image(systemName: "plus.circle")
-                .imageScale(.large)
-              Text("Create a step")
+          VStack(spacing: 16) {
+            Text("Project has no steps at the moment")
+              .fontWeight(.bold)
+              .foregroundColor(Color.gray)
+            Button {
+              showCreateStep.toggle()
+            } label: {
+              VStack(spacing: 4) {
+                Image(systemName: "plus.circle")
+                  .imageScale(.large)
+                Text("Create a step")
+              }
+              .foregroundColor(Color.blue)
             }
-            .foregroundColor(Color.blue)
+          }
+          .font(.title3)
+          .padding(.top, 32)
+
+          Spacer()
+        }
+      }
+      .navigationTitle("Project")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          Button {
+            dismiss()
+          } label: {
+            Image(systemName: "chevron.left")
+              .imageScale(.large)
+              .foregroundColor(Color.primary)
           }
         }
-        .padding(.top, 32)
-
-        Spacer()
       }
-      .font(.title3)
       .fullScreenCover(
         isPresented: $showCreateStep,
         onDismiss: {
@@ -81,7 +96,7 @@ struct NewProjectView: View {
         }
       }
       .navigationTitle("Project")
-      .navigationBarTitleDisplayMode(.automatic)
+      .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           Button {

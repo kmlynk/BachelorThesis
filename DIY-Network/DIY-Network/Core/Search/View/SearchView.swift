@@ -47,7 +47,7 @@ struct SearchView: View {
         }
       )
       .navigationTitle("Search")
-      .navigationBarTitleDisplayMode(.inline)
+      .navigationBarTitleDisplayMode(.automatic)
       .refreshable {
         try? await viewModel.fetchSearchUsers()
       }

@@ -65,7 +65,7 @@ struct CreateProjectView: View {
             VStack {
               if viewModel.projectVideoData != nil {
                 HStack {
-                  Text("Video is loaded")
+                  Text("Video is uploaded")
 
                   Image(systemName: "checkmark.circle.fill")
                 }
@@ -74,13 +74,12 @@ struct CreateProjectView: View {
                   Image(systemName: "plus.circle")
                     .imageScale(.large)
 
-                  Text("Upload a Video")
+                  Text("Upload a video")
                 }
               }
             }
           }
           .padding(.vertical)
-
         }
         .scrollIndicators(.never)
         .navigationTitle("Create a Project")
@@ -108,6 +107,7 @@ struct CreateProjectView: View {
               }
             } label: {
               Text("Done")
+                .fontWeight(.bold)
             }
             .alert(viewModel.error, isPresented: $showAlert) {
               Button("OK", role: .cancel) {}

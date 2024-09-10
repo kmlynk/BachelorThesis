@@ -29,10 +29,11 @@ struct ProjectHeaderView: View {
             .font(.footnote)
             .fontWeight(.semibold)
             .multilineTextAlignment(.center)
-            .padding(.bottom, 8)
+            .padding(.bottom, 4)
 
-          VStack {
-            if let url = project.videoUrl {
+          if project.videoUrl != "" {
+            let url = project.videoUrl
+            VStack {
               if !showVideo {
                 Button {
                   showVideo.toggle()
@@ -43,7 +44,7 @@ struct ProjectHeaderView: View {
                     .foregroundColor(Color.blue)
                 }
               } else {
-                AZVideoPlayer(player: AVPlayer(url: URL(string: url)!))
+                AZVideoPlayer(player: AVPlayer(url: URL(string: url!)!))
                   .aspectRatio(16 / 9, contentMode: .fit)
 
                 Button {
@@ -56,11 +57,12 @@ struct ProjectHeaderView: View {
                 }
               }
             }
+            .padding(.bottom, 4)
           }
-          .padding(.top, 1)
 
-          VStack(spacing: 8) {
-            if let url = project.ytVideoUrl {
+          if project.ytVideoUrl != "" {
+            let url = project.ytVideoUrl
+            VStack {
               if !showYTVideo {
                 Button {
                   showYTVideo.toggle()
@@ -73,7 +75,7 @@ struct ProjectHeaderView: View {
               } else {
                 YouTubePlayerView(
                   YouTubePlayer(
-                    source: .url(url),
+                    source: .url(url!),
                     configuration: YouTubePlayer.Configuration(
                       fullscreenMode: .system,
                       autoPlay: false,
