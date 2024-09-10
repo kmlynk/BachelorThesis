@@ -85,7 +85,8 @@ struct LibraryService {
   }
 
   static func uploadProjectData(
-    ownerId: String, projectName: String, projectDesc: String, imageUrl: String?, videoUrl: String?, ytVideoUrl: String?
+    ownerId: String, projectName: String, projectDesc: String, imageUrl: String?, videoUrl: String?,
+    ytVideoUrl: String?
   ) async {
     do {
       let project = ProjectModel(
@@ -174,13 +175,25 @@ struct LibraryService {
   }
 
   static func updateProjectData(
-    project: ProjectModel, uiImage: UIImage?, name: String, desc: String
+    project: ProjectModel, uiImage: UIImage?, name: String, desc: String, videoData: Data?,
+    ytLink: String?
   ) async throws {
     var data = [String: Any]()
 
     if let uiImage = uiImage {
       let imageUrl = try await ImageUploader.uploadImage(withData: uiImage)
       data["projectImageUrl"] = imageUrl
+    }
+
+    if let videoData = videoData {
+      let videoUrl = try await VideoUploader.uploadVideo(withData: videoData)
+      data["videoUrl"] = videoUrl
+    }
+
+    if let ytLink = ytLink {
+      if ytLink.isEmpty && project.ytVideoUrl != ytLink {
+        data["ytVideoUrl"] = ytLink
+      }
     }
 
     if !name.isEmpty && project.projectName != name {
