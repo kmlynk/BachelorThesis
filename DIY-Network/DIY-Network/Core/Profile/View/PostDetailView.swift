@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct PostDetailView: View {
-  var user: UserModel
-  var post: PostModel
-  var editable: Bool
+  @Environment(\.dismiss) var dismiss
+  @State var user: UserModel
+  @State var post: PostModel
+  @State var editable: Bool
+  @State private var showAlert = false
+  @State private var showSuccess = false
 
   var body: some View {
     if editable {
@@ -23,9 +26,22 @@ struct PostDetailView: View {
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
           Button {
-            print("DEBUG: Delete post")
+            showAlert.toggle()
           } label: {
             Image(systemName: "trash.fill")
+              .imageScale(.medium)
+              .foregroundColor(.red)
+          }
+          .alert("Do you want to delete the post permanently?", isPresented: $showAlert) {
+            Button("Delete", role: .destructive) {
+              Task { try await PostService.deletePost(post: post) }
+              showSuccess.toggle()
+            }
+          }
+          .alert("Post deleted!", isPresented: $showSuccess) {
+            Button("OK", role: .cancel) {
+              dismiss()
+            }
           }
         }
       }
