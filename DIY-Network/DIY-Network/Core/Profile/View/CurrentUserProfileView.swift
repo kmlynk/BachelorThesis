@@ -142,7 +142,7 @@ struct UserBottomSheet: View {
         .alert("Do you want to delete the account permanently?", isPresented: $showDeleteAlert) {
           Button("Delete", role: .destructive) {
             showProgressView.toggle()
-            authViewModel.deleteAccount()
+            Task { await authViewModel.deleteAccount() }
           }
         }
       }
