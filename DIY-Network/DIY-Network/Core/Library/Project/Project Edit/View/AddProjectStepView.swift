@@ -94,6 +94,7 @@ struct AddProjectStepView: View {
               }
             } label: {
               Text("Done")
+                .fontWeight(.bold)
             }
             .alert(viewModel.error, isPresented: $showAlert) {
               Button("OK", role: .cancel) {}

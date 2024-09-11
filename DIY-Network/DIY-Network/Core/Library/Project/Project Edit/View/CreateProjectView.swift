@@ -79,6 +79,7 @@ struct CreateProjectView: View {
               }
             }
           }
+          .foregroundColor(.blue)
           .padding(.vertical)
         }
         .scrollIndicators(.never)

@@ -30,7 +30,7 @@ struct EditStepView: View {
             VStack {
               if !viewModel.stepImages.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
-                  HStack(spacing: 10) {
+                  HStack(spacing: 8) {
                     ForEach(Array(viewModel.stepImages.enumerated()), id: \.offset) {
                       index, image in
                       image
@@ -53,7 +53,7 @@ struct EditStepView: View {
                 .fontWeight(.semibold)
             }
           }
-          .padding(.vertical)
+          .padding()
 
           RowView(
             title: "Step Number", placeholder: "Number", text: $viewModel.number)
@@ -90,6 +90,7 @@ struct EditStepView: View {
               }
             } label: {
               Text("Done")
+                .fontWeight(.bold)
             }
             .alert(viewModel.error, isPresented: $showAlert) {
               Button("OK", role: .cancel) {}
