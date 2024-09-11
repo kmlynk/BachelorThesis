@@ -39,6 +39,10 @@ struct UserService {
       try await Firestore.firestore().collection("users").document(user.id).updateData(data)
     }
   }
+  
+  static func deleteUserData(user: UserModel) async throws {
+    try await db.document(user.id).delete()
+  }
 
   static func isUsernameUnique(username: String) async throws -> Bool {
     let snapshot = try await db.whereField("username", isEqualTo: username).getDocuments()
