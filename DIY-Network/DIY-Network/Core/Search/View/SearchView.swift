@@ -10,26 +10,33 @@ import SwiftUI
 struct SearchView: View {
   @EnvironmentObject var authViewModel: AuthViewModel
   @StateObject var viewModel = SearchViewModel()
-  @State private var searchText = ""
+  @State private var searchTerm = ""
+
+  var filteredUsers: [UserModel] {
+    guard !searchTerm.isEmpty else { return viewModel.users }
+    return viewModel.users.filter {
+      $0.username.description.localizedStandardContains(searchTerm)
+    }
+  }
 
   var body: some View {
     NavigationStack {
       ScrollView {
         LazyVStack(spacing: 15) {
-          ForEach(viewModel.users) { user in
+          ForEach(filteredUsers, id: \.self) { user in
             HStack {
               NavigationLink(value: user) {
                 CircularProfileImageView(size: 40, imageUrl: user.profileImageUrl ?? "")
-                
+
                 VStack(alignment: .leading) {
                   Text(user.username)
                     .fontWeight(.semibold)
-                  
+
                   if let fullname = user.fullname {
                     Text(fullname)
                   }
                 }
-                
+
                 Spacer()
               }
             }
@@ -38,7 +45,7 @@ struct SearchView: View {
           }
         }
         .padding(.top, 8)
-      .searchable(text: $searchText, prompt: "Search...")
+        .searchable(text: $searchTerm, prompt: "Search for a username...")
       }
       .navigationDestination(
         for: UserModel.self,
@@ -46,7 +53,7 @@ struct SearchView: View {
           ProfileView(user: user)
         }
       )
-      .navigationTitle("Search")
+      .navigationTitle("User Search")
       .navigationBarTitleDisplayMode(.automatic)
       .refreshable {
         try? await viewModel.fetchSearchUsers()
