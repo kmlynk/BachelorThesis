@@ -59,8 +59,32 @@ class AuthViewModel: ObservableObject {
     }
   }
 
-  func deleteAccount() {
+  func deleteAccount() async {
     print("DEBUG: Deleting the account...")
+    let user = Auth.auth().currentUser
+
+    do {
+      // Delete users projects
+      await LibraryService.deleteUsersProjects(user: self.currentUser!)
+
+      // Delete users posts
+      try await PostService.deleteUsersPosts(user: self.currentUser!)
+
+      // Delete user data
+      try await UserService.deleteUserData(user: self.currentUser!)
+    } catch {
+      print("DEBUG: There is an error while deleting projects and posts...")
+    }
+
+    user?.delete { error in
+      if let error = error {
+        print("DEBUG: An error happened.")
+      } else {
+        print("DEBUG: Account deleted.")
+        self.userSession = nil
+        self.currentUser = nil
+      }
+    }
     print("DEBUG: Account deleted!")
   }
 
