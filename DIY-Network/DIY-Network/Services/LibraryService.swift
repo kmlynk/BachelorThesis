@@ -347,6 +347,18 @@ struct LibraryService {
         "DEBUG: Failed to delete step data from database with error \(error.localizedDescription)")
     }
   }
+  
+  static func deleteUsersProjects(user: UserModel) async {
+    do {
+      var projects = try await fetchUserProjects(ownerId: user.id)
+      for project in projects {
+        await deleteProjectData(project: project)
+      }
+    } catch {
+      print(
+        "DEBUG: Failed to delete users project data from database with error \(error.localizedDescription)")
+    }
+  }
 
   /*
    Sorting algorithm for steps
