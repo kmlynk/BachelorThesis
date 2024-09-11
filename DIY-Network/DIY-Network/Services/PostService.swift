@@ -83,6 +83,26 @@ struct PostService {
     }
   }
 
+  static func deletePost(post: PostModel) async throws {
+    do {
+      try await db.document(post.id).delete()
+    } catch {
+      print("DEBUG: Failed to delete post data with error \(error.localizedDescription)")
+    }
+  }
+  
+  static func deleteUsersPosts(user: UserModel) async throws {
+    do {
+      let posts = try await fetchUserPosts(ownerId: user.id)
+      for post in posts {
+        try await deletePost(post: post)
+      }
+    } catch {
+      print(
+        "DEBUG: Failed to delete users posts data from database with error \(error.localizedDescription)")
+    }
+  }
+
   static func handleLike(postId: String, user: UserModel) async throws {
     let snapshot = try await db.document(postId).getDocument()
     var postData = try snapshot.data(as: PostModel.self)
