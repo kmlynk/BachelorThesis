@@ -16,6 +16,7 @@ struct ProjectModel: Identifiable, Hashable, Codable {
   var user: UserModel?
   var videoUrl: String?
   var ytVideoUrl: String?
+  var docUrl: String?
 }
 
 extension ProjectModel {

@@ -86,7 +86,7 @@ struct LibraryService {
 
   static func uploadProjectData(
     ownerId: String, projectName: String, projectDesc: String, imageUrl: String?, videoUrl: String?,
-    ytVideoUrl: String?
+    ytVideoUrl: String?, docUrl: String?
   ) async {
     do {
       let project = ProjectModel(
@@ -96,7 +96,8 @@ struct LibraryService {
         projectDesc: projectDesc,
         projectImageUrl: imageUrl,
         videoUrl: videoUrl,
-        ytVideoUrl: ytVideoUrl
+        ytVideoUrl: ytVideoUrl,
+        docUrl: docUrl
       )
       let encodedProject = try Firestore.Encoder().encode(project)
       try await projectDB.document(project.id).setData(encodedProject)
@@ -116,7 +117,8 @@ struct LibraryService {
         projectDesc: project.projectDesc,
         projectImageUrl: project.projectImageUrl,
         videoUrl: project.videoUrl,
-        ytVideoUrl: project.ytVideoUrl
+        ytVideoUrl: project.ytVideoUrl,
+        docUrl: project.docUrl
       )
       let encodedProject = try Firestore.Encoder().encode(project)
       try await postedProjectDB.document(id).setData(encodedProject)
@@ -176,7 +178,7 @@ struct LibraryService {
 
   static func updateProjectData(
     project: ProjectModel, uiImage: UIImage?, name: String, desc: String, videoData: Data?,
-    ytLink: String?
+    ytLink: String?, docURL: URL?
   ) async throws {
     var data = [String: Any]()
 
@@ -194,6 +196,11 @@ struct LibraryService {
       if ytLink.isEmpty && project.ytVideoUrl != ytLink {
         data["ytVideoUrl"] = ytLink
       }
+    }
+
+    if let docURL = docURL {
+      guard let docUrl = try await DocUploader.uploadDocument(withURL: docURL) else { return }
+      data["docUrl"] = docUrl
     }
 
     if !name.isEmpty && project.projectName != name {
@@ -347,16 +354,17 @@ struct LibraryService {
         "DEBUG: Failed to delete step data from database with error \(error.localizedDescription)")
     }
   }
-  
+
   static func deleteUsersProjects(user: UserModel) async {
     do {
-      var projects = try await fetchUserProjects(ownerId: user.id)
+      let projects = try await fetchUserProjects(ownerId: user.id)
       for project in projects {
         await deleteProjectData(project: project)
       }
     } catch {
       print(
-        "DEBUG: Failed to delete users project data from database with error \(error.localizedDescription)")
+        "DEBUG: Failed to delete users project data from database with error \(error.localizedDescription)"
+      )
     }
   }
 

@@ -13,6 +13,7 @@ struct EditProjectView: View {
   @StateObject var viewModel: EditProjectViewModel
   @State private var showProgressView = false
   @State private var showAlert = false
+  @State private var showDocPicker = false
 
   init(project: ProjectModel) {
     self._viewModel = StateObject(wrappedValue: EditProjectViewModel(project: project))
@@ -59,7 +60,7 @@ struct EditProjectView: View {
             VStack {
               if viewModel.project.videoUrl != "" || viewModel.videoData != nil {
                 HStack {
-                  Text("Video is loaded")
+                  Text("Video is uploaded")
 
                   Image(systemName: "checkmark.circle.fill")
                 }
@@ -72,8 +73,45 @@ struct EditProjectView: View {
                 }
               }
             }
+            .foregroundColor(.blue)
           }
           .padding(.vertical)
+
+          VStack {
+            Button {
+              showDocPicker.toggle()
+            } label: {
+              if viewModel.project.docUrl != "" || viewModel.selectedDocumentURL != nil {
+                HStack {
+                  if !viewModel.documentName.isEmpty {
+                    Text("\(viewModel.documentName) is uploaded")
+                  } else {
+                    Text("PDF is uploaded")
+                  }
+
+                  Image(systemName: "checkmark.circle.fill")
+                }
+              } else {
+                VStack {
+                  Image(systemName: "plus.circle")
+                    .imageScale(.large)
+
+                  Text("Upload a PDF")
+                }
+              }
+            }
+          }
+          .foregroundColor(.blue)
+          .fileImporter(isPresented: $showDocPicker, allowedContentTypes: [.pdf]) { result in
+            switch result {
+            case .success(let url):
+              print(url)
+              viewModel.selectedDocumentURL = url
+              viewModel.documentName = url.lastPathComponent
+            case .failure(let error):
+              print(error)
+            }
+          }
         }
         .scrollIndicators(.never)
         .navigationTitle("Edit Project")

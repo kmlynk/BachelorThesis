@@ -16,6 +16,8 @@ class CreateProjectViewModel: ObservableObject {
   @Published var projectName = ""
   @Published var projectDesc = ""
   @Published var ytLink = ""
+  @Published var selectedDocumentURL: URL?
+  @Published var documentName: String = ""
   @Published var error = ""
 
   @Published var selectedImage: PhotosPickerItem? {
@@ -48,6 +50,7 @@ class CreateProjectViewModel: ObservableObject {
 
     var image = ""
     var video = ""
+    var doc = ""
 
     if let uiImage = uiImage {
       guard let imageUrl = try await ImageUploader.uploadImage(withData: uiImage) else { return }
@@ -59,13 +62,19 @@ class CreateProjectViewModel: ObservableObject {
       video = videoUrl
     }
 
+    if let fileUrl = selectedDocumentURL {
+      guard let docUrl = try await DocUploader.uploadDocument(withURL: fileUrl) else { return }
+      doc = docUrl
+    }
+
     await LibraryService.uploadProjectData(
       ownerId: user.id,
       projectName: projectName,
       projectDesc: projectDesc,
       imageUrl: image,
       videoUrl: video,
-      ytVideoUrl: ytLink
+      ytVideoUrl: ytLink,
+      docUrl: doc
     )
   }
 

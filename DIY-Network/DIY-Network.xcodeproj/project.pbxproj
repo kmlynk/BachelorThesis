@@ -31,6 +31,8 @@
 		0514C2582C1B269500C75560 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0514C2572C1B269500C75560 /* ImageUploader.swift */; };
 		0514C2652C1B297A00C75560 /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0514C2642C1B297A00C75560 /* ImageModel.swift */; };
 		0514C2672C1B32AC00C75560 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0514C2662C1B32AC00C75560 /* UserModel.swift */; };
+		051501002C91C21D0015D27F /* DocUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051500FF2C91C21D0015D27F /* DocUploader.swift */; };
+		051501022C9261430015D27F /* DocDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 051501012C9261430015D27F /* DocDownloader.swift */; };
 		054CF09F2C1E638E005820A5 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054CF09E2C1E638E005820A5 /* EditProfileView.swift */; };
 		054CF0A12C1E63B6005820A5 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 054CF0A02C1E63B6005820A5 /* EditProfileViewModel.swift */; };
 		055FE0762C237D1600497DDB /* ProjectImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 055FE0752C237D1600497DDB /* ProjectImageView.swift */; };
@@ -89,6 +91,7 @@
 		05E0E14D2C2353670079D12C /* LibraryListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */; };
 		05E0E14F2C2368290079D12C /* LibraryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E0E14E2C2368290079D12C /* LibraryListView.swift */; };
 		05E417E92C52FD5600AD6A7B /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E417E82C52FD5600AD6A7B /* UserService.swift */; };
+		05EB57EA2C931ADA005FF5B2 /* DataFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05EB57E92C931ADA005FF5B2 /* DataFile.swift */; };
 		05FC63442C618DF7007C6593 /* NewExpandableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FC63432C618DF7007C6593 /* NewExpandableView.swift */; };
 		05FC63462C6190F0007C6593 /* NewStepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FC63452C6190F0007C6593 /* NewStepCell.swift */; };
 		05FD1C102C794674005B7246 /* AuthValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FD1C0F2C794674005B7246 /* AuthValidator.swift */; };
@@ -112,6 +115,8 @@
 		0514C2572C1B269500C75560 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		0514C2642C1B297A00C75560 /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		0514C2662C1B32AC00C75560 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		051500FF2C91C21D0015D27F /* DocUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocUploader.swift; sourceTree = "<group>"; };
+		051501012C9261430015D27F /* DocDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocDownloader.swift; sourceTree = "<group>"; };
 		054CF09E2C1E638E005820A5 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		054CF0A02C1E63B6005820A5 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		055FE0752C237D1600497DDB /* ProjectImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectImageView.swift; sourceTree = "<group>"; };
@@ -168,6 +173,7 @@
 		05E0E14C2C2353670079D12C /* LibraryListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListViewModel.swift; sourceTree = "<group>"; };
 		05E0E14E2C2368290079D12C /* LibraryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryListView.swift; sourceTree = "<group>"; };
 		05E417E82C52FD5600AD6A7B /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		05EB57E92C931ADA005FF5B2 /* DataFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFile.swift; sourceTree = "<group>"; };
 		05FC63432C618DF7007C6593 /* NewExpandableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewExpandableView.swift; sourceTree = "<group>"; };
 		05FC63452C6190F0007C6593 /* NewStepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewStepCell.swift; sourceTree = "<group>"; };
 		05FD1C0F2C794674005B7246 /* AuthValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthValidator.swift; sourceTree = "<group>"; };
@@ -268,6 +274,8 @@
 		0514C24A2C1B214600C75560 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				051501012C9261430015D27F /* DocDownloader.swift */,
+				051500FF2C91C21D0015D27F /* DocUploader.swift */,
 				0514C2572C1B269500C75560 /* ImageUploader.swift */,
 				05AFD3532C224CCD0086C672 /* LibraryService.swift */,
 				05DCC83B2C2DB1BE008DC4FC /* PostService.swift */,
@@ -336,6 +344,7 @@
 			children = (
 				05FD1C0F2C794674005B7246 /* AuthValidator.swift */,
 				0514C2552C1B250F00C75560 /* CircularProfileImageView.swift */,
+				05EB57E92C931ADA005FF5B2 /* DataFile.swift */,
 				05DF23492C5AFBA10015F745 /* ProgressBar.swift */,
 				05CD48962C276BF700146A4F /* ProjectDividerView.swift */,
 				055FE0752C237D1600497DDB /* ProjectImageView.swift */,
@@ -686,6 +695,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05AEE7962C2D15DD0071C8F9 /* FeedView.swift in Sources */,
+				051501022C9261430015D27F /* DocDownloader.swift in Sources */,
 				056D4CC02C1F5CBD00E34094 /* LibraryCell.swift in Sources */,
 				05CD489B2C27869100146A4F /* EditProjectViewModel.swift in Sources */,
 				0514C22A2C1B1E9A00C75560 /* ContentView.swift in Sources */,
@@ -747,11 +757,13 @@
 				05CD48972C276BF700146A4F /* ProjectDividerView.swift in Sources */,
 				0514C2532C1B222200C75560 /* MainTabView.swift in Sources */,
 				05AFD3522C223D060086C672 /* CreateProjectViewModel.swift in Sources */,
+				051501002C91C21D0015D27F /* DocUploader.swift in Sources */,
 				05D703E62C1D310900E0C3F7 /* TextFieldModifier.swift in Sources */,
 				057CBEE72C29A2B0004D3D5F /* EditStepViewModel.swift in Sources */,
 				05D703E82C1D315800E0C3F7 /* AuthButtonModifier.swift in Sources */,
 				05D703E22C1D2EC400E0C3F7 /* LoginView.swift in Sources */,
 				051115522C5F357D00AF0263 /* ProjectDetailViewModel.swift in Sources */,
+				05EB57EA2C931ADA005FF5B2 /* DataFile.swift in Sources */,
 				05E0E14D2C2353670079D12C /* LibraryListViewModel.swift in Sources */,
 				0514C2672C1B32AC00C75560 /* UserModel.swift in Sources */,
 				0514C2652C1B297A00C75560 /* ImageModel.swift in Sources */,

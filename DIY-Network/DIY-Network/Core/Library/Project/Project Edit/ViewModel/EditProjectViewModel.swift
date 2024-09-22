@@ -23,6 +23,9 @@ class EditProjectViewModel: ObservableObject {
   @Published var desc = ""
   @Published var ytLink = ""
   @Published var videoData: Data?
+  @Published var docLink = ""
+  @Published var selectedDocumentURL: URL?
+  @Published var documentName = ""
   @Published var error = ""
 
   private var uiImage: UIImage?
@@ -50,7 +53,7 @@ class EditProjectViewModel: ObservableObject {
 
     try await LibraryService.updateProjectData(
       project: project, uiImage: uiImage, name: name, desc: desc, videoData: videoData,
-      ytLink: ytLink)
+      ytLink: ytLink, docURL: selectedDocumentURL)
   }
 
   func loadImage(fromItem item: PhotosPickerItem?) async {

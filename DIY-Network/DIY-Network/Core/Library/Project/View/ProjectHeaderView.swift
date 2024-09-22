@@ -8,12 +8,15 @@
 import AVKit
 import AZVideoPlayer
 import SwiftUI
+import UniformTypeIdentifiers
 import YouTubePlayerKit
 
 struct ProjectHeaderView: View {
   let project: ProjectModel
   @State private var showVideo = false
   @State private var showYTVideo = false
+  @State private var exportDoc = false
+  @State private var docData: Data? = nil
 
   var body: some View {
     VStack {
@@ -29,7 +32,6 @@ struct ProjectHeaderView: View {
             .font(.footnote)
             .fontWeight(.semibold)
             .multilineTextAlignment(.center)
-            .padding(.bottom, 4)
 
           if project.videoUrl != "" {
             let url = project.videoUrl
@@ -57,7 +59,7 @@ struct ProjectHeaderView: View {
                 }
               }
             }
-            .padding(.bottom, 4)
+            .padding(.top, 4)
           }
 
           if project.ytVideoUrl != "" {
@@ -106,6 +108,43 @@ struct ProjectHeaderView: View {
                 }
               }
             }
+            .padding(.top, 4)
+          }
+
+          if project.docUrl != "" {
+            let url = project.docUrl
+            Button {
+              Task {
+                docData = try await DocDownloader.download(from: URL(string: url!)!) ?? Data.empty
+                if docData != nil {
+                  exportDoc.toggle()
+                }
+              }
+            } label: {
+              HStack(spacing: 8) {
+                Image(systemName: "arrow.down.doc")
+
+                Text("Download PDF")
+              }
+            }
+            .fileExporter(
+              isPresented: $exportDoc,
+              document: docData != nil
+                ? DataFile(data: docData!) : nil,
+              contentType: .pdf,  // Set the correct content type here
+              defaultFilename: project.projectName
+            ) { result in
+              switch result {
+              case .success(let url):
+                print("File exported successfully: \(url)")
+              case .failure(let error):
+                print("File export failed: \(error.localizedDescription)")
+              }
+            }
+            .font(.caption)
+            .fontWeight(.bold)
+            .foregroundColor(Color.blue)
+            .padding(.top, 4)
           }
         }
       } label: {
@@ -116,10 +155,6 @@ struct ProjectHeaderView: View {
       .groupBoxStyle(.projectHeader)
     }
   }
-}
-
-#Preview{
-  ProjectHeaderView(project: ProjectModel.MOCK_PROJECTS[0])
 }
 
 extension GroupBoxStyle where Self == ProjectHeaderBoxStyle {
