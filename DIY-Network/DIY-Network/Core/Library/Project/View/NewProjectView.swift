@@ -48,6 +48,7 @@ struct NewProjectView: View {
       }
       .navigationTitle("Project")
       .navigationBarTitleDisplayMode(.inline)
+      .scrollIndicators(.never)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           Button {

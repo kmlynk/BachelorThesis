@@ -41,11 +41,7 @@ struct EditStepView: View {
                   }
                 }
               } else {
-                if let imageUrl = viewModel.step.stepImageUrls?.first {
-                  ProjectImageView(width: 180, height: 120, imageUrl: imageUrl)
-                } else {
-                  Text("No image selected")
-                }
+                ProjectImageView(width: 180, height: 120, imageUrl: "")
               }
 
               Text("Select step images")

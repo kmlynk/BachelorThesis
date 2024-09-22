@@ -29,27 +29,28 @@ struct AddProjectStepView: View {
             selection: $viewModel.selectedImages, maxSelectionCount: 5, matching: .images
           ) {
             VStack {
-              if viewModel.stepImages.isEmpty {
-                ProjectImageView(width: 100, height: 80, imageUrl: "")
-                Text("Add Images to the Step")
-                  .font(.footnote)
-                  .fontWeight(.semibold)
-              } else {
-                ScrollView(.horizontal) {
-                  HStack {
+              if !viewModel.stepImages.isEmpty {
+                ScrollView(.horizontal, showsIndicators: false) {
+                  HStack(spacing: 8) {
                     ForEach(Array(viewModel.stepImages.enumerated()), id: \.offset) {
                       index, image in
                       image
                         .resizable()
                         .clipShape(Rectangle())
-                        .frame(width: 100, height: 80)
+                        .frame(width: 180, height: 120)
                     }
                   }
                 }
+              } else {
+                ProjectImageView(width: 180, height: 120, imageUrl: "")
               }
+
+              Text("Select step images")
+                .font(.footnote)
+                .fontWeight(.semibold)
             }
           }
-          .padding(.vertical)
+          .padding()
 
           RowView(
             title: "Step Number",
