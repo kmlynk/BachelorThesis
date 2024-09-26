@@ -13,7 +13,6 @@ struct FeedCell: View {
   @EnvironmentObject var authViewModel: AuthViewModel
   @StateObject var viewModel: FeedCellViewModel
   @State private var showDetail = false
-  @State private var showLabels = false
   @State private var showComments = false
 
   var body: some View {
@@ -93,23 +92,6 @@ struct FeedCell: View {
         )
         .frame(maxWidth: .infinity, alignment: .leading)
         .foregroundColor(Color.secondary)
-
-        VStack {
-          if showLabels {
-            Button {
-              showLabels.toggle()
-            } label: {
-              Text("Labels: \(viewModel.post.labels)")
-            }
-          } else {
-            Button {
-              showLabels.toggle()
-            } label: {
-              Text("See Labels")
-            }
-          }
-        }
-        .animation(.linear)
       }
       .font(.footnote)
       .padding(.horizontal, 10)
