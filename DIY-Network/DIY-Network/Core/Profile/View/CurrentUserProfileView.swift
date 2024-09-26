@@ -51,14 +51,26 @@ struct CurrentUserProfileView: View {
           ProjectDividerView(minusWidth: 0, height: 2)
             .padding(.vertical, 5)
 
-          LazyVGrid(columns: gridItems, spacing: 5) {
-            ForEach(viewModel.sortedPosts) { post in
-              NavigationLink(value: post) {
-                KFImage(URL(string: post.imageUrl))
-                  .resizable()
-                  .scaledToFill()
-                  .frame(width: imageDimension, height: imageDimension)
-                  .clipped()
+          if viewModel.sortedPosts.count < 1 {
+            VStack(alignment: .center) {
+              VStack(spacing: 8) {
+                Text("You have no posts")
+                  .fontWeight(.bold)
+                  .foregroundColor(Color.gray)
+              }
+            }
+            .padding(.top, 16)
+            .font(.title3)
+          } else {
+            LazyVGrid(columns: gridItems, spacing: 5) {
+              ForEach(viewModel.sortedPosts) { post in
+                NavigationLink(value: post) {
+                  KFImage(URL(string: post.imageUrl))
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: imageDimension, height: imageDimension)
+                    .clipped()
+                }
               }
             }
           }
@@ -78,7 +90,6 @@ struct CurrentUserProfileView: View {
         .toolbar {
           ToolbarItem(placement: .topBarTrailing) {
             Button {
-              //authViewModel.signOut()
               showSheet.toggle()
             } label: {
               Image(systemName: "gearshape.fill")

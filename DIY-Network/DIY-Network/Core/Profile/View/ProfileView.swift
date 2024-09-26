@@ -30,18 +30,30 @@ struct ProfileView: View {
       ProjectDividerView(minusWidth: 0, height: 2)
         .padding(.vertical, 5)
 
-      LazyVGrid(columns: gridItems, spacing: 5) {
-        ForEach(viewModel.sortedPosts) { post in
-          NavigationLink(value: post) {
-            KFImage(URL(string: post.imageUrl))
-              .resizable()
-              .scaledToFill()
-              .frame(width: imageDimension, height: imageDimension)
-              .clipped()
+      if viewModel.sortedPosts.count < 1 {
+        VStack(alignment: .center) {
+          VStack(spacing: 8) {
+            Text("User has no posts")
+              .fontWeight(.bold)
+              .foregroundColor(Color.gray)
           }
         }
+        .padding(.top, 16)
+        .font(.title3)
+      } else {
+        LazyVGrid(columns: gridItems, spacing: 5) {
+          ForEach(viewModel.sortedPosts) { post in
+            NavigationLink(value: post) {
+              KFImage(URL(string: post.imageUrl))
+                .resizable()
+                .scaledToFill()
+                .frame(width: imageDimension, height: imageDimension)
+                .clipped()
+            }
+          }
+        }
+        .padding(.top, 15)
       }
-      .padding(.top, 15)
     }
     .navigationDestination(
       for: PostModel.self,

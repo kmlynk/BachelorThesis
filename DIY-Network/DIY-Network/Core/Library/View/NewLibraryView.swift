@@ -58,6 +58,8 @@ struct NewLibraryView: View {
         ) {
           CreateProjectView(user: viewModel.user)
         }
+        .navigationTitle("Library")
+        .navigationBarTitleDisplayMode(.automatic)
       } else {
         ScrollView {
           Divider()

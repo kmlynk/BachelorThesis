@@ -68,22 +68,6 @@ struct LoginView: View {
         }
         .padding(.top)
 
-        HStack {
-          Rectangle()
-            .frame(width: UIScreen.main.bounds.width / 2 - 40, height: 0.5)
-
-          Text("OR")
-            .font(.footnote)
-            .fontWeight(.semibold)
-
-          Rectangle()
-            .frame(width: UIScreen.main.bounds.width / 2 - 40, height: 0.5)
-        }
-        .foregroundColor(.gray)
-        .padding()
-
-        Text("Login with ...")
-
         Spacer()
 
         Divider()
