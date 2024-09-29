@@ -47,5 +47,6 @@ class ProjectDetailViewModel: ObservableObject {
 
   func getSteps() async throws {
     self.steps = try await LibraryService.fetchPostedProjectStepData(project: project)
+    self.steps = LibraryService.mergeSort(arr: self.steps)
   }
 }
