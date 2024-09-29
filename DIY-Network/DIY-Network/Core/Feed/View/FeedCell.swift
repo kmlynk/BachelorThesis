@@ -15,6 +15,7 @@ struct FeedCell: View {
   @State private var showDetail = false
   @State private var showComments = false
   @GestureState private var zoom = 1.0
+  @State private var showProgress = false
 
   var body: some View {
     VStack {
@@ -123,9 +124,10 @@ struct FeedCell: View {
     }
     .sheet(isPresented: $showComments) {
       ScrollView {
-        if let comments = viewModel.post.comments {
+        if viewModel.post.comments!.count > 0 {
+          let comments = viewModel.post.comments
           VStack {
-            ForEach(comments, id: \.self) { comment in
+            ForEach(comments!, id: \.self) { comment in
               HStack {
                 CircularProfileImageView(size: 30, imageUrl: comment.userPic ?? "")
 
@@ -166,12 +168,20 @@ struct FeedCell: View {
         .font(.subheadline)
         .padding(.top)
 
-        Button {
-          viewModel.makeComment(user: authViewModel.currentUser!)
-        } label: {
-          Text("Send")
+        if !showProgress {
+          Button {
+            Task {
+              showProgress.toggle()
+              viewModel.makeComment(user: authViewModel.currentUser!)
+              showProgress.toggle()
+            }
+          } label: {
+            Text("Send")
+          }
+          .modifier(InAppButtonModifier(width: 150, height: 40, radius: 10))
+        } else {
+          ProgressView("Sending...")
         }
-        .modifier(InAppButtonModifier(width: 150, height: 40, radius: 10))
       }
       .presentationDetents([.height(250), .medium])
     }

@@ -49,7 +49,8 @@ struct PostService {
         caption: caption,
         likes: 0,
         timestamp: Timestamp(),
-        labels: labels
+        labels: labels,
+        comments: []
       )
       let encodedPost = try Firestore.Encoder().encode(post)
       try await db.document(post.id).setData(encodedPost)
@@ -90,7 +91,7 @@ struct PostService {
       print("DEBUG: Failed to delete post data with error \(error.localizedDescription)")
     }
   }
-  
+
   static func deleteUsersPosts(user: UserModel) async throws {
     do {
       let posts = try await fetchUserPosts(ownerId: user.id)
@@ -99,7 +100,8 @@ struct PostService {
       }
     } catch {
       print(
-        "DEBUG: Failed to delete users posts data from database with error \(error.localizedDescription)")
+        "DEBUG: Failed to delete users posts data from database with error \(error.localizedDescription)"
+      )
     }
   }
 
