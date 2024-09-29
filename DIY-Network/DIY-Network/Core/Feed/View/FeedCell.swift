@@ -14,6 +14,7 @@ struct FeedCell: View {
   @StateObject var viewModel: FeedCellViewModel
   @State private var showDetail = false
   @State private var showComments = false
+  @GestureState private var zoom = 1.0
 
   var body: some View {
     VStack {
@@ -31,11 +32,29 @@ struct FeedCell: View {
       .padding(.leading, 8)
 
       HStack {
-        KFImage(URL(string: viewModel.post.imageUrl))
-          .resizable()
-          .scaledToFill()
-          .frame(width: UIScreen.main.bounds.width, height: 400)
-          .clipped()
+        if #available(iOS 17.0, *) {
+          KFImage(URL(string: viewModel.post.imageUrl))
+            .resizable()
+            .scaledToFit()
+            .frame(width: UIScreen.main.bounds.width, height: 400)
+            .clipped()
+            .scaleEffect(zoom)
+            .gesture(
+              MagnifyGesture()
+                .updating(
+                  $zoom,
+                  body: { value, gestureState, transaction in
+                    gestureState = value.magnification
+                  }
+                )
+            )
+        } else {
+          KFImage(URL(string: viewModel.post.imageUrl))
+            .resizable()
+            .scaledToFit()
+            .frame(width: UIScreen.main.bounds.width, height: 400)
+            .clipped()
+        }
       }
 
       HStack(spacing: 16) {

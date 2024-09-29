@@ -36,8 +36,8 @@ struct PostDetailsView: View {
               if let image = viewModel.postImage {
                 image
                   .resizable()
-                  .scaledToFill()
-                  .frame(height: 400)
+                  .scaledToFit()
+                  .frame(width: UIScreen.main.bounds.width)
                   .clipShape(Rectangle())
               } else {
                 ProjectImageView(
