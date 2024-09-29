@@ -89,7 +89,7 @@ struct NewStepCell: View {
                 ScrollView(.horizontal) {
                   HStack {
                     ForEach(imageUrls, id: \.self) { imageUrl in
-                      ProjectImageView(width: 300, height: 250, imageUrl: imageUrl)
+                      ProjectImageView(width: UIScreen.main.bounds.width - 35, height: 400, imageUrl: imageUrl)
                     }
                   }
                 }

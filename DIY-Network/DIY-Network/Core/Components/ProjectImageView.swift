@@ -20,8 +20,8 @@ struct ProjectImageView: View {
           ProgressView()
         }
         .resizable()
-        .scaledToFill()
-        .frame(width: width, height: height)
+        .scaledToFit()
+        .frame(maxWidth: width, maxHeight: height)
         .clipShape(Rectangle())
     } else {
       Image(systemName: "photo")

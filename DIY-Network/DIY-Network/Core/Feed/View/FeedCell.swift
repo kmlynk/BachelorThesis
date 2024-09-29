@@ -36,7 +36,7 @@ struct FeedCell: View {
           KFImage(URL(string: viewModel.post.imageUrl))
             .resizable()
             .scaledToFit()
-            .frame(width: UIScreen.main.bounds.width, height: 400)
+            .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: 400)
             .clipped()
             .scaleEffect(zoom)
             .gesture(
@@ -52,7 +52,7 @@ struct FeedCell: View {
           KFImage(URL(string: viewModel.post.imageUrl))
             .resizable()
             .scaledToFit()
-            .frame(width: UIScreen.main.bounds.width, height: 400)
+            .frame(maxWidth: UIScreen.main.bounds.width, maxHeight: 400)
             .clipped()
         }
       }
