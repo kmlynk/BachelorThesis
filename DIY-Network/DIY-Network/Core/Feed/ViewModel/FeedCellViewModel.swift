@@ -24,10 +24,8 @@ class FeedCellViewModel: ObservableObject {
   func makeComment(user: UserModel) {
     Task {
       do {
-        // Upload the comment to Firestore
         try await PostService.uploadComment(postId: post.id, text: comment, user: user)
 
-        // Create a local comment model and add it to the post
         let newComment = CommentModel(
           id: UUID().uuidString,
           userName: user.username,
@@ -35,17 +33,11 @@ class FeedCellViewModel: ObservableObject {
           text: comment,
           timestamp: Timestamp()
         )
-
-        // Update the post's comments array
         post.comments?.append(newComment)
-
-        // Notify UI about the update
         objectWillChange.send()
-
       } catch {
         print("DEBUG: Failed to add comment with error \(error.localizedDescription)")
       }
-
       comment = ""
     }
   }
